@@ -1,0 +1,87 @@
+¿Qué acción quieres que haga el visitante?
+ - pedir cotización
+ - whatsApp
+ - Agendar llamada
+
+¿Cuál es tu meta mensual?
+ - leads
+ - llamadas
+
+¿Cuánto demora tu ciclo de venta?
+ - yo creo que sería 1 a 2 semanas, no soy experto en ventas.
+
+¿B2B o B2C? ¿Qué tipo de empresa/persona?
+ - Hemos hecho más venta de B2C, es decir, landingpages o producto a tercero, te comento landingpages para su emprendimientos y hemos creado un productodo de motor autocinfigurable de inventarioa a una empresa.
+
+¿Tamaño del cliente?
+ - Empresa que recien esten empezando como emprendedor, pymes, startup, y persona que quiera expandir su empresa a lo digital.
+
+¿Industria(s) preferidas?
+ - No tenemos industria por lo general, vamos de boca a boca, donde hemos hecho landingpages para restaurantes, sistema de inventario más general para cliente corporativo, etc.
+
+¿En qué país/ciudad vendes? ¿Remoto sí/no?
+ - Somos de chile, pero no nos molesta vender por fuera, por lo general habla hispana ya que podemos hablar ingles pero no tenemos el dominio aún, sobre lo de remoto podemos ambas remoto y presencial.
+
+¿Quién decide?
+ - por lo general, es el dueño o el encargado que nos contactamos, ya que nosotros ayudamos en ese proceso, ya que aveces les facilitamos la dicisiones
+
+¿Qué “dolor” específico tienen?
+ - por lo general queremos tener ingreso, ya que no tenemos ingreso en este momento ya que nuestra empresa es nueva, queremos llegar a más publico para ofrecer nuestro servicios.
+
+¿Qué 3 servicios principales ofreces?
+ - landing pages (incluye sitios corporativos)
+ - software a medidas
+ - integraciones
+
+¿Producto o servicio?
+ - vendemos proyectos por lo general, pero tambien hemos hecho mantenciones, por 3 meses alrededor, pero nuestro fuerte es "proyectos".
+
+¿Qué entregable concreto vendes en el primer paso?
+ - landing pages 10 días
+ - mvp en 6 semana me suena muy bien
+
+¿Qué NO haces?
+ - no hacemos redes por lo general, es decir montar la infraestructura de un rak para wifi, etc.
+ 
+¿Por qué te eligen hoy?
+ - rapidez, proceso, por lo general no se como vendernos, ya que claro hicimos una landingpages en 2 días y hacemos un proceso acompañado al cliente, pero no se como explicarme con esto.
+
+¿Cuál es tu “prueba” de eso?
+ - los años de experiencia en el rubro y los feedback de los clientes.
+
+¿Qué stack/proceso te da ventaja?
+ - usamos de todos, por lo general SaaS, node, python, c#, etc.
+
+¿Tienes una promesa/garantía razonable?
+ - entregamos por hitos, damos garantia, acesoramientos y un performance
+
+¿Quieres mostrar precios?
+ - me gustaria que me preguntará por lo precio ya que cada landingpages es su mundo.
+
+¿Qué objeciones te tiran siempre?
+ - que son caro, pero por lo general siempre cuando veía como trabajaban no tiraban esa objeciones y continuaban, o lo otro era que tenian a alguien más.
+
+¿De dónde llega la gente?
+ - no tengo aún creada las redes, por lo general venian más por el boca a boca, o busqueda en eventos de networking
+
+¿Qué CTA principal usarás?
+ - mi fuente general son whatsapp y puede ser por formulario
+
+¿Qué preguntas necesitas para calificar en el formulario?
+ - descripción del proyecto
+ - plazo
+ - tipo de proyecto (web/sistema/apps)
+
+¿Qué pasa después de que te contactan?
+ - respuesta dentro de 24hrs
+ - propuesta o llamada por lo general
+
+¿Tienes portafolio real? ¿Cuántos casos puedes mostrar?
+ - tengo 2 portafolio que es el mio como programador y mi socio que es igual programador, donde tenemos nuestros proyectos personales.
+ - podemos mostrar algunos tipo landingpages, pero los sistemas no.
+
+¿Puedes mostrar métricas?
+ - podemos mostrar la capacidad del SEO que hacemos.
+
+¿Quiénes son ustedes?
+ - Somos 2 programadores que estamos haciendo nuestros prendimiento en este camino.
