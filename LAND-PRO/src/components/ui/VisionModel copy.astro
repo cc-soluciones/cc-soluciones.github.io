@@ -1,0 +1,141 @@
+<div id="vision-model" class="w-full h-dvh bg-red-400"></div>
+
+<script>
+    import * as THREE from "three";
+    import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+
+    const container = document.getElementById("vision-model");
+    const width = container?.clientWidth || window.innerWidth;
+    const height = container?.clientHeight || window.innerHeight;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    const world = new THREE.Group();
+
+    camera.position.set(0, 0, 8);
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container?.appendChild(renderer.domElement);
+    dirLight.position.set(5, 10, 5);
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+    scene.add(dirLight);
+    scene.add(world);
+
+
+    const createCard = (x: any, z: any) => {
+        const geometry = new RoundedBoxGeometry(2.4, 1.2, 0.15, 6, 0.15);
+
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0xffffff,
+            roughness: 0.25,
+            transmission: 0.35,
+            thickness: 0.08,
+            clearcoat: 0.6,
+            clearcoatRoughness: 0.15,
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(x, z, 0);
+        mesh.userData.baseY = 0;
+
+        world.add(mesh);
+        return mesh;
+    };
+
+    const connectCards = (a: any, b: any) => {
+        const points = [
+            new THREE.Vector3(a.position.x, 0.05, a.position.z),
+            new THREE.Vector3(b.position.x, 0.05, b.position.z),
+        ];
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const material = new THREE.LineBasicMaterial({
+            color: 0x88aaff,
+            transparent: true,
+            opacity: 0.25,
+        });
+
+        const line = new THREE.Line(geometry, material);
+        line.userData.cards = [a, b];
+
+        world.add(line);
+        return line;
+    };
+
+    const cards = [
+        createCard(-4, 5),
+        createCard(0, 0),
+        createCard(4, 0),
+        // createCard(0, 0),
+    ];
+
+    const connections = [
+        connectCards(cards[0], cards[1]),
+        connectCards(cards[1], cards[2]),
+        // connectCards(cards[1], cards[3]),
+    ];
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let hoveredCard: any = null;
+
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = (e.clientX / width) * 2 - 1;
+        mouse.y = -(e.clientY / height) * 2 + 1;
+    });
+
+    const targetRotation = new THREE.Vector2();
+
+    window.addEventListener("mousemove", (e) => {
+        targetRotation.x = (e.clientY / height - 0.5) * 0.2;
+        targetRotation.y = (e.clientX / width - 0.5) * 0.2;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(cards);
+        hoveredCard = intersects[0]?.object || null;
+
+        cards.forEach((card) => {
+            card.material.emissive.set(0x000000);
+            card.position.y += (card.userData.baseY - card.position.y) * 0.08;
+        });
+
+        connections.forEach((line) => {
+            line.material.opacity = 0.15;
+        });
+
+        if (hoveredCard) {
+            hoveredCard.material.emissive.set(0x3355ff);
+            hoveredCard.position.y += (0.35 - hoveredCard.position.y) * 0.12;
+
+            connections.forEach((line) => {
+                if (line.userData.cards.includes(hoveredCard)) {
+                    line.material.opacity = 0.9;
+                }
+            });
+        }
+
+        world.rotation.x += (targetRotation.x - world.rotation.x) * 0.05;
+        world.rotation.y += (targetRotation.y - world.rotation.y) * 0.05;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    /* -------------------------------------------------
+     * RESIZE
+     * ------------------------------------------------- */
+    window.addEventListener("resize", () => {
+        const w = container.clientWidth || window.innerWidth;
+        const h = container.clientHeight || window.innerHeight;
+
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+    });
+</script>
