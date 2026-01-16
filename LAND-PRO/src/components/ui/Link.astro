@@ -1,0 +1,27 @@
+---
+interface Props {
+    variant?: ButtonVariant;
+    href?: string;
+    label?: string;
+}
+
+type ButtonVariant = "primary" | "secondary";
+
+const { 
+    variant = "primary", 
+    href = "", 
+    label = "" 
+} = Astro.props as Props;
+
+const variantClasses: Record<ButtonVariant, string> = {
+    primary: "bg-primary text-white hover:bg-secondary",
+    secondary: "bg-secondary text-white hover:bg-primary",
+};
+---
+
+<a
+    href={href}
+    class={`${variantClasses[variant]} text-white px-6 py-3 rounded-full text-lg hover:bg-secondary transition`}
+>
+    {label}
+</a>
