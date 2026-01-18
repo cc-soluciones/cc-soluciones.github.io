@@ -1,0 +1,261 @@
+<div id="vision-model" class="w-full h-dvh bg-red-400"></div>
+
+<script>
+    import * as THREE from "three";
+    import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+
+    /* --------------------------------------------------
+     * DOM / RENDER
+     * -------------------------------------------------- */
+    const container = document.getElementById("vision-model");
+    const width = container?.clientWidth || window.innerWidth;
+    const height = container?.clientHeight || window.innerHeight;
+
+    const scene = new THREE.Scene();
+    // scene.background = new THREE.Color(0x0b0e14);
+
+    const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+    camera.position.set(0, -2.5, 5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container?.appendChild(renderer.domElement);
+
+    /* --------------------------------------------------
+     * LIGHTS
+     * -------------------------------------------------- */
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    dirLight.position.set(6, 10, 6);
+    scene.add(dirLight);
+
+    /* --------------------------------------------------
+     * WORLD (PARALLAX)
+     * -------------------------------------------------- */
+    const world = new THREE.Group();
+    scene.add(world);
+
+    /* --------------------------------------------------
+     * DATA (SEMANTIC GRAPH)
+     * -------------------------------------------------- */
+    const graph = {
+        nodes: [
+            { id: "input", type: "input", label: "New Account Data", level: 0 },
+            { id: "model", type: "model", label: "New Acct. Model", level: 1 },
+            { id: "rule1", type: "rule", label: "Rapid Creation", level: 2 },
+            { id: "rule2", type: "rule", label: "High Risk IP", level: 2 },
+            { id: "decision", type: "decision", label: "Deny", level: 3 },
+        ],
+        edges: [
+            ["input", "model"],
+            ["model", "rule1"],
+            ["model", "rule2"],
+            ["rule1", "decision"],
+            ["rule2", "decision"],
+        ],
+    };
+
+    /* --------------------------------------------------
+     * COLORS
+     * -------------------------------------------------- */
+    const COLORS = {
+        input: 0xffffff,
+        model: 0xb388ff,
+        rule: 0xff6b6b,
+        decision: 0x4dabff,
+    };
+
+    /* --------------------------------------------------
+     * LAYOUT ENGINE
+     * -------------------------------------------------- */
+    function layoutGraph(nodes : any) {
+        const levels : any = {};
+        nodes.forEach((n : any) => {
+            levels[n.level] ??= [];
+            levels[n.level].push(n);
+        });
+
+        Object.entries(levels).forEach(([level, items] : any) => {
+            const offset = (items.length - 1) / 2;
+            items.forEach((node : any, i : number) => {
+                node.position = new THREE.Vector3(
+                    (i - offset) * 3.4,
+                    -level * 2,
+                    -level * 0.4
+                );
+            });
+        });
+    }
+
+    layoutGraph(graph.nodes);
+
+    /* --------------------------------------------------
+     * CARD TEXTURE (UI)
+     * -------------------------------------------------- */
+    const createCardTexture = (node : any) => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 256;
+        const ctx : any = canvas.getContext("2d");
+
+        // fondo
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#666";
+        ctx.font = "18px sans-serif";
+        ctx.fillText(node.type.toUpperCase(), 32, 48);
+
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 34px sans-serif";
+        ctx.fillText(node.label, 32, 120);
+
+        return new THREE.CanvasTexture(canvas);
+    }
+
+    /* --------------------------------------------------
+     * CARD FACTORY
+     * -------------------------------------------------- */
+    const cardMap = {};
+
+    function createCard(node : any) {
+        const group = new THREE.Group();
+
+        const body = new THREE.Mesh(
+            new RoundedBoxGeometry(2.8, 1.4, 0.2, 6, 0.18),
+            new THREE.MeshPhysicalMaterial({
+                color: (COLORS as any)[node.type], 
+                roughness: 0.3,
+                transmission: 0.35,
+                thickness: 0.1,
+                clearcoat: 0.6,
+                clearcoatRoughness: 0.15,
+                emissive: 0x000000,
+                transparent: true,
+            })
+        );
+
+        const face = new THREE.Mesh(
+            new THREE.PlaneGeometry(2.6, 1.2),
+            new THREE.MeshBasicMaterial({
+                map: createCardTexture(node),
+                transparent: true,
+            })
+        );
+        face.position.z = 0.12;
+
+        group.add(body, face);
+        group.position.copy(node.position);
+        group.userData = { node, body };
+
+        world.add(group);
+        cardMap[node.id] = group;
+    }
+
+    graph.nodes.forEach(createCard);
+
+    /* --------------------------------------------------
+     * CONNECTIONS (ORTHOGONAL)
+     * -------------------------------------------------- */
+    const connections : any = [];
+    
+    function connect(from, to) {
+        const p1 = cardMap[from].position;
+        const p2 = cardMap[to].position;
+        const midY = (p1.y + p2.y) / 2;
+
+        const points = [
+            p1.clone(),
+            // new THREE.Vector3(p1.x, midY, p1.z),
+            // new THREE.Vector3(p2.x, midY, p2.z),
+            p2.clone(),
+        ];
+
+        const curve = new THREE.CatmullRomCurve3(points);
+        const geometry = new THREE.TubeGeometry(curve, 5, 0.035, 8, false);
+
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.25,
+        });
+
+        const tube = new THREE.Mesh(geometry, material);
+        tube.userData = { from, to };
+        world.add(tube);
+        connections.push(tube);
+    }
+
+    graph.edges.forEach(([a, b]) => connect(a, b));
+
+    /* --------------------------------------------------
+     * INTERACTION (HOVER)
+     * -------------------------------------------------- */
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let hovered = null;
+
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = (e.clientX / width) * 2 - 1;
+        mouse.y = -(e.clientY / height) * 2 + 1;
+    });
+
+    /* --------------------------------------------------
+     * PARALLAX
+     * -------------------------------------------------- */
+    const targetRot = new THREE.Vector2();
+    window.addEventListener("mousemove", (e) => {
+        targetRot.x = (e.clientY / height - 0.5) * 0.15;
+        targetRot.y = (e.clientX / width - 0.5) * 0.15;
+    });
+
+    /* --------------------------------------------------
+     * ANIMATE
+     * -------------------------------------------------- */
+    function animate() {
+        requestAnimationFrame(animate);
+
+        raycaster.setFromCamera(mouse, camera);
+        const hits = raycaster.intersectObjects(Object.values(cardMap), true);
+        hovered = hits[0]?.object.parent || null;
+
+        Object.values(cardMap).forEach((card) => {
+            card.position.y +=
+                ((card === hovered ? 0.4 : card.userData.node.position.y) -
+                    card.position.y) *
+                0.08;
+            card.userData.body.material.emissive.set(
+                card === hovered ? 0x222222 : 0x000000
+            );
+        });
+
+        connections.forEach((c : any) => {
+            // c.material.opacity = 0.9;
+                hovered &&
+                (c.userData.from === hovered.userData.node.id ||
+                    c.userData.to === hovered.userData.node.id)
+                    ? 0.9
+                    : 0.15;
+        });
+
+        world.rotation.x += (targetRot.x - world.rotation.x) * 0.05;
+        world.rotation.y += (targetRot.y - world.rotation.y) * 0.05;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    /* --------------------------------------------------
+     * RESIZE
+     * -------------------------------------------------- */
+    window.addEventListener("resize", () => {
+        const w = container?.clientWidth || window.innerWidth;
+        const h = container?.clientHeight || window.innerHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+    });
+</script>
