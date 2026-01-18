@@ -13,6 +13,8 @@
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2();
 
     camera.position.set(0, 3, 10);
     renderer.setSize(width, height);
@@ -28,11 +30,6 @@
         scene.environment = texture;
     });
 
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
-
     const group = new THREE.Group();
     scene.add(group);
 
@@ -43,8 +40,7 @@
     let positionX = 0;
 
     for (let i = 0; i < count; i++) {
-
-        if(i % limit === 0){
+        if (i % limit === 0) {
             positionY++;
             positionX = 0;
         }
@@ -56,6 +52,7 @@
         });
 
         positionX++;
+        cube.userData.basePosition = cube.position.clone();
         group.add(cube);
     }
 
@@ -64,6 +61,57 @@
         0,
         THREE.MathUtils.degToRad(40)
     );
+
+    const mouse = { x: 0, y: 0 };
+    const targetRotation = { x: 0, y: 0 };
+
+    const baseRotation = {
+        x: THREE.MathUtils.degToRad(-30),
+        y: 0,
+        z: THREE.MathUtils.degToRad(50),
+    };
+
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        mouseNDC.x = mouse.x;
+        mouseNDC.y = mouse.y;
+    });
+
+    const animate = () => {
+        requestAnimationFrame(animate);
+        targetRotation.y = baseRotation.y + mouse.x * 0.25;
+        group.rotation.y = THREE.MathUtils.lerp(
+            group.rotation.y,
+            targetRotation.y,
+            0.05
+        );
+
+        raycaster.setFromCamera(mouseNDC, camera);
+        const intersects = raycaster.intersectObjects(group.children);
+
+        group.children.forEach((cube) => {
+            cube.position.lerp(cube.userData.basePosition, 0.08);
+        });
+
+        if (intersects.length > 0) {
+            const hoveredCube = intersects[0].object;
+            const hoverOffset = new THREE.Vector3(0, 0, 1);
+
+            hoveredCube.position.lerp(
+                hoveredCube.userData.basePosition.clone().add(hoverOffset),
+                0.15
+            );
+        }
+
+        renderer.render(scene, camera);
+    };
 
     animate();
 
