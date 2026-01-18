@@ -18,12 +18,12 @@ export const createGlassCube = ({
 
     // Material tipo vidrio
     const material = new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
+        // color: 0xffffff,
         transmission: 1, // 🔑 transparencia real
         opacity: 1,
         metalness: 0,
         roughness: 0,
-        ior: 10, // índice de refracción (vidrio real)
+        ior: 1000, // índice de refracción (vidrio real)
         thickness: 0.5, // grosor del vidrio
         clearcoat: 1,
         clearcoatRoughness: 0,
