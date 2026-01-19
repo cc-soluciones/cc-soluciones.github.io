@@ -16,41 +16,6 @@
     const mouseNDC = new THREE.Vector2();
     const sectionEls = document.querySelectorAll("section[data-section]");
 
-    const sectionStates = [
-        {
-            position: new THREE.Vector3(8, -2, 0), // derecha
-            rotation: new THREE.Euler(
-                THREE.MathUtils.degToRad(-5),
-                0,
-                THREE.MathUtils.degToRad(45),
-            ),
-        },
-        {
-            position: new THREE.Vector3(0, -2, 0), // centro
-            rotation: new THREE.Euler(
-                THREE.MathUtils.degToRad(-5),
-                0,
-                THREE.MathUtils.degToRad(45),
-            ),
-        },
-        {
-            position: new THREE.Vector3(0, -2, 0), // centro
-            rotation: new THREE.Euler(
-                THREE.MathUtils.degToRad(-5),
-                0,
-                THREE.MathUtils.degToRad(45),
-            ),
-        },
-        {
-            position: new THREE.Vector3(8, -2, 0), // derecha
-            rotation: new THREE.Euler(
-                THREE.MathUtils.degToRad(-5),
-                0,
-                THREE.MathUtils.degToRad(45),
-            ),
-        },
-    ];
-
     camera.position.set(0, 3, 10);
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -94,6 +59,7 @@
         0,
         THREE.MathUtils.degToRad(45),
     );
+    group.position.set(8, -2, 0);
 
     const mouse = { x: 0, y: 0 };
     const targetRotation = { x: 0, y: 0 };
@@ -138,9 +104,8 @@
     });
 
     const FOCUS_CUBE_INDEX = 34;
+    const slower = 0.03;
     let focusCube = null;
-    let focusActive = false;
-
     focusCube = group.children[FOCUS_CUBE_INDEX];
 
     const animate = () => {
@@ -157,12 +122,12 @@
         const intersects = raycaster.intersectObjects(group.children);
 
         group.children.forEach((cube) => {
-            cube.position.lerp(cube.userData.basePosition, 0.08);
+            cube.position.lerp(cube.userData.basePosition, slower);
         });
 
         if (intersects.length > 0) {
             const hoveredCube = intersects[0].object;
-            if(activeSection === 0){
+            if (activeSection === 0) {
                 hoveredCube.position.lerp(
                     hoveredCube.userData.basePosition
                         .clone()
@@ -172,76 +137,21 @@
             }
         }
 
-        const current = sectionStates[activeSection];
-
-        group.position.lerp(current.position, 0.08);
-
-        group.rotation.x = THREE.MathUtils.lerp(
-            group.rotation.x,
-            current?.rotation.x,
-            0.08,
-        );
-
-        group.rotation.y = THREE.MathUtils.lerp(
-            group.rotation.y,
-            current?.rotation.y,
-            0.08,
-        );
-
-        group.rotation.z = THREE.MathUtils.lerp(
-            group.rotation.z,
-            current?.rotation.z,
-            0.08,
-        );
-
-        if (activeSection === 0 && sectionProgress > 0.5) {
-            const t = (sectionProgress - 0.5) * 2;
-
-            group.position.lerpVectors(
-                sectionStates[0].position,
-                sectionStates[1].position,
-                t,
-            );
+        if (activeSection === 0) {
+            group.position.lerp(new THREE.Vector3(8, -2, 0), slower);
         }
-
-        // if (isFocusSection && !focusActive) {
-        //     focusActive = true;
-
-        //     focusCube.updateMatrixWorld();
-        //     scene.attach(focusCube);
-        //     foregroundGroup.add(focusCube);
-
-        //     focusCube.position.set(0, 0, -2);
-        //     focusCube.scale.set(1, 1, 1);
-        // }
 
         if (activeSection === 1) {
-            focusCube.position.lerp(new THREE.Vector3(3.95, 1.7, 15), 0.08);
-            // focusCube.rotation.z = 50;
+            group.position.lerp(new THREE.Vector3(0, -2.5, 0), slower);
 
-            // group.children.forEach((cube) => {
-            //     cube.material.opacity = THREE.MathUtils.lerp(
-            //         cube?.material.opacity,
-            //         0,
-            //         0.08,
-            //     );
-            // });
+            group.rotation.y = THREE.MathUtils.lerp(
+                group.rotation.y,
+                0,
+                0.08,
+            );
+
+            focusCube.position.lerp(new THREE.Vector3(4.6, 2.1, 15), slower);
         }
-
-        // if (!isFocusSection && focusActive) {
-        //     focusActive = false;
-
-        //     focusCube.updateMatrixWorld();
-        //     scene.attach(focusCube);
-        //     group.add(focusCube);
-
-        //     focusCube.position.copy(focusCube.userData.basePosition);
-        //     focusCube.scale.set(1, 1, 1);
-
-        //     group.children.forEach((cube) => {
-        //         cube.material.opacity = 0.9;
-        //     });
-        // }
 
         renderer.render(scene, camera);
     };

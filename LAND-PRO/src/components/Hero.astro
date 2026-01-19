@@ -1,7 +1,15 @@
-<section class="flex md:w-1/2 h-dvh items-center justify-center px-10" data-section="0">
+---
+interface Props {
+    id?: string;
+}
+
+const { 
+    id = "", 
+} = Astro.props as Props;
+---
+<section id={id} class="flex md:w-1/2 h-dvh items-center justify-center px-10" data-section="0">
     <div class="container mx-auto px-4 py-20 text-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-15">Desarrollo de landing pages y software a medida para emprendedores y pymes</h1>
         <p class="text-lg md:text-xl mb-8">Creamos landing pages en 10 días y MVPs en 6 semanas, con un proceso claro, entregas por hitos y acompañamiento técnico de principio a fin.</p>
-        <!-- <a href="#services" class="bg-primary text-white px-6 py-3 rounded-full text-lg hover:bg-secondary transition">Explore Our Services</a> -->
     </div>
 </section>
