@@ -4,20 +4,17 @@ import Hero from "@/components/Hero.astro";
 ---
 
 <Layout>
-    <Hero id="home"/>
-    <section class="relative min-h-[600dvh] -z-100" data-section="1">        
-        <div class="sticky top-0 h-screen flex flex-wrap items-center justify-left px-20 bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary">
-            <!-- <h2 class="text-4xl w-full">Landing pages para emprendedores</h2> -->
-            <!-- <ul class="list-disc text-2xl ring p-10 rounded-lg backdrop-blur-md backdrop-saturate-150">
-                <li>Landing pages listas en 10 días</li>
-                <li>Diseño enfocado en conversión</li>
-                <li>Optimización SEO básica incluida</li>
-                <li>Adaptadas a móviles y carga rápida</li>
-            </ul> -->
+    <Hero id="home" />
+    <section class="relative min-h-[600dvh]" data-section="1">
+        <div class="absolute inset-0 -z-100">
+            <div class="sticky top-0 h-screen">
+                <div class="w-full h-full bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary"/>
+            </div>
         </div>
-    </section>
-
-    <section class="min-h-dvh bg-blue-400 w-1/2" data-section="2">
-        <h2>Feature 2</h2>
+        <div class="sticky top-0 h-screen flex items-center px-20">
+            <h2 class="text-4xl w-full text-white">
+                Landing pages para emprendedores
+            </h2>
+        </div>
     </section>
 </Layout>
