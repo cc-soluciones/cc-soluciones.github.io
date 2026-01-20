@@ -79,7 +79,7 @@
     });
 
     let activeSection = 0;
-    let sectionProgress = 0;
+    // let sectionProgress = 0;
 
     window.addEventListener("scroll", () => {
         const scrollY = window.scrollY;
@@ -90,7 +90,7 @@
 
             if (scrollY >= start && scrollY < end) {
                 activeSection = index;
-                sectionProgress = (scrollY - start) / section.offsetHeight;
+                // sectionProgress = (scrollY - start) / section.offsetHeight;
             }
         });
     });
@@ -127,7 +127,7 @@
 
         if (intersects.length > 0) {
             const hoveredCube = intersects[0].object;
-            if (activeSection === 0) {
+            if (activeSection === 0 || activeSection === 2) {
                 hoveredCube.position.lerp(
                     hoveredCube.userData.basePosition
                         .clone()
@@ -143,14 +143,12 @@
 
         if (activeSection === 1) {
             group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
-
-            group.rotation.y = THREE.MathUtils.lerp(
-                group.rotation.y,
-                0,
-                0.08,
-            );
-
+            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
             focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
+        }
+
+        if (activeSection === 2) {
+            group.position.lerp(new THREE.Vector3(0.5, -10.5, 0), slower);
         }
 
         renderer.render(scene, camera);

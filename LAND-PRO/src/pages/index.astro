@@ -1,20 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/Hero.astro";
+import Sections from "@/components/Sections.astro";
+import Contact from "@/components/Contact.astro";
 ---
 
 <Layout>
     <Hero id="home" />
-    <section class="relative min-h-[600dvh]" data-section="1">
-        <div class="absolute inset-0 -z-100">
-            <div class="sticky top-0 h-screen">
-                <div class="w-full h-full bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary"/>
-            </div>
-        </div>
-        <div class="sticky top-0 h-screen flex items-center px-20">
-            <h2 class="text-4xl w-full text-white">
-                Landing pages para emprendedores
-            </h2>
-        </div>
-    </section>
+    <Sections />
+    <Contact />
 </Layout>

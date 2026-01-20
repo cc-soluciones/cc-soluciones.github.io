@@ -1,5 +1,6 @@
 ---
 import { nav } from "@/constants/general";
+import Button from "@/components/ui/Button.astro";
 ---
 <header>
     <nav class="fixed z-100 left-1/2 -translate-x-1/2 flex items-center w-[calc(100%-2rem)] md:w-auto px-6 py-3 rounded-full text-sm mt-2 backdrop-blur-md backdrop-saturate-150 border border-foreground">
@@ -18,11 +19,9 @@ import { nav } from "@/constants/general";
         </div>
     
         <div class="hidden ml-14 md:flex items-center gap-4">
-            <button
-                class="bg-foreground hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300 cursor-pointer"
-            >
+            <Button>
                 Contactanos
-            </button>
+            </Button>
         </div>
         <button id="menuToggle" class="md:hidden text-foreground">
             <svg
@@ -41,12 +40,10 @@ import { nav } from "@/constants/general";
     <div id="mobileMenu" class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-4 rounded-xl border border-foreground py-4 backdrop-blur-md backdrop-saturate-150">
         {nav.map(item => (
             <a class="hover:text-indigo-600" href={item.href}> {item.label} </a>
-        ))}
-        <button
-            class="bg-foreground hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300 cursor-pointer"
-        >
+        ))}"
+        <Button>
             Contactanos
-        </button>
+        </Button>
     </div>
 </header>
 
