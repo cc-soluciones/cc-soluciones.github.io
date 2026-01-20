@@ -1,15 +1,16 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Input from "@/components/ui/Input.astro";
+import TextArea from "@/components/ui/TextArea.astro";
 ---
 
 <section
     class="flex flex-col gap-20 h-dvh items-center justify-center px-10"
     data-section="10"
 >
-    <form action="">
+    <form action="" class="w-full container flex flex-col gap-8 items-center justify-center">
         <Input size="xl" type="email" placeholder="Tu correo eléctronico"/>
-
+        <TextArea size="xl" placeholder="Tu mensaje" className="w-full h-52"/>
     </form>
     <Button size="xl"> Contactanos </Button>
 </section>
