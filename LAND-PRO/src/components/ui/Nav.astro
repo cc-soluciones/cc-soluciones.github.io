@@ -2,26 +2,29 @@
 import { nav } from "@/constants/general";
 import Button from "@/components/ui/Button.astro";
 ---
+
 <header>
-    <nav class="fixed z-100 left-1/2 -translate-x-1/2 flex items-center w-[calc(100%-2rem)] md:w-auto px-6 py-3 rounded-full text-sm mt-2 backdrop-blur-md backdrop-saturate-150 border border-stone-800 bg-primary/30">
+    <nav
+        class="fixed z-100 left-1/2 -translate-x-1/2 flex items-center w-[calc(100%-2rem)] md:w-auto px-6 py-3 rounded-full text-sm mt-2 backdrop-blur-md backdrop-saturate-150 border border-stone-800 bg-primary/30"
+    >
         <a href="#home"></a>
         <div class="hidden md:flex items-center gap-6 ml-7">
-            {nav.map(item => (
-                <a href={item.href} class="relative overflow-hidden h-6 group">
-                    <span class="block group-hover:-translate-y-full transition-transform duration-300">
-                        {item.label}
-                    </span>
-                    <span class="block absolute top-full left-0 group-hover:translate-y-[-100%] transition-transform duration-300">
-                        {item.label}
-                    </span>
-                </a>
-            ))}
+            {
+                nav.map((item) => (
+                    <a href={item.href} data-id={item.href.replace("#", "")} class="relative overflow-hidden h-5 group nav-link">
+                        <span class="block group-hover:-translate-y-full transition-transform duration-300">
+                            {item.label}
+                        </span>
+                        <span class="block absolute top-full left-0 group-hover:translate-y-[-100%] transition-transform duration-300">
+                            {item.label}
+                        </span>
+                    </a>
+                ))
+            }
         </div>
-    
+
         <div class="hidden ml-14 md:flex items-center gap-4">
-            <Button>
-                Contactanos
-            </Button>
+            <Button> Contactanos </Button>
         </div>
         <button id="menuToggle" class="md:hidden text-foreground">
             <svg
@@ -37,19 +40,26 @@ import Button from "@/components/ui/Button.astro";
             </svg>
         </button>
     </nav>
-    <div id="mobileMenu" class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-4 rounded-xl border border-foreground py-4 backdrop-blur-md backdrop-saturate-150">
-        {nav.map(item => (
-            <a class="hover:text-indigo-600" href={item.href}> {item.label} </a>
-        ))}"
-        <Button>
-            Contactanos
-        </Button>
+    <div
+        id="mobileMenu"
+        class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-4 rounded-xl border border-foreground py-4 backdrop-blur-md backdrop-saturate-150"
+    >
+        {
+            nav.map((item) => (
+                <a class="hover:text-indigo-600 nav-link" href={item.href} data-id={item.href.replace("#", "")}>
+                    {item.label}
+                </a>
+            ))
+        }"
+        <Button> Contactanos </Button>
     </div>
 </header>
 
 <script>
     const menuToggle = document.getElementById("menuToggle");
     const mobileMenu = document.getElementById("mobileMenu");
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
 
     menuToggle?.addEventListener("click", () => {
         if (mobileMenu?.classList.contains("hidden")) {
@@ -60,4 +70,24 @@ import Button from "@/components/ui/Button.astro";
             mobileMenu?.classList.remove("flex");
         }
     });
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                const id = entry.target.id;
+                navLinks.forEach((link) => {
+                    link.classList.toggle("active", link.dataset.id === id);
+                });
+            });
+        },
+        {
+            rootMargin: "-40% 0px -50% 0px",
+            threshold: 0,
+        },
+    );
+
+    sections.forEach((section) => observer.observe(section));
 </script>

@@ -140,9 +140,9 @@
         }
 
         if (activeSection === 1) {
-            group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+            // group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
+            focusCube.position.lerp(new THREE.Vector3(-1.2, 7, 15), slower);
         }
 
         if (activeSection === 2) {
