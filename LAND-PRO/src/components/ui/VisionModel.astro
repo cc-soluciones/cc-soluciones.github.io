@@ -59,7 +59,7 @@
         0,
         THREE.MathUtils.degToRad(45),
     );
-    group.position.set(8, -2, 0);
+    group.position.set(5.5, -2, 0);
 
     const mouse = { x: 0, y: 0 };
     const targetRotation = { x: 0, y: 0 };
@@ -129,25 +129,23 @@
             const hoveredCube = intersects[0].object;
             if (activeSection === 0 || activeSection === 2) {
                 hoveredCube.position.lerp(
-                    hoveredCube.userData.basePosition
-                        .clone()
-                        .add(new THREE.Vector3(0, 0, 1)),
+                    hoveredCube.userData.basePosition.clone().add(new THREE.Vector3(0, 0, 1)),
                     0.15,
                 );
             }
         }
 
         if (activeSection === 0) {
-            group.position.lerp(new THREE.Vector3(8, -2, 0), slower);
+            group.position.lerp(new THREE.Vector3(5.5, -2, 0), slower);
         }
 
-        if (activeSection === 1) {
-            group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
-            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
-        }
+        // if (activeSection === 1) {
+        //     group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+        //     group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
+        //     focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
+        // }
 
-        if (activeSection === 2) {
+        if (activeSection === sectionEls.length - 1) {
             group.position.lerp(new THREE.Vector3(0.5, -10.5, 0), slower);
         }
 

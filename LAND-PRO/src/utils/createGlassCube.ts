@@ -28,7 +28,7 @@ export const createGlassCube = ({
         clearcoat: 1,
         clearcoatRoughness: 0,
         envMapIntensity: 1,
-        fog: true,
+        // fog: true,
         // transparent: true,
     });
 
