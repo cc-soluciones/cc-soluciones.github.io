@@ -25,18 +25,27 @@ export const socials = {
 export const services = [
     {
         label: "Landing pages",
-        href: "/landing-pages",
+        descriptions : `Nuestras landing pages están diseñadas para convertir
+                        visitas en clientes. Trabajamos la estructura, el
+                        contenido y el rendimiento para que tu página no solo se
+                        vea bien, sino que genere resultados reales.| Incluimos optimización SEO, carga rápida, diseño
+                        responsive y un proceso claro de trabajo, con entregas
+                        en 10 días y acompañamiento continuo.`,
+        href: "#landingss",
     },
     {
         label: "MVP Software",
+        descriptions : ``,
         href: "/landing-pages",
     },
     {
         label: "App Móviles",
+        descriptions : ``,
         href: "/landing-pages",
     },
     {
         label: "E-commerce",
+        descriptions : ``,
         href: "/landing-pages",
     }
 ];
