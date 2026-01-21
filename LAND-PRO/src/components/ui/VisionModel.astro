@@ -14,7 +14,7 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     const raycaster = new THREE.Raycaster();
     const mouseNDC = new THREE.Vector2();
-    const sectionEls = document.querySelectorAll("section[data-section]");
+    const elements = document.querySelectorAll("[data-animation]");
 
     camera.position.set(0, 3, 10);
     renderer.setSize(width, height);
@@ -84,9 +84,9 @@
     window.addEventListener("scroll", () => {
         const scrollY = window.scrollY;
 
-        sectionEls.forEach((section: any, index) => {
-            const start = section.offsetTop;
-            const end = start + section.offsetHeight;
+        elements.forEach((element: any, index) => {
+            const start = element.offsetTop;
+            const end = start + element.offsetHeight;
 
             if (scrollY >= start && scrollY < end) {
                 activeSection = index;
@@ -139,13 +139,13 @@
             group.position.lerp(new THREE.Vector3(5.5, -2, 0), slower);
         }
 
-        // if (activeSection === 1) {
-        //     group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
-        //     group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-        //     focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
-        // }
+        if (activeSection === 1) {
+            group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
+            focusCube.position.lerp(new THREE.Vector3(4.1, 2.7, 15), slower);
+        }
 
-        if (activeSection === sectionEls.length - 1) {
+        if (activeSection === 2) {
             group.position.lerp(new THREE.Vector3(0.5, -10.5, 0), slower);
         }
 
