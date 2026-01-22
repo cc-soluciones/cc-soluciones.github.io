@@ -105,8 +105,7 @@
 
     const FOCUS_CUBE_INDEX = 34;
     const slower = 0.03;
-    let focusCube = null;
-    focusCube = group.children[FOCUS_CUBE_INDEX];
+    let focusCube = null;    
 
     const animate = () => {
         requestAnimationFrame(animate);
@@ -127,7 +126,7 @@
 
         if (intersects.length > 0) {
             const hoveredCube = intersects[0].object;
-            if (activeSection === "home" || activeSection === "servicesRight") {
+            if (activeSection === "home") {
                 hoveredCube.position.lerp(
                     hoveredCube.userData.basePosition
                         .clone()
@@ -142,14 +141,16 @@
         }
 
         if (activeSection === "servicesRight") {
-            // group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+            group.position.lerp(new THREE.Vector3(-4, -2, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube.position.lerp(new THREE.Vector3(-1.2, 7, 15), slower);
+            focusCube = group.children[34];
+            focusCube.position.lerp(new THREE.Vector3(8.2, -2.2, 15), slower);
         }
-
+        
         if (activeSection === "servicesLeft") {
-            // group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+            group.position.lerp(new THREE.Vector3(5.5, -2, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
+            focusCube = group.children[20];
             focusCube.position.lerp(new THREE.Vector3(-1.2, 7, 15), slower);
         }
 

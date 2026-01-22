@@ -42,16 +42,14 @@ import Button from "@/components/ui/Button.astro";
     </nav>
     <div
         id="mobileMenu"
-        class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-4 rounded-xl border border-foreground py-4 backdrop-blur-md backdrop-saturate-150"
+        class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-10 rounded-xl border border-stone-800 bg-primary/30 py-4 backdrop-blur-md backdrop-saturate-150 z-100"
     >
-        {
-            nav.map((item) => (
-                <a class="hover:text-indigo-600 nav-link" href={item.href} data-id={item.href.replace("#", "")}>
-                    {item.label}
-                </a>
-            ))
-        }"
-        <Button> Contactanos </Button>
+        {nav.map((item) => (
+            <a class="nav-link text-2xl" href={item.href} data-id={item.href.replace("#", "")}>
+                {item.label}
+            </a>
+        ))}
+        <Button size="xl"> Contactanos </Button>
     </div>
 </header>
 
