@@ -34,14 +34,23 @@ export const services = [
         href: "#landings",
     },
     {
-        label: "Landing pages 2",
-        descriptions : `Nuestras landing pages están diseñadas para convertir
-                        visitas en clientes. Trabajamos la estructura, el
-                        contenido y el rendimiento para que tu página no solo se
-                        vea bien, sino que genere resultados reales.| Incluimos optimización SEO, carga rápida, diseño
-                        responsive y un proceso claro de trabajo, con entregas
-                        en 10 días y acompañamiento continuo.`,
-        href: "#services",
+        label: "Software a Medida",
+        descriptions : `Desarrollamos software a medida enfocado en resolver problemas reales de tu negocio. 
+                        Trabajamos con un proceso claro, priorizando un MVP funcional que te permita validar, 
+                        ajustar y escalar sin sobreinvertir.|Nuestro enfoque por hitos, la visibilidad 
+                        constante del avance y el acompañamiento técnico continuo te permiten tener 
+                        control total del proyecto desde el inicio hasta la entrega final.`,
+        href: "#software",
+    },
+    {
+        label: "Integraciones",
+        descriptions : `Conectamos y automatizamos tus sistemas para que tu negocio funcione de forma
+más eficiente. Integramos plataformas, servicios y herramientas existentes
+para reducir trabajo manual, minimizar errores y ahorrar tiempo operativo.|
+Nuestras integraciones están pensadas para ser estables, escalables y
+mantenibles, con soporte y acompañamiento técnico continuo.
+`,
+        href: "#integrations",
     },
     // {
     //     label: "MVP Software",

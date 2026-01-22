@@ -2,7 +2,15 @@
 import CardServices from "./ui/CardServices.astro";
 import { services } from "@/constants/general";
 ---
-<section id="services" class="relative min-h-[600dvh]">
+<section id="services" class="relative min-h-[150dvh]">
+    <div class="absolute inset-0 -z-100">
+        <div class="sticky top-0 h-screen">
+            <div
+                class="w-full h-full bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary"
+            >
+            </div>
+        </div>
+    </div>
     {services && Object.values(services).map((item, index) => (
         <div id={item.href.replace("#", "")} class="relative min-h-[600dvh]" data-animation={index % 2 === 0 ? "servicesLeft" : "servicesRight"}>
             <div class="sticky top-0 h-screen flex flex-col justify-center">
