@@ -78,21 +78,21 @@
         mouseNDC.y = mouse.y;
     });
 
-    let activeSection = 0;
+    let activeSection = "home";
     // let sectionProgress = 0;
 
     window.addEventListener("scroll", () => {
         const scrollY = window.scrollY;
 
-        elements.forEach((element: any, index) => {
+        for (const element of elements) {
             const start = element.offsetTop;
-            const end = start + element.offsetHeight;
+            const end = start + element?.offsetHeight;
 
             if (scrollY >= start && scrollY < end) {
-                activeSection = index;
-                // sectionProgress = (scrollY - start) / section.offsetHeight;
+                activeSection = element.dataset.animation;
+                break;
             }
-        });
+        }
     });
 
     window.addEventListener("resize", () => {
@@ -127,25 +127,33 @@
 
         if (intersects.length > 0) {
             const hoveredCube = intersects[0].object;
-            if (activeSection === 0 || activeSection === 2) {
+            if (activeSection === "home" || activeSection === "servicesRight") {
                 hoveredCube.position.lerp(
-                    hoveredCube.userData.basePosition.clone().add(new THREE.Vector3(0, 0, 1)),
+                    hoveredCube.userData.basePosition
+                        .clone()
+                        .add(new THREE.Vector3(0, 0, 1)),
                     0.15,
                 );
             }
         }
 
-        if (activeSection === 0) {
+        if (activeSection === "home") {
             group.position.lerp(new THREE.Vector3(5.5, -2, 0), slower);
         }
 
-        if (activeSection === 1) {
+        if (activeSection === "servicesRight") {
             // group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
             focusCube.position.lerp(new THREE.Vector3(-1.2, 7, 15), slower);
         }
 
-        if (activeSection === elements.length - 1) {
+        if (activeSection === "servicesLeft") {
+            // group.position.lerp(new THREE.Vector3(0.5, -2.5, 0), slower);
+            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
+            focusCube.position.lerp(new THREE.Vector3(-1.2, 7, 15), slower);
+        }
+
+        if (activeSection === "footer") {
             group.position.lerp(new THREE.Vector3(0.5, -10.5, 0), slower);
         }
 

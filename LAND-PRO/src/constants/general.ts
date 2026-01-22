@@ -31,23 +31,33 @@ export const services = [
                         vea bien, sino que genere resultados reales.| Incluimos optimización SEO, carga rápida, diseño
                         responsive y un proceso claro de trabajo, con entregas
                         en 10 días y acompañamiento continuo.`,
-        href: "#landingss",
+        href: "#landings",
     },
     {
-        label: "MVP Software",
-        descriptions : ``,
-        href: "/landing-pages",
+        label: "Landing pages 2",
+        descriptions : `Nuestras landing pages están diseñadas para convertir
+                        visitas en clientes. Trabajamos la estructura, el
+                        contenido y el rendimiento para que tu página no solo se
+                        vea bien, sino que genere resultados reales.| Incluimos optimización SEO, carga rápida, diseño
+                        responsive y un proceso claro de trabajo, con entregas
+                        en 10 días y acompañamiento continuo.`,
+        href: "#services",
     },
-    {
-        label: "App Móviles",
-        descriptions : ``,
-        href: "/landing-pages",
-    },
-    {
-        label: "E-commerce",
-        descriptions : ``,
-        href: "/landing-pages",
-    }
+    // {
+    //     label: "MVP Software",
+    //     descriptions : ``,
+    //     href: "/landing-pages",
+    // },
+    // {
+    //     label: "App Móviles",
+    //     descriptions : ``,
+    //     href: "/landing-pages",
+    // },
+    // {
+    //     label: "E-commerce",
+    //     descriptions : ``,
+    //     href: "/landing-pages",
+    // }
 ];
 
 export const nav = [
@@ -59,10 +69,10 @@ export const nav = [
         label: "Servicios",
         href: "#services",
     },
-    {
-        label: "Proceso",
-        href: "#process",
-    },
+    // {
+    //     label: "Proceso",
+    //     href: "#process",
+    // },
     {
         label: "Contacto",
         href: "#contact",
