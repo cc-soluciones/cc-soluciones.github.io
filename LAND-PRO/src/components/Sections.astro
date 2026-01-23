@@ -12,7 +12,8 @@ import { services } from "@/constants/general";
         </div>
     </div>
     {services && Object.values(services).map((item, index) => (
-        <div id={item.href.replace("#", "")} class="relative min-h-[600dvh]" data-animation={index % 2 === 0 ? "servicesLeft" : "servicesRight"}>
+        // <div id={item.href.replace("#", "")} class="relative min-h-[200dvh]" data-animation={index % 2 === 0 ? "servicesLeft" : "servicesRight"}>
+        <div id={item.href.replace("#", "")} class="relative min-h-[200dvh]" data-animation={item.href.replace("#", "")}>
             <div class="sticky top-0 h-screen flex flex-col justify-center">
                 <CardServices
                     title={item.label}
