@@ -25,48 +25,25 @@ export const socials = {
 export const services = [
     {
         label: "Landing pages",
-        descriptions : `Nuestras landing pages están diseñadas para convertir
-                        visitas en clientes. Trabajamos la estructura, el
-                        contenido y el rendimiento para que tu página no solo se
-                        vea bien, sino que genere resultados reales.| Incluimos optimización SEO, carga rápida, diseño
-                        responsive y un proceso claro de trabajo, con entregas
-                        en 10 días y acompañamiento continuo.`,
+        descriptions: `Diseñamos y desarrollamos landing pages optimizadas para convertir visitas en clientes.
+Trabajamos con emprendedores, pymes y startups que buscan captar leads y mejorar su
+presencia digital mediante páginas rápidas, claras y optimizadas para SEO.`,
         href: "#landings",
     },
     {
         label: "Software a Medida",
-        descriptions : `Desarrollamos software a medida enfocado en resolver problemas reales de tu negocio. 
-                        Trabajamos con un proceso claro, priorizando un MVP funcional que te permita validar, 
-                        ajustar y escalar sin sobreinvertir.|Nuestro enfoque por hitos, la visibilidad 
-                        constante del avance y el acompañamiento técnico continuo te permiten tener 
-                        control total del proyecto desde el inicio hasta la entrega final.`,
+        descriptions: `Desarrollamos software a medida y MVPs enfocados en resolver problemas reales de tu negocio.
+Trabajamos con empresas y emprendimientos que necesitan sistemas personalizados, escalables
+y adaptados a sus procesos, con entregas por hitos y acompañamiento técnico continuo.`,
         href: "#software",
     },
     {
         label: "Integraciones",
-        descriptions : `Conectamos y automatizamos tus sistemas para que tu negocio funcione de forma
-más eficiente. Integramos plataformas, servicios y herramientas existentes
-para reducir trabajo manual, minimizar errores y ahorrar tiempo operativo.|
-Nuestras integraciones están pensadas para ser estables, escalables y
-mantenibles, con soporte y acompañamiento técnico continuo.
-`,
+        descriptions: `Conectamos y automatizamos sistemas, plataformas y APIs para optimizar procesos operativos.
+Ayudamos a empresas a reducir trabajo manual, minimizar errores y mejorar la eficiencia
+mediante integraciones estables, escalables y fáciles de mantener.`,
         href: "#integrations",
     },
-    // {
-    //     label: "MVP Software",
-    //     descriptions : ``,
-    //     href: "/landing-pages",
-    // },
-    // {
-    //     label: "App Móviles",
-    //     descriptions : ``,
-    //     href: "/landing-pages",
-    // },
-    // {
-    //     label: "E-commerce",
-    //     descriptions : ``,
-    //     href: "/landing-pages",
-    // }
 ];
 
 export const nav = [
@@ -86,18 +63,6 @@ export const nav = [
         label: "Contacto",
         href: "#contact",
     },
-    // {
-    //     label: "Stories",
-    //     href: "/stories",
-    // },
-    // {
-    //     label: "Pricing",
-    //     href: "/pricing",
-    // },
-    // {
-    //     label: "Docs",
-    //     href: "/docs",
-    // }
 ];
 
 export const descriptionFooter = `Ayudamos a emprendedores y PYMES a digitalizar su visión con software de alta calidad y tiempos de entrega garantizados.`;
