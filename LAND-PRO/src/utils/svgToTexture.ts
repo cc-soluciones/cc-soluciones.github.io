@@ -1,25 +1,29 @@
 import * as THREE from "three";
 
-export const svgToTexture = (svgString : any, size = 512) => {
+export const svgToTexture = (svgString : any, size = 256) => {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
 
-    const ctx : any = canvas.getContext("2d");
-    const img = new Image();
+    const ctx : any= canvas.getContext("2d");
 
-    const blob = new Blob([svgString], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
+    // ctx.fillStyle = "white";
+    // ctx.fillRect(0, 0, size, size);
+
+    const img = new Image();
+    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
 
     img.onload = () => {
-        ctx.clearRect(0, 0, size, size);
         ctx.drawImage(img, 0, 0, size, size);
         URL.revokeObjectURL(url);
+        texture.needsUpdate = true;
     };
 
     img.src = url;
 
     const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
     texture.needsUpdate = true;
 
     return texture;

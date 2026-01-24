@@ -130,16 +130,19 @@
             cube.position.lerp(cube.userData.basePosition, slower);
         });
 
-        if (intersects.length > 0) {
-            const hoveredCube = intersects[0].object;
-            if (activeSection === "home") {
-                hoveredCube.position.lerp(
-                    hoveredCube.userData.basePosition
-                        .clone()
-                        .add(new THREE.Vector3(0, 0, 1)),
-                    0.15,
-                );
+        if (intersects.length > 0 && activeSection === "home") {
+            let hovered = intersects[0].object;
+
+            if (hovered.parent && hovered.parent.userData.basePosition) {
+                hovered = hovered.parent;
             }
+
+            hovered.position.lerp(
+                hovered.userData.basePosition
+                    .clone()
+                    .add(new THREE.Vector3(0, 0, 1)),
+                0.15,
+            );
         }
 
         if (activeSection === "home") {

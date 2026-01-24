@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
-import { svgToTexture } from "@/utils/svgToTexture.js"; 
+import { svgToTexture } from "@/utils/svgToTexture.js";
 
 export const createGlassCube = ({
     position = { x: 0, y: 0, z: 0 },
@@ -8,14 +8,14 @@ export const createGlassCube = ({
     rotation = { x: 0, y: 0, z: 0 },
     radius = 0.15,
     smoothness = 8,
-    svg = null
+    svg = null,
 }) => {
     const geometry = new RoundedBoxGeometry(
         size.x,
         size.y,
         size.z,
         smoothness,
-        radius
+        radius,
     );
 
     const material = new THREE.MeshPhysicalMaterial({
@@ -29,36 +29,61 @@ export const createGlassCube = ({
         clearcoat: 1,
         clearcoatRoughness: 0,
         envMapIntensity: 1,
+
+        // depthTest: false,
+        // depthWrite: false,
+        // toneMapped: false,
+        // side: THREE.DoubleSide,
         // fog: true,
         // transparent: true,
     });
     let materials = Array(6).fill(material);
 
+    // if (svg) {
+    //     const texture = svgToTexture(svg);
+
+    //     const frontMaterial = new THREE.MeshBasicMaterial({
+    //         map: texture,
+    //         transparent: true,
+    //         depthWrite: false,
+    //     });
+
+    //     materials = [
+    //         material,
+    //         material,
+    //         material,
+    //         material,
+    //         frontMaterial,
+    //         material,
+    //     ];
+    // }
+
+    const cube = new THREE.Mesh(geometry, materials);
+
     if (svg) {
         const texture = svgToTexture(svg);
 
-        const frontMaterial = new THREE.MeshBasicMaterial({
-            map: texture,
-            transparent: true,
-            depthWrite: false,
-        });
+        const svgPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(size.x * 0.7, size.y * 0.7),
+            new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                depthTest: false,
+                depthWrite: false,
+                toneMapped: false,
+            }),
+        );
 
-        materials = [
-            material,
-            material,
-            material,
-            material,
-            frontMaterial,
-            material,
-        ];
+        svgPlane.position.z = size.z / 2 + 0.01;
+        svgPlane.renderOrder = 10;
+        cube.add(svgPlane);
     }
 
-    const cube = new THREE.Mesh(geometry, svg ? materials : material);
     cube.position.set(position.x, position.y, position.z);
     cube.rotation.set(
         THREE.MathUtils.degToRad(rotation.x),
         THREE.MathUtils.degToRad(rotation.y),
-        THREE.MathUtils.degToRad(rotation.z)
+        THREE.MathUtils.degToRad(rotation.z),
     );
 
     cube.castShadow = true;
