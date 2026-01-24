@@ -29,34 +29,8 @@ export const createGlassCube = ({
         clearcoat: 1,
         clearcoatRoughness: 0,
         envMapIntensity: 1,
-
-        // depthTest: false,
-        // depthWrite: false,
-        // toneMapped: false,
-        // side: THREE.DoubleSide,
-        // fog: true,
-        // transparent: true,
     });
     let materials = Array(6).fill(material);
-
-    // if (svg) {
-    //     const texture = svgToTexture(svg);
-
-    //     const frontMaterial = new THREE.MeshBasicMaterial({
-    //         map: texture,
-    //         transparent: true,
-    //         depthWrite: false,
-    //     });
-
-    //     materials = [
-    //         material,
-    //         material,
-    //         material,
-    //         material,
-    //         frontMaterial,
-    //         material,
-    //     ];
-    // }
 
     const cube = new THREE.Mesh(geometry, materials);
 

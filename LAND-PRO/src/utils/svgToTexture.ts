@@ -1,23 +1,29 @@
 import * as THREE from "three";
 
-export const svgToTexture = (svgString : any, size = 256) => {
+export const svgToTexture = (svgString: any, size = 256) => {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
 
-    const ctx : any= canvas.getContext("2d");
-
-    // ctx.fillStyle = "white";
-    // ctx.fillRect(0, 0, size, size);
-
+    const ctx: any = canvas.getContext("2d");
+    const scale = 0.85;
     const img = new Image();
-    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const svgBlob = new Blob([svgString], {
+        type: "image/svg+xml;charset=utf-8",
+    });
     const url = URL.createObjectURL(svgBlob);
 
     img.onload = () => {
-        ctx.drawImage(img, 0, 0, size, size);
-        URL.revokeObjectURL(url);
+        ctx.clearRect(0, 0, size, size);
+        ctx.save();
+        ctx.translate(size / 2, size / 2);
+        ctx.rotate(Math.PI / 4);
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, -size / 2, -size / 2, size, size);
+        ctx.restore();
+        
         texture.needsUpdate = true;
+        URL.revokeObjectURL(url);
     };
 
     img.src = url;
@@ -27,4 +33,4 @@ export const svgToTexture = (svgString : any, size = 256) => {
     texture.needsUpdate = true;
 
     return texture;
-}
+};
