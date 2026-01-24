@@ -37,6 +37,11 @@
     const spacing = 1;
     let positionY = 0;
     let positionX = 0;
+    const svgIcon = `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="40" fill="white"/>
+    </svg>
+    `;
 
     for (let i = 0; i < count; i++) {
         if (i % limit === 0) {
@@ -48,6 +53,7 @@
             position: { x: positionX * spacing, y: positionY, z: 0 },
             size: { x: 1, y: 1, z: 1 },
             radius: 0.15,
+            svg: svgIcon as any,
         });
 
         positionX++;
@@ -85,11 +91,12 @@
         const scrollY = window.scrollY;
 
         for (const element of elements) {
-            const start = element?.offsetTop;
-            const end = start + element?.offsetHeight;
+            const auxElement = element as any;
+            const start = auxElement?.offsetTop;
+            const end = start + auxElement?.offsetHeight;
 
             if (scrollY >= start && scrollY < end) {
-                activeSection = element.dataset.animation;
+                activeSection = auxElement?.dataset?.animation;
                 break;
             }
         }
@@ -104,7 +111,7 @@
     });
 
     const slower = 0.02;
-    let focusCube = null;    
+    let focusCube = null;
 
     const animate = () => {
         requestAnimationFrame(animate);
