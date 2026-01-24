@@ -18,15 +18,24 @@
     const raycaster = new THREE.Raycaster();
     const mouseNDC = new THREE.Vector2();
     const elements = document.querySelectorAll("[data-animation]");
-    const customs: Record<string, { svg: string }> = {
+    const customs: Record<string, { svg: string; onClick: () => void }> = {
         "18": {
-            svg: softwareIcon.replaceAll("stroke=\"#000\"", "stroke=\"#fff\""),
+            svg: softwareIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            onClick: () => {
+                window.location.href = "#landings";
+            },
         },
         "12": {
-            svg: landingIcon.replaceAll("stroke=\"#000\"", "stroke=\"#fff\""),
+            svg: landingIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            onClick: () => {
+                window.location.href = "#software";
+            },
         },
-        "6" : {
-            svg: integrationIcon.replaceAll("stroke=\"#000\"", "stroke=\"#fff\""),
+        "6": {
+            svg: integrationIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            onClick: () => {
+                window.location.href = "#integrations";
+            },
         },
     };
 
@@ -40,9 +49,9 @@
     scene.add(dirLight);
 
     const group = new THREE.Group();
-    scene.add(group);
-
     const foregroundGroup = new THREE.Group();
+
+    scene.add(group);
     scene.add(foregroundGroup);
 
     const limit = 5;
@@ -53,7 +62,7 @@
 
     for (let i = 0; i < count; i++) {
         if (i % limit === 0) {
-            positionY+= spacing;
+            positionY += spacing;
             positionX = 0;
         }
 
@@ -61,7 +70,8 @@
             position: { x: positionX * spacing, y: positionY, z: 0 },
             size: { x: spacing, y: spacing, z: spacing },
             radius: 0.15,
-            svg: customs[`${i}`]?.svg as any || null,
+            svg: (customs[`${i}`]?.svg as any) || null,
+            onClick: (customs[`${i}`]?.onClick as any) || null,
         });
 
         positionX++;
@@ -74,10 +84,13 @@
         0,
         THREE.MathUtils.degToRad(45),
     );
-    group.position.set(5.5, 2,0);
+    group.position.set(5.5, 2, 0);
 
     const mouse = { x: 0, y: 0 };
     const targetRotation = { x: 0, y: 0 };
+    const slower = 0.02;
+    let activeSection = "home";
+    let focusCube = null;
 
     const baseRotation = {
         x: THREE.MathUtils.degToRad(-60),
@@ -91,9 +104,8 @@
 
         mouseNDC.x = mouse.x;
         mouseNDC.y = mouse.y;
-    });
 
-    let activeSection = "home";
+    });
 
     window.addEventListener("scroll", () => {
         const scrollY = window.scrollY;
@@ -118,8 +130,30 @@
         renderer.setSize(w, h);
     });
 
-    const slower = 0.02;
-    let focusCube = null;
+    window.addEventListener("click", (e) => {
+        mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouseNDC, camera);
+
+        const intersects = raycaster.intersectObjects(scene.children, true);
+
+        if (!intersects.length) return;
+
+        for (const hit of intersects) {
+            const obj = hit.object;
+
+            if (obj.userData?.onClick) {
+                obj.userData.onClick(obj);
+                break;
+            }
+
+            if (obj.parent?.userData?.onClick) {
+                obj.parent.userData.onClick(obj.parent);
+                break;
+            }
+        }
+    }); 
 
     const animate = () => {
         requestAnimationFrame(animate);
@@ -138,7 +172,7 @@
             cube.position.lerp(cube.userData.basePosition, slower);
         });
 
-        if (intersects.length > 0 && activeSection === "home") {
+        if (intersects.length > 0) {
             let hovered = intersects[0].object;
 
             if (hovered.parent && hovered.parent.userData.basePosition) {
@@ -161,25 +195,25 @@
             group.position.lerp(new THREE.Vector3(5.5, 0, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
             focusCube = group.children[18];
-            focusCube.position.lerp(new THREE.Vector3(-3.3, 9.4, 15), slower);
+            focusCube.position.lerp(new THREE.Vector3(-3.8, 5, 10), slower);
         }
 
         if (activeSection === "software") {
             group.position.lerp(new THREE.Vector3(-4, 0, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
             focusCube = group.children[12];
-            focusCube.position.lerp(new THREE.Vector3(8.2, -2.2, 15), slower);
+            focusCube.position.lerp(new THREE.Vector3(4.8, -1.8, 10), slower);
         }
 
         if (activeSection === "integrations") {
             group.position.lerp(new THREE.Vector3(5.5, 0, 0), slower);
             group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
             focusCube = group.children[6];
-            focusCube.position.lerp(new THREE.Vector3(-1.3, 10.3, 15), slower);
+            focusCube.position.lerp(new THREE.Vector3(-2, 7, 10), slower);
         }
 
         if (activeSection === "footer") {
-            group.position.lerp(new THREE.Vector3(0.5, -10.5, 0), slower);
+            group.position.lerp(new THREE.Vector3(0.5, -4, 0), slower);
         }
 
         renderer.render(scene, camera);

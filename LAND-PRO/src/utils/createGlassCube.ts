@@ -9,6 +9,7 @@ export const createGlassCube = ({
     radius = 0.15,
     smoothness = 8,
     svg = null,
+    onClick = null,
 }) => {
     const geometry = new RoundedBoxGeometry(
         size.x,
@@ -19,7 +20,6 @@ export const createGlassCube = ({
     );
 
     const material = new THREE.MeshPhysicalMaterial({
-        // color: 0xffffff,
         transmission: 1,
         opacity: 1,
         metalness: 0,
@@ -51,6 +51,12 @@ export const createGlassCube = ({
         svgPlane.position.z = size.z / 2 + 0.01;
         svgPlane.renderOrder = 10;
         cube.add(svgPlane);
+    }
+
+    if (onClick) {
+        console.log(onClick)
+        cube.userData.onClick = onClick;
+        cube.userData.isClickable = Boolean(onClick);
     }
 
     cube.position.set(position.x, position.y, position.z);
