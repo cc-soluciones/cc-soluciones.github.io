@@ -54,7 +54,6 @@ export const createGlassCube = ({
     }
 
     if (onClick) {
-        console.log(onClick)
         cube.userData.onClick = onClick;
         cube.userData.isClickable = Boolean(onClick);
     }

@@ -2,6 +2,7 @@
 import CardServices from "./ui/CardServices.astro";
 import { services } from "@/constants/general";
 ---
+
 <section id="services" class="relative min-h-[150dvh]">
     <div class="absolute inset-0 -z-100">
         <div class="sticky top-0 h-screen">
@@ -11,16 +12,63 @@ import { services } from "@/constants/general";
             </div>
         </div>
     </div>
-    {services && Object.values(services).map((item, index) => (
-        // <div id={item.href.replace("#", "")} class="relative min-h-[200dvh]" data-animation={index % 2 === 0 ? "servicesLeft" : "servicesRight"}>
-        <div id={item.href.replace("#", "")} class="relative min-h-[200dvh]" data-animation={item.href.replace("#", "")}>
-            <div class="sticky top-0 h-screen flex flex-col justify-center">
-                <CardServices
-                    title={item.label}
-                    descriptions={item.descriptions}
-                    direction={index % 2 === 0 ? "left" : "right"}
-                />
-            </div>
-        </div>
-    ))}
+    {
+        services &&
+            Object.values(services).map((item, index) => (
+                <div
+                    id={item.href.replace("#", "")}
+                    class="relative min-h-[200dvh] reveal-trigger"
+                    data-animation={item.href.replace("#", "")}
+                >
+                    <div class="sticky top-0 h-screen flex flex-col justify-center">
+                        <CardServices
+                            title={item.label}
+                            descriptions={item.descriptions}
+                            direction={index % 2 === 0 ? "left" : "right"}
+                        />
+                    </div>
+                </div>
+            ))
+    }
 </section>
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const triggers = document.querySelectorAll(".reveal-trigger")
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                const reveal = entry.target.querySelector(".reveal")
+                if (!reveal) return
+
+                const direction = entry.target.dataset.direction
+
+                if (entry.isIntersecting) {
+                    reveal.classList.remove("opacity-0")
+                    if (direction === "left") {
+                        reveal.classList.remove("-translate-x-12")
+                    } else {
+                        reveal.classList.remove("translate-x-12")
+                    }
+
+                    reveal.classList.add("opacity-100", "translate-x-0")
+                } else {
+                    reveal.classList.remove("opacity-100", "translate-x-0")
+                    reveal.classList.add("opacity-0")
+
+                    if (direction === "left") {
+                        reveal.classList.add("-translate-x-12")
+                    } else {
+                        reveal.classList.add("translate-x-12")
+                    }
+                }
+                })
+            },
+            {
+                threshold: 0.4
+            }
+        )
+
+        triggers.forEach(el => observer.observe(el))
+    })
+</script>
