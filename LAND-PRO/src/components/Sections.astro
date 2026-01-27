@@ -38,30 +38,21 @@ import { services } from "@/constants/general";
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(entry => {
-                const reveal = entry.target.querySelector(".reveal")
-                if (!reveal) return
+                    const reveal = entry.target.querySelector(".reveal")
+                    if (!reveal) return
 
-                const direction = entry.target.dataset.direction
+                    const direction = entry.target.dataset.direction
 
-                if (entry.isIntersecting) {
-                    reveal.classList.remove("opacity-0")
-                    if (direction === "left") {
-                        reveal.classList.remove("-translate-x-12")
-                    } else {
-                        reveal.classList.remove("translate-x-12")
+                    if (entry.isIntersecting) {
+                        reveal.classList.remove("opacity-0")
+                        if (direction === "left") {
+                            reveal.classList.remove("-translate-x-12")
+                        } else {
+                            reveal.classList.remove("translate-x-12")
+                        }
+
+                        reveal.classList.add("opacity-100", "translate-x-0")
                     }
-
-                    reveal.classList.add("opacity-100", "translate-x-0")
-                } else {
-                    reveal.classList.remove("opacity-100", "translate-x-0")
-                    reveal.classList.add("opacity-0")
-
-                    if (direction === "left") {
-                        reveal.classList.add("-translate-x-12")
-                    } else {
-                        reveal.classList.add("translate-x-12")
-                    }
-                }
                 })
             },
             {
