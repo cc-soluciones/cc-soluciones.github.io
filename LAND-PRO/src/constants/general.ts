@@ -3,6 +3,7 @@ import Twitter from "@/components/svg/Twitter.astro";
 import Instagram from "@/components/svg/Instagram.astro";
 
 export const nameCompany = "CC Soluciones";
+export const metaDescription = "Desarrollo de software a medida, landing pages e integraciones. MVPs, sistemas y automatización con proceso claro y entregas por hitos.";
 
 export const socials = {
     linkedin: {
