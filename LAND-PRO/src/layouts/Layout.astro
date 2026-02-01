@@ -28,6 +28,10 @@ import "@/styles/global.css";
         <Footer/>
         <script is:inline>
             const cursor = document.getElementById("custom-cursor");
+            const menuToggle = document.getElementById("menuToggle");
+            const mobileMenu = document.getElementById("mobileMenu");
+            const sections = document.querySelectorAll("section[id]");
+            const navLinks = document.querySelectorAll(".nav-link");
 
             document.addEventListener("DOMContentLoaded", () => {
                 const reveals = document.querySelectorAll(".reveal")
@@ -56,7 +60,38 @@ import "@/styles/global.css";
             window.addEventListener("mousemove", (e) => {
                 cursor.style.left = e.clientX + "px";
                 cursor.style.top = e.clientY + "px";
+            });            
+
+            menuToggle?.addEventListener("click", () => {
+                if (mobileMenu?.classList.contains("hidden")) {
+                    mobileMenu?.classList.remove("hidden");
+                    mobileMenu?.classList.add("flex");
+                } else {
+                    mobileMenu?.classList.add("hidden");
+                    mobileMenu?.classList.remove("flex");
+                }
             });
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        console.log(entry.isIntersecting)
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+                        const id = entry.target.id;
+                        navLinks.forEach((link) => {
+                            link.classList.toggle("active", link?.dataset?.id === id);
+                        });
+                    });
+                },
+                {
+                    rootMargin: "-40% 0px -50% 0px",
+                    threshold: 0,
+                },
+            );
+
+            sections.forEach((section) => observer.observe(section));
         </script>
     </body>
 </html>
