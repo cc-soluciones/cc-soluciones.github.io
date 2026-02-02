@@ -56,10 +56,10 @@ export const nav = [
         label: "Servicios",
         href: "#services",
     },
-    // {
-    //     label: "Proceso",
-    //     href: "#process",
-    // },
+    {
+        label: "Proyectos",
+        href: "#projects",
+    },
     {
         label: "Contacto",
         href: "#contact",

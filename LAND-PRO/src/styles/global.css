@@ -9,6 +9,12 @@
     --color-success: #28a745;
 }
 
+@layer utilities {
+    .animate-spin-slow {
+        animation: spin 8s linear infinite;
+    }
+}
+
 .nav-link {
     position: relative;
     display: inline-block;
