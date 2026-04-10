@@ -16,13 +16,13 @@ import "@/styles/global.css";
         <title>{nameCompany}</title>
     </head>
     <body class="bg-primary text-foreground">
-        <div id="custom-cursor">
+        <div id="custom-cursor md:visible invisible">
             <div class="cursor-fill"/>
             <div class="cursor-ring"/>
         </div>
         <Nav/>
         <VisionModel />
-        <main class="max-w-7xl mx-auto px-6">
+        <main class="flex flex-wrap justify-center mx-auto">
             <slot />
         </main>
         <Footer/>
