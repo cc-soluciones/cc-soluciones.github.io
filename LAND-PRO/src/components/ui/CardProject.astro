@@ -1,98 +1,119 @@
 ---
-import Reload from "@/components/svg/Reload.astro";
-
-interface CardData {
-    images: {
-        src: string;
-        position: string;
-    }[];
-    title: string;
-    type: string;
-    description?: string;
-}
-
-interface Props {
-    cards?: CardData[];
-}
-
-const {
-    cards = [
-        {
-            images: [
-                {
-                    src: "projects/ccsoluciones_3_1.jpeg",
-                    position: "0% 33%",
-                },
-                {
-                    src: "projects/ccsoluciones_3_1.jpeg",
-                    position: "0% 0%",
-                },
-                {
-                    src: "projects/ccsoluciones_3_1.jpeg",
-                    position: "0% 110%",
-                }
-            ],
-            title: "Proyecto Alpha",
-            descrption: "Descripción breve del proyecto Alpha, destacando sus características principales y el impacto que ha tenido en la industria.",
-            type: "Web",
-        },
-    ],
-} = Astro.props;
+import Link from "@/components/ui/Link.astro";
+import Arrow from "@/components/svg/Arrow.astro";
+import { projects } from "@/constants/general";
 ---
 
-<div class="relative w-screen overflow-hidden feature-imgs feature-img-h">
-    <div class="absolute left-[50%] translate-x-[-50%]">
-        <div class="flex flex-row justify-center items-center gap-[15px] ai-dt:gap-[40px]">
-            <button class="cursor-pointer hover:scale-110 absolute left-[62%] p-10 w-10 h-10 md:w-40 md:h-40 z-100 transition flex justify-center items-center rounded-full  backdrop-blur-md backdrop-saturate-150">
-                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
-                <Reload class="text-white w-10 h-10 md:w-20 md:h-20" />
-            </button>
-            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500 mt-45">
-                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
-                <img class="feature-img opacity-60 w-full h-full object-cover" style={`object-position: ${cards[0].images[0].position || "0% 0%"};`} src={cards[0].images[0].src}/>
-            </div>
-            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500">
-                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
-                <img class="feature-img object-cover" style={`object-position: ${cards[0].images[1].position || "0% 0%"};`} src={cards[0].images[1].src}/>
-            </div>
-            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500 mt-45">
-                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
-                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
-                <img class="feature-img opacity-60 w-full h-full object-cover" style={`object-position: ${cards[0].images[2].position || "0% 0%"};`} src={cards[0].images[2].src}/>
+{projects.map((item, index) => (
+    <div class="relative flex flex-wrap md:gap-y-25 overflow-hidden md:overflow-visible card-wrapper" data-key={index}>
+        <div class="w-full mb-10 md:mb-0 pt-10 flex justify-center">
+            <Link href={item.url} target="_blank" class="project-title !text-2xl font-bold tracking-tight text-center flex gap-2 justify-center items-center px-10 uppercase">
+                {item.title} <Arrow class="mt-1 ml-1"/>
+            </Link>
+        </div>
+        <div class="relative w-screen overflow-hidden feature-imgs feature-img-h">
+            <div class="absolute left-[50%] translate-x-[-50%]">
+                <div class="flex flex-row justify-center items-center gap-[15px] ai-dt:gap-[40px]">
+                    {[0, 1, 2].map((imgIndex) => (
+                        <div class={`relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden ${imgIndex !== 1 ? "mt-45" : ""}`}>
+                            <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]" data-box />
+                            <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]" data-box />
+                            <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]" data-box />
+                            <img
+                                class={`feature-img w-full h-full object-cover transition-all duration-500 ${imgIndex !== 1 ? "opacity-60" : ""}`}
+                                style={`object-position: ${item.images[imgIndex].position || "0% 0%"}`}
+                                src={item.images[imgIndex].src}
+                                data-img-index={imgIndex}
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     </div>
-</div>
+))}
 
-<script define:vars={{ cards }}>
+<style>
+    .slide-up-fade {
+        animation: slideUpFade 0.6s ease-out forwards;
+    }
+
+    @keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .feature-img, [data-box] {
+        transition:
+            opacity 0.5s ease,
+            transform 0.5s ease;
+    }
+
+    .sliding {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+</style>
+
+<script define:vars={{ projects }}>
+    let currentProjectIndex = 0;
     const cardElements = document.querySelectorAll(".card-wrapper");
-    let currentIndex = 0;
 
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % cards[0].image.length;
+    function animateProjectChange() {
+        cardElements.forEach((card) => {
+            const title = card.querySelector(".project-title");
+            const images = card.querySelectorAll(".feature-img");
+            const box = card.querySelectorAll("[data-box]");
 
-        cardElements.forEach((card, idx) => {
-            const data = cards[idx].image[currentIndex];
-            const img = card.querySelector("img");
-            const title = card.querySelector("[data-title]");
-            const type = card.querySelector("[data-type]");
-
-            // img.style.opacity = '0';
-
-            setTimeout(() => {
-                img.src = data;
-                title.textContent = cards[idx].title;
-                type.textContent = cards[idx].type;
-
-                img.style.opacity = "1";
-            }, 300);
+            title.classList.add("sliding");
+            images.forEach((img) => img.classList.add("sliding"));
+            box.forEach((b) => b.classList.add("sliding"));
         });
-    }, 4000);
+
+        setTimeout(() => {
+            currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+            const nextProject = projects[currentProjectIndex];
+
+            cardElements.forEach((card, idx) => {
+                if (idx === 0) {
+                    const title = card.querySelector(".project-title");
+                    const titleTagA = title.querySelector("a");
+                    const images = card.querySelectorAll(".feature-img");
+                    const box = card.querySelectorAll("[data-box]");
+
+                    images.forEach((img, imgIdx) => {
+                        img.src = nextProject.images[imgIdx].src;
+                        img.style.objectPosition = nextProject.images[imgIdx].position || "0% 0%";
+                    });
+
+                    title.classList.remove("sliding");
+                    images.forEach((img) => img.classList.remove("sliding"));
+                    box.forEach((b) => b.classList.remove("sliding"));
+
+                    void title.offsetWidth;
+
+                    title.classList.add("slide-up-fade");
+                    images.forEach((img) => {
+                        img.style.opacity = imgIdx !== 1 ? "0.6" : "1";
+                        img.classList.add("slide-up-fade");
+                    });
+
+                    setTimeout(() => {
+                        title.classList.remove("slide-up-fade");
+                        images.forEach((img) =>
+                            img.classList.remove("slide-up-fade"),
+                        );
+                    }, 600);
+                }
+            });
+        }, 500);
+    }
+
+    setInterval(animateProjectChange, 4000);
 </script>

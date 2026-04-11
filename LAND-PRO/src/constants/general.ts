@@ -47,6 +47,49 @@ mediante integraciones estables, escalables y fáciles de mantener.`,
     },
 ];
 
+export const projects = [
+    {
+        images: [
+            {
+                src: "projects/ccsoluciones_3_1.jpeg",
+                position: "0% 33%",
+            },
+            {
+                src: "projects/ccsoluciones_3_1.jpeg",
+                position: "0% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_3_1.jpeg",
+                position: "0% 110%",
+            }
+        ],
+        title: "La pily",
+        url: "https://lapily.cl",
+        description: "Proyecto de desarrollo de software a medida para una empresa de alimentos saludables, incluyendo un sistema de gestión de pedidos y clientes.",
+        type: "Web",
+    },
+    {
+        images: [
+            {
+                src: "projects/ccsoluciones_4_1.jpeg",
+                position: "0% 33%",
+            },
+            {
+                src: "projects/ccsoluciones_4_1.jpeg",
+                position: "0% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_4_1.jpeg",
+                position: "0% 110%",
+            }
+        ],
+        title: "Denaval",
+        url: "https://denaval.com",
+        description: "Proyecto de desarrollo de software a medida para una empresa de alimentos saludables, incluyendo un sistema de gestión de pedidos y clientes.",
+        type: "Web",
+    },
+];
+
 export const nav = [
     {
         label: "Home",

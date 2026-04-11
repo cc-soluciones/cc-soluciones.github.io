@@ -143,3 +143,9 @@
         width: 600px;
     }
 }
+
+.bg-projects-box {  
+   background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);  
+    height: calc(-8.93333px + 29.7778vw);  
+    z-index: 900;  
+}
