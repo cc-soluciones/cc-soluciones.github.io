@@ -59,16 +59,87 @@
 }
 
 #custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 9999px;
-  background: white;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  z-index: 9999;
-  transition: width 0.2s ease, height 0.2s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: white;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    z-index: 9999;
+    transition:
+        width 0.2s ease,
+        height 0.2s ease;
+}
+
+.feature-img-h {
+    height: 850px;
+}
+
+
+@media only screen and (min-width: 440px) {
+    .feature-img-h {
+        height: 390px;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .feature-img-h {
+        height: 425px;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .feature-img-h {
+        height: 496px;
+    }
+}
+
+@media only screen and (min-width: 840px) {
+    .feature-img-h {
+        height: 850px;
+    }
+}
+
+@media (min-width: 840px) {
+    .ai-dt\:gap-\[40px\] {
+        gap: 40px;
+    }
+}
+
+.feature-img-w {
+    width: 225px;
+}
+
+@media only screen and (min-width: 360px) {
+    .feature-img-w {
+        width: 275px;
+    }
+}
+
+@media only screen and (min-width: 440px) {
+    .feature-img-w {
+        width: 275px;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .feature-img-w {
+        width: 300px;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .feature-img-w {
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width: 840px) {
+    .feature-img-w {
+        width: 600px;
+    }
 }

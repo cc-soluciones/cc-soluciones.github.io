@@ -1,86 +1,97 @@
 ---
+import Reload from "@/components/svg/Reload.astro";
+
 interface CardData {
-    images: string[];
+    images: {
+        src: string;
+        position: string;
+    }[];
     title: string;
     type: string;
+    description?: string;
 }
 
 interface Props {
     cards?: CardData[];
 }
 
-const { 
+const {
     cards = [
-        { images: ["projects/ccsoluciones_1_1.jpeg", "projects/ccsoluciones_1_1.jpeg", "projects/ccsoluciones_1_1.jpeg"], title: "Proyecto Alpha", type: "Web" },
-    ]
+        {
+            images: [
+                {
+                    src: "projects/ccsoluciones_3_1.jpeg",
+                    position: "0% 33%",
+                },
+                {
+                    src: "projects/ccsoluciones_3_1.jpeg",
+                    position: "0% 0%",
+                },
+                {
+                    src: "projects/ccsoluciones_3_1.jpeg",
+                    position: "0% 110%",
+                }
+            ],
+            title: "Proyecto Alpha",
+            descrption: "Descripción breve del proyecto Alpha, destacando sus características principales y el impacto que ha tenido en la industria.",
+            type: "Web",
+        },
+    ],
 } = Astro.props;
 ---
-<div class="md:w-full flex md:px-10 md:gap-5 md:h-dvh overflow-hidden md:overflow-visible">
-    <div class="card-wrapper rounded-3xl overflow-hidden md:h-150 md:w-1/3 group border border-stone-500 animate-[fadeUp_0.8s_ease-out_0.3s_forwards] opacity-0 relative mt-20" data-card="0">
-        <div class="bg-black/60 absolute w-full h-full"></div>
-        <div class="absolute w-full h-full shadow-[inset_10px_50px_120px_rgba(180,180,180,0.8)]"></div>
-        <img src={cards[0].images[0]} class="w-full h-full object-cover object-[25%_50%] transition-opacity duration-500" alt="">
-    </div>
 
-    <div class="card-wrapper rounded-3xl overflow-hidden md:h-170 border border-stone-500 md:w-1/3 group animate-[fadeUp_0.8s_ease-out_0.6s_forwards] opacity-0 relative" data-card="1">
-        <div class="absolute z-10 top-0 left-0 right-0 p-6">
-            <span class="text-stone-400 text-sm uppercase tracking-wider" data-type>{cards[0].type}</span>
-            <h3 class="text-white text-2xl font-bold mt-1" data-title>{cards[0].title}</h3>
+<div class="relative w-screen overflow-hidden feature-imgs feature-img-h">
+    <div class="absolute left-[50%] translate-x-[-50%]">
+        <div class="flex flex-row justify-center items-center gap-[15px] ai-dt:gap-[40px]">
+            <button class="cursor-pointer hover:scale-110 absolute left-[62%] p-10 w-10 h-10 md:w-40 md:h-40 z-100 transition flex justify-center items-center rounded-full  backdrop-blur-md backdrop-saturate-150">
+                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full rounded-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
+                <Reload class="text-white w-10 h-10 md:w-20 md:h-20" />
+            </button>
+            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500 mt-45">
+                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
+                <img class="feature-img opacity-60 w-full h-full object-cover" style={`object-position: ${cards[0].images[0].position || "0% 0%"};`} src={cards[0].images[0].src}/>
+            </div>
+            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500">
+                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
+                <img class="feature-img object-cover" style={`object-position: ${cards[0].images[1].position || "0% 0%"};`} src={cards[0].images[1].src}/>
+            </div>
+            <div class="relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden border border-stone-500 mt-45">
+                <div class="absolute w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
+                <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
+                <img class="feature-img opacity-60 w-full h-full object-cover" style={`object-position: ${cards[0].images[2].position || "0% 0%"};`} src={cards[0].images[2].src}/>
+            </div>
         </div>
-        <div class="absolute w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,0.8)]"></div>
-        <img src={cards[0].images[0]} class="w-full h-full object-cover object-[25%_0%] transition-opacity duration-500" alt="">
-    </div>
-
-    <div class="card-wrapper rounded-3xl overflow-hidden md:h-150 md:w-1/3 group border border-stone-500 animate-[fadeUp_0.8s_ease-out_0.3s_forwards] opacity-0 relative mt-20" data-card="2">
-        <div class="bg-black/60 absolute w-full h-full"></div>
-        <div class="absolute w-full h-full shadow-[inset_10px_50px_120px_rgba(180,180,180,0.8)]"></div>
-        <img src={cards[0].images[0]} class="w-full h-full object-cover object-[25%_100%] transition-opacity duration-500" alt="">
     </div>
 </div>
 
-<style>
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(60px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .card-wrapper {
-        transition: transform 0.3s ease;
-    }
-    
-    .card-wrapper:hover {
-        transform: translateY(-20px);
-    }
-</style>
-
 <script define:vars={{ cards }}>
-    
-    const cardElements = document.querySelectorAll('.card-wrapper');
+    const cardElements = document.querySelectorAll(".card-wrapper");
     let currentIndex = 0;
-    
+
     setInterval(() => {
         currentIndex = (currentIndex + 1) % cards[0].image.length;
-        
+
         cardElements.forEach((card, idx) => {
             const data = cards[idx].image[currentIndex];
-            const img = card.querySelector('img');
-            const title = card.querySelector('[data-title]');
-            const type = card.querySelector('[data-type]');
-            
+            const img = card.querySelector("img");
+            const title = card.querySelector("[data-title]");
+            const type = card.querySelector("[data-type]");
+
             // img.style.opacity = '0';
-            
+
             setTimeout(() => {
                 img.src = data;
                 title.textContent = cards[idx].title;
                 type.textContent = cards[idx].type;
-                
-                img.style.opacity = '1';
+
+                img.style.opacity = "1";
             }, 300);
         });
     }, 4000);
