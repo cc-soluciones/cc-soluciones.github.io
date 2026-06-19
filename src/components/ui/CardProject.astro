@@ -1,0 +1,122 @@
+---
+import Link from "@/components/ui/Link.astro";
+import Arrow from "@/components/svg/Arrow.astro";
+import { projects } from "@/constants/general";
+---
+
+{projects.map((item, index) => (
+    <div class="relative flex flex-wrap md:gap-y-25 overflow-hidden md:overflow-visible card-wrapper" data-key={index}>
+        <div class="w-full mb-10 md:mb-0 pt-10 flex justify-center project-title">
+            <Link href={item.url} target="_blank" class="text-lg md:text-2xl font-bold tracking-tight text-center flex gap-2 justify-center items-center px-10 uppercase">
+                <span>{item.title}</span> <Arrow class="mt-1 ml-1"/>
+            </Link>
+        </div>
+        <div class="relative w-screen overflow-hidden feature-imgs feature-img-h">
+            <div class="absolute left-[50%] translate-x-[-50%]">
+                <div class="flex flex-row justify-center items-center gap-[15px]">
+                    {[0, 1, 2].map((imgIndex) => (
+                        <div class={`relative feature-img-wrapper feature-img-w feature-img-h rounded-2xl overflow-hidden ${imgIndex !== 1 ? "mt-45" : ""}`}>
+                            <div class="absolute z-10 w-full h-full shadow-[inset_0_0_20px_rgba(180,180,180,1)]" data-box />
+                            <div class="absolute z-10 w-full h-full shadow-[inset_0_0_30px_rgba(180,180,180,1)]" data-box />
+                            <div class="absolute z-10 w-full h-full shadow-[inset_0_0_60px_rgba(180,180,180,1)]" data-box />
+                            <img
+                                class={`feature-img w-full h-full object-cover transition-all duration-500`}
+                                style={`object-position: ${item.images[imgIndex].position || "0% 0%"}`}
+                                src={item.images[imgIndex].src}
+                                data-img-index={imgIndex}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+))}
+
+<style>
+    .slide-up-fade {
+        animation: slideUpFade 0.6s ease-out forwards;
+    }
+
+    @keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 0.8;
+            transform: translateY(0);
+        }
+    }
+
+    .feature-img, [data-box] {
+        opacity: 0.8;
+        transition:
+            opacity 0.5s ease,
+            transform 0.5s ease;
+    }
+
+    .sliding {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+</style>
+
+<script define:vars={{ projects }}>
+    let currentProjectIndex = 0;
+    const cardElements = document.querySelectorAll(".card-wrapper");
+    const btnReload = document.getElementById("btnReloadProjects");
+
+    function animateProjectChange() {
+        cardElements.forEach((card) => {
+            const images = card.querySelectorAll(".feature-img");
+            const box = card.querySelectorAll("[data-box]");
+
+            images.forEach((img) => img.classList.add("sliding"));
+            box.forEach((b) => b.classList.add("sliding"));
+        });
+
+        setTimeout(() => {
+            currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+            const nextProject = projects[currentProjectIndex];
+
+            cardElements.forEach((card, idx) => {
+                if (idx === 0) {
+                    const title = card.querySelector(".project-title");
+                    const titleTagA = title.querySelector("a");
+                    const titleText = title.querySelector("span");
+                    const images = card.querySelectorAll(".feature-img");
+                    const box = card.querySelectorAll("[data-box]");
+
+                    titleText.textContent = nextProject.title;
+                    titleTagA.href = nextProject.url;
+
+                    images.forEach((img, imgIdx) => {
+                        img.src = nextProject.images[imgIdx].src;
+                        img.style.objectPosition = nextProject.images[imgIdx].position || "0% 0%";
+                    });
+
+                    images.forEach((img) => img.classList.remove("sliding"));
+                    box.forEach((b) => b.classList.remove("sliding"));
+                    
+                    void title.offsetWidth;
+                    
+                    images.forEach((img) => {
+                        img.classList.add("slide-up-fade");
+                    });
+
+                    setTimeout(() => {
+                        images.forEach((img) => img.classList.remove("slide-up-fade"));
+                        box.forEach((b) => b.classList.remove("slide-up-fade"));
+                    }, 600);
+                }
+            });
+        }, 500);
+    }
+
+    btnReload.addEventListener("click", () => {
+        animateProjectChange();
+    });
+
+    setInterval(animateProjectChange, 4000);
+</script>
