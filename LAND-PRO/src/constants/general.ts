@@ -4,6 +4,8 @@ import Instagram from "@/components/svg/Instagram.astro";
 
 export const nameCompany = "CC Soluciones";
 export const metaDescription = "Desarrollo de software a medida, landing pages e integraciones. MVPs, sistemas y automatización con proceso claro y entregas por hitos.";
+export const phone = "56937501589";
+export const whatsappLink = `https://wa.me/${phone}?text=Hola%20CC%20Soluciones%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios.`;
 
 export const socials = {
     linkedin: {
@@ -51,6 +53,46 @@ export const projects = [
     {
         images: [
             {
+                src: "projects/ccsoluciones_1_1.jpeg",
+                position: "0% 60%",
+            },
+            {
+                src: "projects/ccsoluciones_1_1.jpeg",
+                position: "0% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_1_1.jpeg",
+                position: "0% 110%",
+            }
+        ],
+        title: "blacker",
+        url: "http://www.blacker.ca",
+        description: "",
+        type: "Web",
+    },
+    {
+        images: [
+            {
+                src: "projects/ccsoluciones_2_1.jpeg",
+                position: "50% 33%",
+            },
+            {
+                src: "projects/ccsoluciones_2_2.jpeg",
+                position: "50% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_2_3.jpeg",
+                position: "50% 110%",
+            }
+        ],
+        title: "Pnguino en la roca",
+        url: "https://pinguinoenlaroca.com",
+        description: "",
+        type: "Web",
+    },
+    {
+        images: [
+            {
                 src: "projects/ccsoluciones_3_1.jpeg",
                 position: "0% 33%",
             },
@@ -71,21 +113,61 @@ export const projects = [
     {
         images: [
             {
-                src: "projects/ccsoluciones_4_1.jpeg",
+                src: "projects/ccsoluciones_4_1.png",
                 position: "0% 33%",
             },
             {
-                src: "projects/ccsoluciones_4_1.jpeg",
+                src: "projects/ccsoluciones_4_1.png",
                 position: "0% 0%",
             },
             {
-                src: "projects/ccsoluciones_4_1.jpeg",
+                src: "projects/ccsoluciones_4_1.png",
                 position: "0% 110%",
             }
         ],
         title: "Denaval",
-        url: "https://denaval.com",
+        url: "https://denaval.cl",
         description: "Proyecto de desarrollo de software a medida para una empresa de alimentos saludables, incluyendo un sistema de gestión de pedidos y clientes.",
+        type: "Web",
+    },
+    {
+        images: [
+            {
+                src: "projects/ccsoluciones_5_1.jpeg",
+                position: "0% 33%",
+            },
+            {
+                src: "projects/ccsoluciones_5_1.jpeg",
+                position: "0% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_5_1.jpeg",
+                position: "0% 110%",
+            }
+        ],
+        title: "electronica power",
+        url: "https://www.electronicapowerch.com",
+        description: "",
+        type: "Web",
+    },
+    {
+        images: [
+            {
+                src: "projects/ccsoluciones_6_1.png",
+                position: "0% 33%",
+            },
+            {
+                src: "projects/ccsoluciones_6_1.png",
+                position: "0% 0%",
+            },
+            {
+                src: "projects/ccsoluciones_6_1.png",
+                position: "0% 110%",
+            }
+        ],
+        title: "Maquental",
+        url: "https://www.maquental.cl",
+        description: "",
         type: "Web",
     },
 ];

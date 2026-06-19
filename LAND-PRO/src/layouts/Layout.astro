@@ -16,7 +16,7 @@ import "@/styles/global.css";
         <title>{nameCompany}</title>
     </head>
     <body class="bg-primary text-foreground">
-        <div id="custom-cursor md:visible invisible">
+        <div id="custom-cursor" class="md:visible invisible">
             <div class="cursor-fill"/>
             <div class="cursor-ring"/>
         </div>
@@ -75,7 +75,6 @@ import "@/styles/global.css";
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        console.log(entry.isIntersecting)
                         if (!entry.isIntersecting) {
                             return;
                         }

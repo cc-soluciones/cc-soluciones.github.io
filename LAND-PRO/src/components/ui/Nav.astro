@@ -1,11 +1,13 @@
 ---
 import { nav } from "@/constants/general";
+import Link from "@/components/ui/Link.astro";
 import Button from "@/components/ui/Button.astro";
+import { whatsappLink } from "@/constants/general";
 ---
 
 <header>
     <nav
-        class="fixed z-100 left-1/2 -translate-x-1/2 flex items-center w-[calc(100%-2rem)] md:w-auto px-6 py-3 rounded-full text-sm mt-2 backdrop-blur-md backdrop-saturate-150 border border-stone-800 bg-primary/30"
+        class="fixed z-200 left-1/2 -translate-x-1/2 flex items-center w-[calc(100%-2rem)] md:w-auto px-6 py-3 rounded-full text-sm mt-2 backdrop-blur-md backdrop-saturate-150 border border-stone-800 bg-primary/30"
     >
         <div class="hidden md:flex items-center gap-6 ml-7">
             {
@@ -23,9 +25,11 @@ import Button from "@/components/ui/Button.astro";
         </div>
 
         <div class="hidden ml-14 md:flex items-center gap-4">
-            <Button> Contactanos </Button>
+            <Link href={whatsappLink} target="_blank">
+                Contactanos
+            </Link>
         </div>
-        <button id="menuToggle" class="md:hidden text-foreground">
+        <button id="menuToggle" class="md:hidden text-foreground left-auto ml-auto">
             <svg
                 class="w-6 h-6"
                 fill="none"
@@ -48,6 +52,8 @@ import Button from "@/components/ui/Button.astro";
                 {item.label}
             </a>
         ))}
-        <Button size="xl"> Contactanos </Button>
+        <Link size="xl" href={whatsappLink} target="_blank">
+            Contactanos
+        </Link>
     </div>
 </header>
