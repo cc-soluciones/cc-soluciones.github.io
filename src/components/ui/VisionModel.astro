@@ -1,4 +1,4 @@
-<div id="vision-model" class="fixed inset-0 -z-10 pointer-events-none"></div>
+<div id="vision-model" class="absolute inset-0 -z-10 pointer-events-none"></div>
 
 <script>
     import * as THREE from "three";
@@ -108,21 +108,6 @@
         }
     });
 
-    window.addEventListener("scroll", () => {
-        const scrollY = window.scrollY;
-
-        for (const element of elements) {
-            const auxElement = element as any;
-            const start = auxElement?.offsetTop;
-            const end = start + auxElement?.offsetHeight;
-
-            if (scrollY >= start && scrollY < end) {
-                activeSection = auxElement?.dataset?.animation;
-                break;
-            }
-        }
-    });
-
     window.addEventListener("resize", () => {
         const w = container?.clientWidth || window.innerWidth;
         const h = container?.clientHeight || window.innerHeight;
@@ -165,27 +150,6 @@
 
         if (activeSection === "home") {
             group.position.lerp(new THREE.Vector3(5.5, 0, 0), slower);
-        }
-
-        if (activeSection === "landings") {
-            group.position.lerp(new THREE.Vector3(5.5, 0, 0), slower);
-            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube = group.children[18];
-            focusCube.position.lerp(new THREE.Vector3(-3.8, 5, 10), slower);
-        }
-
-        if (activeSection === "software") {
-            group.position.lerp(new THREE.Vector3(-4, 0, 0), slower);
-            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube = group.children[12];
-            focusCube.position.lerp(new THREE.Vector3(4.8, -1.8, 10), slower);
-        }
-
-        if (activeSection === "integrations") {
-            group.position.lerp(new THREE.Vector3(5.5, 0, 0), slower);
-            group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, 0.08);
-            focusCube = group.children[6];
-            focusCube.position.lerp(new THREE.Vector3(-2, 7, 10), slower);
         }
 
         if (activeSection === "footer") {

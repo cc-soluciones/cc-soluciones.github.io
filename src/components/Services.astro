@@ -16,7 +16,7 @@ import { services } from "@/constants/general";
         services &&
             Object.values(services).map((item, index) => (
                 <div
-                    id={item.href.replace("#", "")}
+                    id={item.href.replace("#", "")}                    
                     class="relative min-h-[150dvh] reveal-trigger"
                     data-animation={item.href.replace("#", "")}
                 >
@@ -24,6 +24,7 @@ import { services } from "@/constants/general";
                         <CardServices
                             title={item.label}
                             descriptions={item.descriptions}
+                            index={index}
                             direction={index % 2 === 0 ? "left" : "right"}
                         />
                     </div>
