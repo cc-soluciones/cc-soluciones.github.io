@@ -186,6 +186,10 @@ export const nav = [
         href: "#projects",
     },
     {
+        label: "FAQ's",
+        href: "#faq",
+    },
+    {
         label: "Contacto",
         href: "#contact",
     },
