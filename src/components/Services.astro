@@ -6,31 +6,11 @@ import { services } from "@/constants/general";
 <section id="services" class="max-w-7xl relative min-h-[150dvh] px-6">
     <div class="absolute inset-0 -z-100">
         <div class="sticky top-0 h-screen">
-            <div
-                class="w-full h-full bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary"
-            >
+            <div class="w-full h-full bg-radial from-slate-800 from-[0.5%] via-primary via-[80%] to-primary">
             </div>
         </div>
     </div>
-    {
-        services &&
-            Object.values(services).map((item, index) => (
-                <div
-                    id={item.href.replace("#", "")}                    
-                    class="relative min-h-[150dvh] reveal-trigger"
-                    data-animation={item.href.replace("#", "")}
-                >
-                    <div class="sticky top-0 h-screen flex flex-col justify-center">
-                        <CardServices
-                            title={item.label}
-                            descriptions={item.descriptions}
-                            index={index}
-                            direction={index % 2 === 0 ? "left" : "right"}
-                        />
-                    </div>
-                </div>
-            ))
-    }
+   
 </section>
 <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
