@@ -27,14 +27,15 @@ const formattedIndex = String(index + 1).padStart(2, "0");
 
 <div
     class:list={[
-        "flex flex-col lg:flex-row gap-12 lg:gap-20 items-center mt-10 reveal opacity-0 transition-all duration-700 ease-out",
-        direction === "right" && "lg:flex-row-reverse",
+        "flex flex-col lg:flex-row gap-12 lg:gap-20 items-center mt-10 reveal opacity-0 transition-all duration-700 ease-out border border-white/10 rounded-3xl px-6 md:px-12 bg-gradient-to-tr from-black to-slate-900 h-180",
+        "right"
+        // direction === "right" && "lg:flex-row-reverse",
     ]}
 >
-    <div class="lg:w-1/2 space-y-8">
+    <div class="lg:w-1/2 space-y-8 py-12">
         <div class="flex items-center gap-4">
             <span
-                class="text-6xl md:text-8xl font-black text-white/5 leading-none select-none"
+                class="text-4xl md:text-6xl font-black text-white/15 leading-none select-none"
             >
                 {formattedIndex}
             </span>
@@ -44,10 +45,8 @@ const formattedIndex = String(index + 1).padStart(2, "0");
             </div>
         </div>
 
-        <div class="space-y-6">
-            <h2
-                class="text-3xl md:text-5xl font-bold tracking-tight text-gradient"
-            >
+        <div class="space-y-6 flex flex-col justify-center h-120">
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient">
                 {title}
             </h2>
 
@@ -63,7 +62,7 @@ const formattedIndex = String(index + 1).padStart(2, "0");
                 }
             </div>
 
-            {
+            <!-- {
                 features.length > 0 && (
                     <div class="pt-4">
                         <h4 class="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
@@ -95,7 +94,7 @@ const formattedIndex = String(index + 1).padStart(2, "0");
                         </ul>
                     </div>
                 )
-            }
+            } -->
 
             <div class="flex flex-wrap items-center gap-6 pt-4">
                 {
@@ -148,8 +147,8 @@ const formattedIndex = String(index + 1).padStart(2, "0");
         </div>
     </div>
 
-    <div class="lg:w-1/2 md:block hidden">
-        <div class="liquid-glass-strong rounded-3xl p-6 md:p-12 relative">
+    <div class="border-l border-white/10 lg:w-1/2 h-full md:flex hidden items-center justify-center pl-12">
+        <div class="liquid-glass-strong rounded-3xl p-6 relative w-full">
             <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"/>
             <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"/>
 
@@ -163,26 +162,26 @@ const formattedIndex = String(index + 1).padStart(2, "0");
                     </div>
                 </div>
 
-                <div class="space-y-4 font-mono text-sm">
-                    <div class="flex gap-4">
+                <div class="space-y-2 font-mono text-xs">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">1</span>
                         <span class="text-secondary">import</span>
-                        <span class="text-white/70">{"{ "}{title}{" }"}</span>
+                        <span class="text-white/70 text-nowrap">{"{ "}{title.replace(" ", "")}{" }"}</span>
                         <span class="text-secondary">from</span>
                         <span class="text-green-400/70"
-                            >"@ccsoluciones/services"</span
+                            >"@ccsoluciones"</span
                         >
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">2</span>
                         <span class="text-white/30"
                             >// Desarrollo profesional garantizado</span
                         >
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">3</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">4</span>
                         <span class="text-secondary">const</span>
                         <span class="text-blue-300"> proyecto</span>
@@ -190,13 +189,13 @@ const formattedIndex = String(index + 1).padStart(2, "0");
                         <span class="text-secondary">new</span>
                         <span class="text-white/70"> Proyecto({"{"}</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">5</span>
                         <span class="text-white/70 pl-4">calidad:</span>
                         <span class="text-green-400/70">"premium"</span>
                         <span class="text-white/70">,</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">6</span>
                         <span class="text-white/70 pl-4">entrega:</span>
                         <span class="text-green-400/70"
@@ -204,24 +203,24 @@ const formattedIndex = String(index + 1).padStart(2, "0");
                         >
                         <span class="text-white/70">,</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">7</span>
                         <span class="text-white/70 pl-4">soporte:</span>
                         <span class="text-green-400/70">"24/7"</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">8</span>
                         <span class="text-white/70">{"}"})</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-2">
                         <span class="text-white/20 select-none">9</span>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex">
                         <span class="text-white/20 select-none">10</span>
-                        <span class="text-white/70">proyecto.</span>
+                        <span class="text-white/70 pl-2">proyecto.</span>
                         <span class="text-yellow-300/80">lanzar</span>
                         <span class="text-white/70">()</span>
-                        <span class="text-white/30">
+                        <span class="text-white/30 pl-2">
                             // Tu éxito digital comienza aquí</span
                         >
                     </div>
@@ -229,6 +228,7 @@ const formattedIndex = String(index + 1).padStart(2, "0");
             </div>
         </div>
     </div>
+
 
     <style>
         .typewriter-line {
