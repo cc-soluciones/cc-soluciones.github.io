@@ -1,27 +1,135 @@
 ---
 import Link from "@/components/ui/Link.astro";
 import { whatsappLink } from "@/constants/general";
+import { contactContent, contactFeatures } from "@/constants/contact";
 
 interface Props {
-    id?: string;
+  id?: string;
 }
 
 const { id = "" } = Astro.props as Props;
 ---
-<section id={id} class="max-w-7xl my-40 w-full pt-30 px-6" data-animation="footer">
-    <div class="reveal opacity-0 translate-y-12 transition-all duration-700 ease-out p-12 rounded-[2.5rem] text-center space-y-10 relative overflow-hidden border border-stone-800 backdrop-blur-md backdrop-saturate-150">
-        <div class="absolute top-0 right-0 w-full h-100 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"/>
-        <h3 class="text-3xl md:text-5xl font-bold tracking-tight">
-            ¿Tienes un <span class="text-gradient-secondary">proyecto</span> en mente?
-        </h3>
-        <p class="text-slate-400 max-w-xl mx-auto md:text-xl text-lg leading-relaxed">
-            Estamos listos para ayudarte a construir el futuro de tu empresa.
-            Hablemos sobre cómo podemos escalar tu visión.
-        </p>
-        <div class="pt-4">
-            <Link size="xl" href={whatsappLink} target="_blank">
-                Contactanos
-            </Link>
+
+<section id={id} class="max-w-7xl mx-auto px-6 xl:px-0 py-32" data-animation="contact">
+    <div class="relative overflow-hidden rounded-3xl border border-stone-800 backdrop-blur-xl p-10">
+
+        <div class="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-center"> 
+
+            <div class="space-y-10">
+
+                <div class="flex justify-center">
+                    <span class="inline-flex items-center rounded-full border border-stone-700 px-4 py-2 text-sm font-medium">
+                        {contactContent.badge}
+                    </span>
+                </div>
+
+                <div class="space-y-5">
+
+                    <h2 class="max-w-xl text-4xl md:text-5xl font-bold leading-tight">
+                        {contactContent.title}
+                        <span class="text-gradient-secondary">
+                            {contactContent.highlight}
+                        </span>
+                    </h2>
+
+                    <p class="max-w-xl text-lg leading-relaxed text-slate-400">
+                        {contactContent.description}
+                    </p>
+
+                </div> 
+
+                <div class="flex flex-wrap justify-center gap-4">
+
+                    {
+                        contactFeatures.map(({ Icon, title, description }) => (
+
+                            <article class="flex min-w-48 flex-1 items-center gap-3 rounded-2xl border border-stone-800 bg-white/2 p-4 transition hover:border-stone-600">
+
+                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-stone-700">
+                                    <Icon />
+                                </div>
+
+                                <div>
+
+                                    <h3 class="font-semibold text-sm">
+                                        {title}
+                                    </h3>
+
+                                    <p class="mt-1 text-xs text-slate-400">
+                                        {description}
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+                        ))
+                    }
+
+                </div>
+
+            </div> 
+
+            <div class="w-full justify-self-center rounded-2xl lg:border lg:border-stone-800 lg:bg-white/2 lg:p-8">
+
+                <div class="mb-8 text-center">
+
+                    <h3 class="text-3xl font-bold">
+                        {contactContent.form.title}
+                    </h3>
+
+                    <p class="mt-2 text-slate-400">
+                        {contactContent.form.subtitle}
+                    </p>
+
+                </div>
+
+                <form class="space-y-4">
+
+                    <input
+                        type="text"
+                        placeholder={contactContent.form.fields.name}
+                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
+                    />
+
+                    <input
+                        type="email"
+                        placeholder={contactContent.form.fields.email}
+                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
+                    />
+
+                    <input
+                        type="tel"
+                        placeholder={contactContent.form.fields.phone}
+                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
+                    />
+
+                    <textarea
+                        rows="5"
+                        placeholder={contactContent.form.fields.message}
+                        class="w-full resize-none rounded-xl border border-stone-700 bg-transparent px-5 py-4 outline-none focus:border-primary"
+                    ></textarea>
+
+                    <Link
+                        href={whatsappLink}
+                        target="_blank"
+                        size="lg"
+                        class="flex w-full justify-center"
+                    >
+                        {contactContent.form.button}
+                    </Link>
+
+                </form>
+
+                <p class="mt-6 text-center text-sm text-slate-500">
+                    {contactContent.form.responseTime}
+                </p>
+
+            </div>
+
         </div>
+
     </div>
 </section>
