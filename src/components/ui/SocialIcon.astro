@@ -1,0 +1,53 @@
+---
+interface Props {
+    href: string;
+    label: string;
+    tooltip?: string;
+    color?: string;
+    Icon: any;
+    social?: string;
+}
+
+const {
+    href,
+    label,
+    tooltip,
+    color,
+    Icon,
+    social = "",
+} = Astro.props;
+---
+
+<li class="relative group icon-content">
+
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        data-social={social}
+        class="relative overflow-hidden flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 transition-all duration-300 hover:text-white"
+    >
+
+        <span
+            class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 group-hover:h-full"
+            style={`background:${color}`}
+        ></span>
+
+        <Icon class="relative z-10 w-5 h-5" />
+
+    </a>
+
+    {
+        tooltip && (
+            <span
+                class="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 text-xs rounded-md text-white opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible whitespace-nowrap z-50
+                "
+                style={`background:${color}`}
+            >
+                {tooltip}
+            </span>
+        )
+    }
+
+</li>
