@@ -90,24 +90,28 @@ const { id = "" } = Astro.props as Props;
 
                     <input
                         type="text"
+                        name="name"
                         placeholder={contactContent.form.fields.name}
                         class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
                     />
 
                     <input
                         type="email"
+                        name="email"
                         placeholder={contactContent.form.fields.email}
                         class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
                     />
 
                     <input
                         type="tel"
+                        name="phone"
                         placeholder={contactContent.form.fields.phone}
                         class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
                     />
 
                     <textarea
                         rows="5"
+                        name="message"
                         placeholder={contactContent.form.fields.message}
                         class="w-full resize-none rounded-xl border border-stone-700 bg-transparent px-5 py-4 outline-none focus:border-primary"
                     ></textarea>

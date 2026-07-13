@@ -70,8 +70,8 @@
             position: { x: positionX * spacing, y: positionY, z: 0 },
             size: { x: spacing, y: spacing, z: spacing },
             radius: 0.15,
-            svg: (customs[`${i}`]?.svg as any) || null,
-            onClick: (customs[`${i}`]?.onClick as any) || null,
+            // svg: customs[`${i}`]?.svg ?? null,
+            // onClick: customs[`${i}`]?.onClick ?? null,
         });
 
         positionX++;
