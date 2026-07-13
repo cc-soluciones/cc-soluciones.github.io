@@ -50,26 +50,6 @@ const { id = "" } = Astro.props as Props;
     </div>
 </section>
 
-<script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-        const faqItems = document.querySelectorAll(".faq-item");
-        
-        faqItems.forEach(item => {
-            const trigger = item.querySelector(".faq-trigger");
-            
-            trigger?.addEventListener("click", () => {
-                const isActive = item.classList.contains("active");
-                
-                // Close all others
-                faqItems.forEach(other => {
-                    other.classList.remove("active");
-                });
-                
-                // Toggle current
-                if (!isActive) {
-                    item.classList.add("active");
-                }
-            });
-        });
-    });
+<script>
+    import "@/scripts/faqAccordion";
 </script>

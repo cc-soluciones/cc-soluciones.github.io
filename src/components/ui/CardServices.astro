@@ -1,6 +1,6 @@
 ---
 import Link from "@/components/ui/Link.astro";
-import { whatsappLink } from "@/constants/general";
+import { contactInfo } from "@/data/contact";
 
 interface Props {
     title?: string;
@@ -140,7 +140,7 @@ const formattedIndex = String(index + 1).padStart(2, "0");
             </div>
 
             <div class="pt-4">
-                <Link href={whatsappLink} target="_blank" size="lg">
+                <Link href={contactInfo.whatsappLink} target="_blank" size="lg">
                     Consultar por este servicio
                 </Link>
             </div>

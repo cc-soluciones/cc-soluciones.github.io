@@ -1,12 +1,12 @@
 ---
-import type { AstroComponentFactory } from "astro";
+import { Icon } from "astro-icon/components";
 
 interface Props {
     href: string;
     label: string;
     tooltip?: string;
     color?: string;
-    Icon: AstroComponentFactory;
+    name: string;
     social?: string;
 }
 
@@ -15,7 +15,7 @@ const {
     label,
     tooltip,
     color,
-    Icon,
+    name,
     social = "",
 } = Astro.props;
 ---
@@ -36,7 +36,7 @@ const {
             style={`background:${color}`}
         ></span>
 
-        <Icon class="relative z-10 w-5 h-5" />
+        <Icon name={name} class="relative z-10 w-5 h-5" />
 
     </a>
 

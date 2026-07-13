@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
-import { svgToTexture } from "@/utils/svgToTexture.js";
+import { svgToTexture } from "@/lib/svgToTexture.js";
 
 export const createGlassCube = ({
     position = { x: 0, y: 0, z: 0 },
