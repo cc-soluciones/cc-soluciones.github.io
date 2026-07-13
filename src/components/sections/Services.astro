@@ -1,6 +1,6 @@
 ---
-import CardServices from "./ui/CardServices.astro";
-import { services } from "@/constants/general";
+import CardServices from "@/components/ui/CardServices.astro";
+import { services } from "@/data/services";
 ---
 
 <section id="services" class="max-w-7xl relative min-h-[150dvh] px-6">
@@ -24,9 +24,8 @@ import { services } from "@/constants/general";
                         <div class="sticky top-0 h-screen flex flex-col justify-center">
                             <CardServices
                                 title={item.label}
-                                descriptions={item.descriptions}
+                                descriptions={item.description}
                                 index={index}
-                                direction={index % 2 === 0 ? "left" : "right"}
                             />
                         </div>
                     </div>

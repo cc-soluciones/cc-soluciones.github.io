@@ -1,8 +1,8 @@
 ---
-import { nav } from "@/constants/general";
+import { navConfig } from "@/data/site";
 import Link from "@/components/ui/Link.astro";
 import Button from "@/components/ui/Button.astro";
-import { whatsappLink } from "@/constants/general";
+import { contactInfo } from "@/data/contact";
 ---
 
 <header>
@@ -11,7 +11,7 @@ import { whatsappLink } from "@/constants/general";
     >
         <div class="hidden md:flex items-center gap-6 ml-7">
             {
-                nav.map((item) => (
+                navConfig.map((item) => (
                     <a href={item.href} data-id={item.href.replace("#", "")} class="relative overflow-hidden h-5 group nav-link">
                         <span class="block group-hover:-translate-y-full transition-transform duration-300">
                             {item.label}
@@ -25,8 +25,8 @@ import { whatsappLink } from "@/constants/general";
         </div>
 
         <div class="hidden ml-14 md:flex items-center gap-4">
-            <Link href={whatsappLink} target="_blank">
-                Contactanos
+            <Link href={contactInfo.whatsappLink} target="_blank">
+                Contáctanos
             </Link>
         </div>
         <button id="menuToggle" class="md:hidden text-foreground left-auto ml-auto">
@@ -47,13 +47,13 @@ import { whatsappLink } from "@/constants/general";
         id="mobileMenu"
         class="fixed left-1/2 -translate-x-1/2 hidden top-18 w-[calc(100%-2.5rem)] flex-col items-center gap-10 rounded-xl border border-stone-800 bg-primary/30 py-4 backdrop-blur-md backdrop-saturate-150 z-100"
     >
-        {nav.map((item) => (
+        {navConfig.map((item) => (
             <a class="nav-link text-2xl" href={item.href} data-id={item.href.replace("#", "")}>
                 {item.label}
             </a>
         ))}
-        <Link size="xl" href={whatsappLink} target="_blank">
-            Contactanos
+        <Link size="xl" href={contactInfo.whatsappLink} target="_blank">
+            Contáctanos
         </Link>
     </div>
 </header>

@@ -2,10 +2,10 @@
 
 <script>
     import * as THREE from "three";
-    import { createGlassCube } from "@/utils/createGlassCube";
-    import landingIcon from "@/assets/icons/landing-icon.svg?raw";
-    import softwareIcon from "@/assets/icons/software-icon.svg?raw";
-    import integrationIcon from "@/assets/icons/integration-icon.svg?raw";
+    import { createGlassCube } from "@/lib/createGlassCube";
+    // import landingIcon from "@/assets/icons/landing-icon.svg?raw";
+    // import softwareIcon from "@/assets/icons/software-icon.svg?raw";
+    // import integrationIcon from "@/assets/icons/integration-icon.svg?raw";
 
     const container = document.getElementById("vision-model");
     const width = container?.clientWidth || window.innerWidth;
@@ -18,21 +18,21 @@
     const raycaster = new THREE.Raycaster();
     const mouseNDC = new THREE.Vector2();
     const elements = document.querySelectorAll("[data-animation]");
-    const customs: Record<string, { svg: string; onClick: () => void }> = {
+    const customs: Record<string, { svg?: string; onClick: () => void }> = {
         "18": {
-            svg: softwareIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            // svg: softwareIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
             onClick: () => {
                 window.location.href = "#landings";
             },
         },
         "12": {
-            svg: landingIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            // svg: landingIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
             onClick: () => {
                 window.location.href = "#software";
             },
         },
         "6": {
-            svg: integrationIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
+            // svg: integrationIcon.replaceAll('stroke="#000"', 'stroke="#fff"'),
             onClick: () => {
                 window.location.href = "#integrations";
             },
@@ -70,8 +70,8 @@
             position: { x: positionX * spacing, y: positionY, z: 0 },
             size: { x: spacing, y: spacing, z: spacing },
             radius: 0.15,
-            svg: (customs[`${i}`]?.svg as any) || null,
-            onClick: (customs[`${i}`]?.onClick as any) || null,
+            // svg: customs[`${i}`]?.svg ?? null,
+            // onClick: customs[`${i}`]?.onClick ?? null,
         });
 
         positionX++;

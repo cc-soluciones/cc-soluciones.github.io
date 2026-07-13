@@ -1,6 +1,7 @@
 ---
 import SocialIcon from "@/components/ui/SocialIcon.astro";
-import { nameCompany, socials, services, descriptionFooter } from "@/constants/general";
+import { siteConfig, socialsConfig, footerConfig } from "@/data/site";
+import { services } from "@/data/services";
 ---
 
 <footer class="border-t border-slate-200 dark:border-white/5 pt-16 reveal opacity-0 translate-y-12 transition-all duration-700 ease-out">
@@ -8,20 +9,20 @@ import { nameCompany, socials, services, descriptionFooter } from "@/constants/g
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 px-6">
             <div class="md:col-span-2">
                 <div class="text-2xl font-black mb-6 tracking-tighter">
-                    {nameCompany.split(" ")[0]} <span class="text-gradient-secondary">{nameCompany.split(" ")[1]}</span>
+                    {siteConfig.company.split(" ")[0]} <span class="text-gradient-secondary">{siteConfig.company.split(" ")[1]}</span>
                 </div>
                 <p class="text-slate-500 dark:text-slate-400 max-w-sm mb-8">
-                    {descriptionFooter}
+                    {footerConfig.description}
                 </p>
                 <ul class="flex gap-4">
                     {
-                        Object.entries(socials).map(([key, value]) => (
+                        Object.entries(socialsConfig).map(([key, value]) => (
                             <SocialIcon
                                 href={value.href}
                                 label={value.label}
                                 tooltip={value.tooltip}
                                 color={value.color}
-                                Icon={value.Icon}
+                                name={value.icon}
                                 social={key}
                             />
                         ))
@@ -45,9 +46,9 @@ import { nameCompany, socials, services, descriptionFooter } from "@/constants/g
             </div>
         </div>
         <div class="pt-8 pb-16 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 backdrop-blur-md md:backdrop-blur-none backdrop-saturate-150 md:px-6">
-            <p class="text-sm text-slate-500 dark:text-slate-500">
-                © {new Date().getFullYear()} {nameCompany}. Todos los derechos reservados.
-            </p>
+                <p class="text-sm text-slate-500 dark:text-slate-500">
+                    © {new Date().getFullYear()} {siteConfig.company}. Todos los derechos reservados.
+                </p>
             <div class="flex gap-8">
                 <a
                     class="text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"

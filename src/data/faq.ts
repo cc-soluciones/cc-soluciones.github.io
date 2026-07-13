@@ -1,11 +1,9 @@
----
-interface Props {
-    id?: string;
+export interface FAQItem {
+    question: string;
+    answer: string;
 }
 
-const { id = "" } = Astro.props as Props;
-
-const faqs = [
+export const faqs: FAQItem[] = [
     {
         question: "¿Cuánto tiempo tardan en crear una landing page?",
         answer: "Nuestro proceso estándar para landing pages toma aproximadamente 10 días hábiles desde la aprobación del diseño. Esto incluye: diseño UX/UI, desarrollo responsive, optimización de velocidad, integración de formularios y analytics, y pruebas finales. Si necesitas funcionalidades adicionales como CRM, chatbots o pasarelas de pago, el tiempo puede extenderse 3-5 días adicionales."
@@ -35,70 +33,3 @@ const faqs = [
         answer: "Trabajamos con tecnologías modernas y probadas: Frontend con React, Next.js, Astro y Vue.js; Backend con Node.js, Python/Django, y Go; Bases de datos PostgreSQL, MongoDB y Redis; Infraestructura en AWS, Vercel, Railway y DigitalOcean; Mobile con React Native y Flutter. Elegimos la stack tecnológica según las necesidades específicas de cada proyecto, siempre priorizando performance, seguridad y escalabilidad."
     }
 ];
----
-
-<section id={id} class="max-w-4xl mx-auto w-full px-6 py-32" data-animation="faq">
-    <div class="text-center mb-16 reveal opacity-0 translate-y-12 transition-all duration-700 ease-out">
-        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-secondary border border-secondary/20 bg-secondary/5 mb-6">
-            Preguntas Frecuentes
-        </span>
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            ¿Tienes dudas? <span class="text-gradient-secondary">Te las resolvemos</span>
-        </h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
-            Aquí respondemos las preguntas más comunes sobre nuestros servicios, procesos y tecnologías.
-        </p>
-    </div>
-
-    <div class="space-y-4">
-        {faqs.map((faq, index) => (
-            <div 
-                class="faq-item reveal opacity-0 translate-y-8 transition-all duration-500 ease-out border-b border-white/10"
-                data-delay={index * 10}
-                style={`transition-delay: ${index * 10}ms`}
-            >
-                <button class="faq-trigger w-full flex items-center justify-between p-6 md:p-8 text-left">
-                    <span class="text-lg md:text-xl font-semibold pr-4 text-white/90">
-                        {faq.question}
-                    </span>
-                    <span class="faq-icon flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
-                        <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </span>
-                </button>
-                <div class="faq-answer px-6 md:px-8 pb-6 md:pb-8">
-                    <div class="pt-2">
-                        <p class="text-slate-400 leading-relaxed text-base md:text-lg pt-4">
-                            {faq.answer}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        ))}
-    </div>
-</section>
-
-<script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-        const faqItems = document.querySelectorAll(".faq-item");
-        
-        faqItems.forEach(item => {
-            const trigger = item.querySelector(".faq-trigger");
-            
-            trigger?.addEventListener("click", () => {
-                const isActive = item.classList.contains("active");
-                
-                // Close all others
-                faqItems.forEach(other => {
-                    other.classList.remove("active");
-                });
-                
-                // Toggle current
-                if (!isActive) {
-                    item.classList.add("active");
-                }
-            });
-        });
-    });
-</script>
