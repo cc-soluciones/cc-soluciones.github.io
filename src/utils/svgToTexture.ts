@@ -1,11 +1,11 @@
 import * as THREE from "three";
 
-export const svgToTexture = (svgString: any, size = 256) => {
+export const svgToTexture = (svgString: string, size = 256) => {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
 
-    const ctx: any = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     const scale = 0.85;
     const img = new Image();
     const svgBlob = new Blob([svgString], {
@@ -14,6 +14,7 @@ export const svgToTexture = (svgString: any, size = 256) => {
     const url = URL.createObjectURL(svgBlob);
 
     img.onload = () => {
+        if (!ctx) return;
         ctx.clearRect(0, 0, size, size);
         ctx.save();
         ctx.translate(size / 2, size / 2);

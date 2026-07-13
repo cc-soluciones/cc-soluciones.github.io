@@ -1,10 +1,12 @@
 ---
+import type { AstroComponentFactory } from "astro";
+
 interface Props {
     href: string;
     label: string;
     tooltip?: string;
     color?: string;
-    Icon: any;
+    Icon: AstroComponentFactory;
     social?: string;
 }
 

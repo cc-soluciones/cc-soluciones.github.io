@@ -1,4 +1,17 @@
-export const projects = [
+export interface ProjectImage {
+    src: string;
+    position: string;
+}
+
+export interface Project {
+    images: ProjectImage[];
+    title: string;
+    url: string;
+    description: string;
+    type: string;
+}
+
+export const projects: Project[] = [
     {
         images: [
             {
