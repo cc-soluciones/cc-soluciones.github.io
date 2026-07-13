@@ -1,9 +1,3 @@
-import Linkedin from "@/components/svg/Linkedin.astro";
-import Instagram from "@/components/svg/Instagram.astro";
-import Whatsapp from "@/components/svg/Whatsapp.astro";
-import GitHub from "@/components/svg/GitHub.astro";
-import Mail from "@/components/svg/Mail.astro";
-
 export const siteConfig = {
     company: "CC Soluciones",
     description: "Desarrollo de software a medida, landing pages e integraciones. MVPs, sistemas y automatización con proceso claro y entregas por hitos.",
@@ -39,12 +33,12 @@ export const footerConfig = {
     description: `Ayudamos a emprendedores y PYMES a digitalizar su visión con software de alta calidad y tiempos de entrega garantizados.`,
 }
 
-export const socials = {
+export const socialsConfig = {
   linkedin: {
     label: "LinkedIn",
     tooltip: "Conoce nuestra empresa",
     href: "...",
-    Icon: Linkedin,
+    icon: "mdi:linkedin",
     color: "#0A66C2",
   },
 
@@ -52,7 +46,7 @@ export const socials = {
     label: "GitHub",
     tooltip: "Nuestros proyectos",
     href: "...",
-    Icon: GitHub,
+    icon: "mdi:github",
     color: "#24292f",
   },
 
@@ -60,7 +54,7 @@ export const socials = {
     label: "Instagram",
     tooltip: "Síguenos",
     href: "...",
-    Icon: Instagram,
+    icon: "mdi:instagram",
     color:
       "linear-gradient(45deg,#405de6,#833ab4,#e1306c,#fd1d1d,#fcb045)",
   },
@@ -69,7 +63,7 @@ export const socials = {
     label: "WhatsApp",
     tooltip: "Solicitar cotización",
     href: siteConfig.whatsappLink,
-    Icon: Whatsapp,
+    icon: "mdi:whatsapp",
     color: "#25D366",
   },
 
@@ -77,7 +71,7 @@ export const socials = {
     label: "Correo",
     tooltip: "ccsolucionesspa@gmail.com",
     href: "mailto:ccsolucionesspa@gmail.com",
-    Icon: Mail,
+    icon: "mdi:email",
     color: "#ef4444",
   },
 };
