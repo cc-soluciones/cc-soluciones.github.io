@@ -1,7 +1,6 @@
 ---
-import { Icon } from "astro-icon/components";
-import Link from "@/components/ui/Link.astro";
-import { contactInfo, contactContent, contactFeatures } from "@/data/contact";
+import ContactInfo from "@/components/ui/ContactInfo.astro";
+import ContactForm from "@/components/ui/ContactForm.astro";
 
 interface Props {
   id?: string;
@@ -15,124 +14,9 @@ const { id = "" } = Astro.props as Props;
 
         <div class="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
 
-        <div class="grid lg:grid-cols-2 gap-12 items-center"> 
-
-            <div class="space-y-10">
-
-                <div class="flex justify-center">
-                    <span class="inline-flex items-center rounded-full border border-stone-700 px-4 py-2 text-sm font-medium">
-                        {contactContent.badge}
-                    </span>
-                </div>
-
-                <div class="space-y-5">
-
-                    <h2 class="max-w-xl text-4xl md:text-5xl font-bold leading-tight">
-                        {contactContent.title}
-                        <span class="text-gradient-secondary">
-                            {contactContent.highlight}
-                        </span>
-                    </h2>
-
-                    <p class="max-w-xl text-lg leading-relaxed text-slate-400">
-                        {contactContent.description}
-                    </p>
-
-                </div> 
-
-                <div class="flex flex-wrap justify-center gap-4">
-
-                    {
-                        contactFeatures.map(({ icon, title, description }) => (
-
-                            <article class="flex min-w-48 flex-1 items-center gap-3 rounded-2xl border border-stone-800 bg-white/2 p-4 transition hover:border-stone-600">
-
-                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-stone-700">
-                                    <Icon name={icon} class="w-6 h-6" />
-                                </div>
-
-                                <div>
-
-                                    <h3 class="font-semibold text-sm">
-                                        {title}
-                                    </h3>
-
-                                    <p class="mt-1 text-xs text-slate-400">
-                                        {description}
-                                    </p>
-
-                                </div>
-
-                            </article>
-
-                        ))
-                    }
-
-                </div>
-
-            </div> 
-
-            <div class="w-full justify-self-center rounded-2xl lg:border lg:border-stone-800 lg:bg-white/2 lg:p-8">
-
-                <div class="mb-8 text-center">
-
-                    <h3 class="text-3xl font-bold">
-                        {contactContent.form.title}
-                    </h3>
-
-                    <p class="mt-2 text-slate-400">
-                        {contactContent.form.subtitle}
-                    </p>
-
-                </div>
-
-                <form class="space-y-4">
-
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder={contactContent.form.fields.name}
-                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
-                    />
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder={contactContent.form.fields.email}
-                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
-                    />
-
-                    <input
-                        type="tel"
-                        name="phone"
-                        placeholder={contactContent.form.fields.phone}
-                        class="h-12 w-full rounded-xl border border-stone-700 bg-transparent px-5 outline-none focus:border-primary"
-                    />
-
-                    <textarea
-                        rows="5"
-                        name="message"
-                        placeholder={contactContent.form.fields.message}
-                        class="w-full resize-none rounded-xl border border-stone-700 bg-transparent px-5 py-4 outline-none focus:border-primary"
-                    ></textarea>
-
-                    <Link
-                        href={contactInfo.whatsappLink}
-                        target="_blank"
-                        size="lg"
-                        class="flex w-full justify-center"
-                    >
-                        {contactContent.form.button}
-                    </Link>
-
-                </form>
-
-                <p class="mt-6 text-center text-sm text-slate-500">
-                    {contactContent.form.responseTime}
-                </p>
-
-            </div>
-
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <ContactInfo />
+            <ContactForm />
         </div>
 
     </div>

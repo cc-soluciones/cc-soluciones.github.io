@@ -1,0 +1,26 @@
+---
+export type FieldTag = "input" | "textarea";
+
+interface Props {
+	tag?: FieldTag;
+	type?: string;
+	name: string;
+	placeholder: string;
+	rows?: number;
+}
+
+const { tag = "input", type = "text", name, placeholder, rows = 5 } = Astro.props;
+
+const baseClass =
+	"w-full rounded-xl border border-stone-700 bg-transparent outline-none focus:border-primary";
+const inputClass = `${baseClass} h-12 px-5`;
+const textareaClass = `${baseClass} resize-none px-5 py-4`;
+---
+
+{
+	tag === "textarea" ? (
+		<textarea {name} {placeholder} rows={rows} class={textareaClass}></textarea>
+	) : (
+		<input {type} {name} {placeholder} class={inputClass} />
+	)
+}

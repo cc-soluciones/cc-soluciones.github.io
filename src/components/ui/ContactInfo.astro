@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+import { contactContent, contactFeatures } from "@/data/contact";
+---
+
+<div class="space-y-10">
+	<div class="flex justify-center">
+		<span class="inline-flex items-center rounded-full border border-stone-700 px-4 py-2 text-sm font-medium">
+			{contactContent.badge}
+		</span>
+	</div>
+
+	<div class="space-y-5">
+		<h2 class="max-w-xl text-4xl md:text-5xl font-bold leading-tight">
+			{contactContent.title}
+			<span class="text-gradient-secondary">
+				{contactContent.highlight}
+			</span>
+		</h2>
+
+		<p class="max-w-xl text-lg leading-relaxed text-slate-400">
+			{contactContent.description}
+		</p>
+	</div>
+
+	<div class="flex flex-wrap justify-center gap-4">
+		{
+			contactFeatures.map(({ icon, title, description }) => (
+				<article class="flex min-w-48 flex-1 items-center gap-3 rounded-2xl border border-stone-800 bg-white/2 p-4 transition hover:border-stone-600">
+					<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-stone-700">
+						<Icon name={icon} class="w-6 h-6" />
+					</div>
+					<div>
+						<h3 class="font-semibold text-sm">{title}</h3>
+						<p class="mt-1 text-xs text-slate-400">{description}</p>
+					</div>
+				</article>
+			))
+		}
+	</div>
+</div>

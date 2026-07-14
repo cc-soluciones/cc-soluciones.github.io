@@ -1,0 +1,32 @@
+---
+import Link from "@/components/ui/Link.astro";
+import InputField from "@/components/ui/InputField.astro";
+import { contactContent, contactInfo } from "@/data/contact";
+---
+
+<div class="w-full justify-self-center rounded-2xl lg:border lg:border-stone-800 lg:bg-white/2 lg:p-8">
+	<div class="mb-8 text-center">
+		<h3 class="text-3xl font-bold">{contactContent.form.title}</h3>
+		<p class="mt-2 text-slate-400">{contactContent.form.subtitle}</p>
+	</div>
+
+	<form class="space-y-4">
+		<InputField name="name" type="text" placeholder={contactContent.form.fields.name} />
+		<InputField name="email" type="email" placeholder={contactContent.form.fields.email} />
+		<InputField name="phone" type="tel" placeholder={contactContent.form.fields.phone} />
+		<InputField tag="textarea" name="message" placeholder={contactContent.form.fields.message} />
+
+		<Link
+			href={contactInfo.whatsappLink}
+			target="_blank"
+			size="lg"
+			class="flex w-full justify-center"
+		>
+			{contactContent.form.button}
+		</Link>
+	</form>
+
+	<p class="mt-6 text-center text-sm text-slate-500">
+		{contactContent.form.responseTime}
+	</p>
+</div>
