@@ -1,9 +1,10 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
 export type FieldTag = "input" | "textarea";
 
-interface Props {
+interface Props extends HTMLAttributes<"input">{
 	tag?: FieldTag;
-	type?: string;
 	name: string;
 	placeholder: string;
 	rows?: number;
