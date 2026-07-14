@@ -1,0 +1,9 @@
+---
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class:list={["absolute inset-0", className]} {...rest} aria-hidden="true">
+	<div class="absolute inset-0 shadow-[inset_0_0_20px_rgba(180,180,180,1)]"></div>
+	<div class="absolute inset-0 shadow-[inset_0_0_30px_rgba(180,180,180,1)]"></div>
+	<div class="absolute inset-0 shadow-[inset_0_0_60px_rgba(180,180,180,1)]"></div>
+</div>
