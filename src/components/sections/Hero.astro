@@ -1,6 +1,6 @@
 ---
-import Arrow from "@/components/svg/Arrow.astro";
 import Typewriter from "@/components/ui/Typewriter.astro";
+import GridBackground from "@/components/ui/GridBackground.astro";
 
 interface Props {
     id?: string;
@@ -9,8 +9,12 @@ interface Props {
 const { id = "" } = Astro.props as Props;
 ---
 
-<section id={id} class="max-w-7xl w-full mb-32 flex items-center md:items-start text-center h-dvh md:text-left px-6" data-animation="home">
-    <div class="md:w-1/2 space-y-8 md:mt-52">
+<section id={id} class="w-full flex items-center md:items-start text-center h-dvh md:text-left px-6 md:px-12 relative bg-background" data-animation="home">
+    <GridBackground
+        className="z-100"
+        maskGradient="radial-gradient(ellipse 70% 60% at 50% 100%, #000 60%, transparent 100%)"
+    />
+    <div class="md:w-1/2 space-y-8 md:mt-52 md:pl-8">
         <h1 class="text-4xl lg:text-7xl font-bold leading-tight tracking-tight">
             Creamos
             <br>
@@ -30,13 +34,13 @@ const { id = "" } = Astro.props as Props;
             fin.
         </p>
     </div>
-    <div class="w-8 absolute bottom-0 md:bottom-10 left-[calc(50%-1rem)]">
+    <div class="w-8 md:bottom-10 left-[calc(50%-1rem)]">
         <div class="ring-2 rounded-full w-8 h-16 pt-4">
             <div class="bg-foreground w-2 h-4 mx-auto rounded-full animate-bounce"/>
         </div>
         <div class="animate-bounce pt-4">
             <div class="rotate-90">
-                <Arrow/>
+                <!-- <Arrow/> -->
             </div>
         </div>
     </div>

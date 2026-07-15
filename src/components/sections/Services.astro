@@ -1,35 +1,31 @@
 ---
+import SectionHeader from "@/components/ui/SectionHeader.astro";
 import CardServices from "@/components/ui/CardServices.astro";
 import { services } from "@/data/services";
+
+interface Props {
+    id?: string;
+}
+
+const { id = "services" } = Astro.props as Props;
 ---
 
-<section id="services" class="max-w-7xl relative min-h-[150dvh] px-6">
-    <div class="absolute inset-0 -z-100">
-        <div class="sticky top-0 h-screen">
-            <div
-                class="w-full h-full"
-            >
-            </div>
-        </div>
-    </div>
-    <div class="relative">
+<section id={id} class="max-w-7xl mx-auto px-6 py-32" data-animation="services">
+    <SectionHeader
+        badge="Servicios"
+        title="Lo que"
+        highlight="hacemos"
+        description="Desarrollamos soluciones digitales con proceso claro, entregas por hitos y acompañamiento técnico continuo."
+    />
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8">
         {
-            services &&
-                Object.values(services).map((item, index) => (
-                    <div
-                        id={item.href.replace("#", "")}                    
-                        class="min-h-[150dvh] reveal-trigger sticky h-screen top-0"
-                        data-animation={item.href.replace("#", "")}
-                    >
-                        <div class="sticky top-0 h-screen flex flex-col justify-center">
-                            <CardServices
-                                title={item.label}
-                                descriptions={item.descriptions}
-                                index={index}
-                            />
-                        </div>
-                    </div>
-                ))
-        }        
+            services && Object.values(services).map((item, index) => (
+                <CardServices
+                    title={item.label}
+                    descriptions={item.descriptions}
+                    index={index}
+                />
+            ))
+        }
     </div>
 </section>

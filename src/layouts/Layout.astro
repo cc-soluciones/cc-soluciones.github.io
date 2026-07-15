@@ -1,34 +1,45 @@
 ---
 import Nav from "@/components/ui/Nav.astro";
 import Footer from "@/components/ui/Footer.astro";
+import GridBackground from "@/components/ui/GridBackground.astro";
 import { siteConfig } from "@/data/site";
 import "@/styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <meta name="description" content={siteConfig.description}>
+        <meta name="description" content={siteConfig.description} />
         <title>{siteConfig.company}</title>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={siteConfig.company} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:locale" content="es_CL" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={siteConfig.company} />
+        <meta name="twitter:description" content={siteConfig.description} />
+
+        <link rel="canonical" href={Astro.url} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     </head>
-    <body class="bg-primary text-foreground">
-        <div id="custom-cursor" class="md:visible invisible">
-            <div class="cursor-fill"/>
-            <div class="cursor-ring"/>
-        </div>
+    <body class="bg-background text-foreground w-full relative">
+        <GridBackground className="-z-100" />
         <Nav/>
-        <main class="flex flex-wrap justify-center mx-auto">
+        <main>
             <slot />
         </main>
         <Footer/>
         <script>
-            import "@/scripts/cursor";
             import "@/scripts/scrollReveal";
             import "@/scripts/scrollspy";
             import "@/scripts/mobileMenu";
+            import "@/lib/typewriter";
         </script>
     </body>
 </html>

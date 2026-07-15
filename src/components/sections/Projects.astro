@@ -1,7 +1,7 @@
 ---
-import Reload from "@/components/svg/Reload.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
 import CardProject from "@/components/ui/CardProject.astro";
-import ShadowOverlay from "@/components/ui/ShadowOverlay.astro";
+import { projects } from "@/data/projects";
 
 interface Props {
     id?: string;
@@ -9,15 +9,16 @@ interface Props {
 
 const { id = "" } = Astro.props as Props;
 ---
-<section id={id} class="my-40 w-full pt-30" data-animation="projects">
-    <div class="relative md:h-dvh h-[calc(100dvh-5rem)] max-h-[calc(100dvh-5rem)] md:max-h-dvh overflow-hidden">
-        <div class="absolute left-[84%] md:left-[64%] top-[32%]">
-            <button class="cursor-pointer hover:scale-110 absolute p-1 w-10 h-10 md:w-30 md:h-30 z-100 transition flex justify-center items-center rounded-full backdrop-blur-md backdrop-saturate-150 hover:rotate-90" id="btnReloadProjects">
-                <ShadowOverlay class="rounded-full border md:border-0" />
-                <Reload class="text-white w-10 h-10 md:w-20 md:h-20" />
-            </button>
-        </div>
-        <div class="absolute -bottom-0.5 left-0 right-0 pointer-event-none bg-projects-box"></div>
-        <CardProject/>
+<section id={id} class="max-w-7xl mx-auto px-6 py-32" data-animation="projects">
+    <SectionHeader
+        badge="Proyectos"
+        title="Trabajos"
+        highlight="recientes"
+        description="Conoce algunos de los proyectos que hemos desarrollado."
+    />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((item) => (
+            <CardProject project={item} />
+        ))}
     </div>
 </section>

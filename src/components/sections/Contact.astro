@@ -1,23 +1,27 @@
 ---
 import ContactInfo from "@/components/ui/ContactInfo.astro";
 import ContactForm from "@/components/ui/ContactForm.astro";
+import GridBackground from "@/components/ui/GridBackground.astro";
 
 interface Props {
-  id?: string;
+    id?: string;
 }
 
 const { id = "" } = Astro.props as Props;
 ---
 
-<section id={id} class="max-w-7xl mx-auto px-6 xl:px-0 py-32" data-animation="contact">
-    <div class="relative overflow-hidden rounded-3xl border border-stone-800 backdrop-blur-xl p-10">
-
-        <div class="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
-
+<section
+    id={id}
+    class="mx-auto px-6 py-32 relative bg-background"
+    data-animation="contact"
+>
+    <GridBackground
+        maskGradient="radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)"
+    />
+    <div class="glass rounded-3xl p-8 md:p-12 max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
             <ContactInfo />
             <ContactForm />
         </div>
-
     </div>
 </section>

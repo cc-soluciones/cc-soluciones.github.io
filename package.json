@@ -13,9 +13,8 @@
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^7.0.7",
     "astro-icon": "^1.1.5",
+    "motion": "^12.42.2",
     "tailwindcss": "^4.1.18"
   },
-  "devDependencies": {
-    "@types/three": "^0.182.0"
-  }
+  "devDependencies": {}
 }

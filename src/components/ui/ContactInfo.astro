@@ -1,13 +1,12 @@
 ---
+import Badge from "@/components/ui/Badge.astro";
 import { Icon } from "astro-icon/components";
 import { contactContent, contactFeatures } from "@/data/contact";
 ---
 
 <div class="space-y-10">
 	<div class="flex justify-center">
-		<span class="inline-flex items-center rounded-full border border-stone-700 px-4 py-2 text-sm font-medium">
-			{contactContent.badge}
-		</span>
+		<Badge text={contactContent.badge} variant="light" />
 	</div>
 
 	<div class="space-y-5">
@@ -26,8 +25,8 @@ import { contactContent, contactFeatures } from "@/data/contact";
 	<div class="flex flex-wrap justify-center gap-4">
 		{
 			contactFeatures.map(({ icon, title, description }) => (
-				<article class="flex min-w-48 flex-1 items-center gap-3 rounded-2xl border border-stone-800 bg-white/2 p-4 transition hover:border-stone-600">
-					<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-stone-700">
+				<article class="flex min-w-48 flex-1 items-center gap-3 rounded-2xl border border-white/10 p-4 transition hover:border-white/30">
+					<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10">
 						<Icon name={icon} class="w-6 h-6" />
 					</div>
 					<div>

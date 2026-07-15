@@ -1,32 +1,42 @@
 ---
-import Link from "@/components/ui/Link.astro";
 import InputField from "@/components/ui/InputField.astro";
 import { contactContent, contactInfo } from "@/data/contact";
 ---
 
-<div class="w-full justify-self-center rounded-2xl lg:border lg:border-stone-800 lg:bg-white/2 lg:p-8">
+<div class="w-full justify-self-center rounded-2xl border border-white/10 p-8">
 	<div class="mb-8 text-center">
 		<h3 class="text-3xl font-bold">{contactContent.form.title}</h3>
 		<p class="mt-2 text-slate-400">{contactContent.form.subtitle}</p>
 	</div>
 
-	<form class="space-y-4">
+	<form class="space-y-4" netlify method="POST" name="contact">
+		<input type="hidden" name="form-name" value="contact" />
+
+		<label for="field-name" class="sr-only">{contactContent.form.fields.name}</label>
 		<InputField name="name" type="text" placeholder={contactContent.form.fields.name} />
+
+		<label for="field-email" class="sr-only">{contactContent.form.fields.email}</label>
 		<InputField name="email" type="email" placeholder={contactContent.form.fields.email} />
+
+		<label for="field-phone" class="sr-only">{contactContent.form.fields.phone}</label>
 		<InputField name="phone" type="tel" placeholder={contactContent.form.fields.phone} />
+
+		<label for="field-message" class="sr-only">{contactContent.form.fields.message}</label>
 		<InputField tag="textarea" name="message" placeholder={contactContent.form.fields.message} />
 
-		<Link
-			href={contactInfo.whatsappLink}
-			target="_blank"
-			size="lg"
-			class="flex w-full justify-center"
+		<button
+			type="submit"
+			class="bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200 cursor-pointer flex w-full justify-center px-6 py-3 text-lg"
 		>
 			{contactContent.form.button}
-		</Link>
-	</form>
+		</button>
 
-	<p class="mt-6 text-center text-sm text-slate-500">
-		{contactContent.form.responseTime}
-	</p>
+		<a
+			href={contactInfo.whatsappLink}
+			target="_blank"
+			class="block text-center text-sm text-slate-500 hover:text-white transition-colors"
+		>
+			{contactContent.form.responseTime}
+		</a>
+	</form>
 </div>

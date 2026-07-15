@@ -9,6 +9,15 @@
     --color-success: #28a745;
 }
 
+.dark {
+    --color-primary: #000000;
+    --color-secondary: #00b4d8;
+    --color-foreground: #ffffff;
+    --color-foreground-secondary: #a6a6a6;
+    --color-background: #000000;
+    --color-success: #28a745;
+}
+
 /* ============================================
    SCROLLBAR
    ============================================ */

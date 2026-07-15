@@ -1,6 +1,7 @@
 export interface SiteConfig {
     company: string;
     description: string;
+    logo: string;
 }
 
 export interface NavItem {
@@ -27,6 +28,7 @@ export type SocialsConfig = Record<SocialId, SocialLink>;
 export const siteConfig: SiteConfig = {
     company: "CC Soluciones",
     description: "Desarrollo de software a medida, landing pages e integraciones. MVPs, sistemas y automatización con proceso claro y entregas por hitos.",
+    logo: "/logo.png",
 };
 
 export const navConfig: NavItem[] = [

@@ -1,0 +1,20 @@
+---
+import Badge from "@/components/ui/Badge.astro";
+
+interface Props {
+    badge: string;
+    title: string;
+    highlight: string;
+    description: string;
+}
+
+const { badge, title, highlight, description } = Astro.props as Props;
+---
+
+<div class="text-center mb-16 reveal opacity-0 translate-y-12">
+    <Badge text={badge} />
+    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mt-6 mb-6">
+        {title} <span class="text-gradient-secondary">{highlight}</span>
+    </h2>
+    <p class="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">{description}</p>
+</div>

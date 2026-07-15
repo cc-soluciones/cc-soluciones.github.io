@@ -1,23 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const reveals = document.querySelectorAll(".reveal");
+import { inView, animate } from "motion";
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.remove("opacity-0", "translate-y-12");
-                    entry.target.classList.add("opacity-100", "translate-y-0");
-                } else {
-                    entry.target.classList.remove("opacity-100", "translate-y-0");
-                    entry.target.classList.add("opacity-0", "translate-y-12");
-                }
-            });
-        },
-        {
-            threshold: 0,
-            rootMargin: "-20% 0px -20% 0px"
-        }
-    );
+inView(
+	".reveal",
+	(el) => {
+		const animation = animate(
+			el,
+			{ opacity: 1, y: 0 },
+			{ duration: 0.7, easing: [0.4, 0, 0.2, 1] },
+		);
 
-    reveals.forEach(el => observer.observe(el));
-});
+		return () => {
+			animation?.cancel();
+			animate(el, { opacity: 0, y: 48 }, { duration: 0.5 });
+		};
+	},
+	{ margin: "-20% 0px -20% 0px" },
+);

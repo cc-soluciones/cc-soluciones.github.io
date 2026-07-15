@@ -12,16 +12,17 @@ interface Props extends HTMLAttributes<"input">{
 
 const { tag = "input", type = "text", name, placeholder, rows = 5 } = Astro.props;
 
+const inputId = `field-${name}`;
 const baseClass =
-	"w-full rounded-xl border border-stone-700 bg-transparent outline-none focus:border-primary";
+	"w-full rounded-xl border border-white/10 bg-transparent outline-none focus:border-white/30 transition-colors";
 const inputClass = `${baseClass} h-12 px-5`;
 const textareaClass = `${baseClass} resize-none px-5 py-4`;
 ---
 
 {
 	tag === "textarea" ? (
-		<textarea {name} {placeholder} rows={rows} class={textareaClass}></textarea>
+		<textarea id={inputId} {name} {placeholder} rows={rows} class={textareaClass}></textarea>
 	) : (
-		<input {type} {name} {placeholder} class={inputClass} />
+		<input id={inputId} {type} {name} {placeholder} class={inputClass} />
 	)
 }

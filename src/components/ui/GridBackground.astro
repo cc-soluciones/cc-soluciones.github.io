@@ -1,0 +1,34 @@
+---
+interface Props {
+    size?: string;
+    color?: string;
+    maskGradient?: string;
+    className?: string;
+}
+
+const {
+    size = "60px 60px",
+    color = "var(--color-stone-900)",
+    maskGradient = "",
+    className = "",
+} = Astro.props as Props;
+
+const maskStyle = maskGradient
+    ? {
+          WebkitMaskImage: maskGradient,
+          maskImage: maskGradient,
+      }
+    : {};
+---
+
+<div
+    class:list={["absolute inset-0", className]}
+    style={{
+        backgroundImage: `
+            linear-gradient(to right, ${color} 1px, transparent 1px),
+            linear-gradient(to bottom, ${color} 1px, transparent 1px)
+        `,
+        backgroundSize: size,
+        ...maskStyle,
+    }}
+/>
