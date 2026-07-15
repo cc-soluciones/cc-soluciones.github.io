@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import Typewriter from "@/components/ui/Typewriter.astro";
 import GridBackground from "@/components/ui/GridBackground.astro";
 
@@ -9,39 +11,39 @@ interface Props {
 const { id = "" } = Astro.props as Props;
 ---
 
-<section id={id} class="w-full flex items-center md:items-start text-center h-dvh md:text-left px-6 md:px-12 relative bg-background" data-animation="home">
+<section id={id} class="w-full flex flex-wrap items-center text-center h-dvh md:text-left px-6 md:px-12 relative bg-background" data-animation="home">
     <GridBackground
-        className="z-100"
+        className="z-10"
         maskGradient="radial-gradient(ellipse 70% 60% at 50% 100%, #000 60%, transparent 100%)"
     />
-    <div class="md:w-1/2 space-y-8 md:mt-52 md:pl-8">
-        <h1 class="text-4xl lg:text-7xl font-bold leading-tight tracking-tight">
-            Creamos
-            <br>
-            <Typewriter
-                messages={["landing pages", "software a medida", "integraciones", "MVPs", "aplicaciones web", "aplicaciones móviles"]}
-                writeSpeed={150}
-                deleteSpeed={80}
-                waitWritten={2000}
-                waitDeleted={1000}
-                class="text-gradient-secondary"
-            /> 
-            <br> para tu negocio
-        </h1>
-        <p class="text-md md:text-xl text-slate-400 max-w-lg leading-relaxed">
-            Creamos landing pages en <b class="text-white">10 días</b> y MVPs en <b class="text-white">6 semanas</b>, con un proceso
-            claro, entregas por hitos y acompañamiento técnico de principio a
-            fin.
-        </p>
+    <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between relative z-20 pt-30">
+        <div class="md:w-1/2 space-y-8">
+            <h1 class="text-4xl lg:text-7xl font-bold leading-tight tracking-tight">
+                Creamos
+                <br>
+                <Typewriter
+                    messages={["landing pages", "software a medida", "integraciones", "MVPs", "aplicaciones web", "aplicaciones móviles"]}
+                    writeSpeed={150}
+                    deleteSpeed={80}
+                    waitWritten={2000}
+                    waitDeleted={1000}
+                    class="text-gradient-secondary"
+                /> 
+                <br> para tu negocio
+            </h1>
+            <p class="text-md md:text-xl text-slate-400 max-w-lg leading-relaxed">
+                Creamos landing pages en <b class="text-white">10 días</b> y MVPs en <b class="text-white">6 semanas</b>, con un proceso
+                claro, entregas por hitos y acompañamiento técnico de principio a
+                fin.
+            </p>
+        </div>
     </div>
-    <div class="w-8 md:bottom-10 left-[calc(50%-1rem)]">
+    <div class="w-full md:bottom-10 left-[calc(50%-1rem)] flex flex-col items-center z-100">
         <div class="ring-2 rounded-full w-8 h-16 pt-4">
             <div class="bg-foreground w-2 h-4 mx-auto rounded-full animate-bounce"/>
         </div>
         <div class="animate-bounce pt-4">
-            <div class="rotate-90">
-                <!-- <Arrow/> -->
-            </div>
+            <Icon name="mdi:keyboard-arrow-down" class="w-8 h-8 text-slate-400" />
         </div>
     </div>
 </section>
