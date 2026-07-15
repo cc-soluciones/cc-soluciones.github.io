@@ -40,6 +40,27 @@ import "@/styles/global.css";
             import "@/scripts/scrollspy";
             import "@/scripts/mobileMenu";
             import "@/lib/typewriter";
+
+            const init = () => {
+                const section = document.getElementById("services");
+                if (section) {
+                    const details = section.querySelectorAll("details");
+                    details.forEach((d) => {
+                        const summary = d.querySelector("summary");
+                        if (!summary) return;
+                        summary.addEventListener("click", () => {
+                            if (!d.open) {
+                                details.forEach((other) => {
+                                    if (other !== d) other.open = false;
+                                });
+                            }
+                        });
+                    });
+                }
+            };
+
+            init();
+
         </script>
     </body>
 </html>
