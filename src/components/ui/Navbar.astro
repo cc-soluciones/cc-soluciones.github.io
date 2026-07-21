@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+import { t } from "@/lib/i18n";
+import type { Lang } from "@/data/i18n";
+import { navConfig, siteConfig } from "@/data/site";
+import ThemeToggle from "./ThemeToggle.astro";
+import LangToggle from "./LangToggle.astro";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="relative flex items-center justify-between h-14 px-6 rounded-2xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-2xl shadow-lg shadow-black/5">
+            <a href="#home" class="flex items-center gap-2.5 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-all duration-300">
+                    CC
+                </div>
+                <span class="font-semibold text-foreground hidden sm:block text-sm tracking-tight">
+                    {siteConfig.company}
+                </span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-1">
+                {navConfig.map((item) => (
+                    <a href={item.href}
+                        class="relative px-3.5 py-2 text-sm text-foreground-secondary hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-white/5">
+                        {t(lang, item.label)}
+                    </a>
+                ))}
+            </div>
+
+            <div class="flex items-center gap-2">
+                <LangToggle lang={lang} />
+                <ThemeToggle lang={lang} />
+                <button id="mobile-menu-btn"
+                    class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:bg-white/10">
+                    <Icon name="mdi:menu" class="w-5 h-5 text-foreground" />
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2">
+        <div class="rounded-2xl bg-background/95 border border-white/10 backdrop-blur-2xl p-4 flex flex-col gap-1 shadow-xl">
+            {navConfig.map((item) => (
+                <a href={item.href}
+                    class="px-4 py-3 text-sm text-foreground-secondary hover:text-foreground hover:bg-white/5 rounded-xl transition-all duration-200">
+                    {t(lang, item.label)}
+                </a>
+            ))}
+        </div>
+    </div>
+</header>
+
+<script>
+    const nav = document.getElementById("navbar")!;
+    const mobileBtn = document.getElementById("mobile-menu-btn")!;
+    const mobileMenu = document.getElementById("mobile-menu")!;
+
+    let lastScroll = 0;
+    window.addEventListener("scroll", () => {
+        const current = window.scrollY;
+        if (current > 100) {
+            nav.style.transform = current > lastScroll ? "translateY(-120%)" : "translateY(0)";
+        }
+        lastScroll = current;
+    });
+
+    mobileBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+    mobileMenu.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => mobileMenu.classList.add("hidden"));
+    });
+</script>

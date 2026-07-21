@@ -1,66 +1,120 @@
 ---
-import Nav from "@/components/ui/Nav.astro";
-import Footer from "@/components/ui/Footer.astro";
-import GridBackground from "@/components/ui/GridBackground.astro";
 import { siteConfig } from "@/data/site";
+import type { Lang } from "@/data/i18n";
+import Navbar from "@/components/ui/Navbar.astro";
+import Footer from "@/components/ui/Footer.astro";
 import "@/styles/global.css";
+
+interface Props {
+    lang?: Lang;
+    title?: string;
+    description?: string;
+}
+
+const { lang = "es", title, description } = Astro.props;
+
+const currentLang = lang;
+const alternateLangs: Lang[] = ["es", "en"];
+const baseUrl = siteConfig.baseUrl;
+const pageTitle = title || siteConfig.company;
+const pageDescription = description || siteConfig.description;
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth dark">
+<html lang={currentLang} class="dark">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
-        <meta name="description" content={siteConfig.description} />
-        <title>{siteConfig.company}</title>
+        <meta name="description" content={pageDescription} />
+        <meta name="robots" content="index, follow" />
+        <title>{pageTitle}</title>
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={siteConfig.company} />
-        <meta property="og:description" content={siteConfig.description} />
-        <meta property="og:url" content={Astro.url} />
-        <meta property="og:locale" content="es_CL" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={`${baseUrl}${currentLang === "es" ? "" : `/${currentLang}`}`}/>
+        <meta property="og:locale" content={currentLang === "es" ? "es_CL" : "en_US"}/>
+        <meta property="og:image" content={`${baseUrl}/og-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={siteConfig.company} />
-        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={`${baseUrl}/og-image.png`} />
 
-        <link rel="canonical" href={Astro.url} />
+        {
+            alternateLangs.map((l) => (
+                <link
+                    rel="alternate"
+                    hreflang={l}
+                    href={`${baseUrl}${l === "es" ? "" : `/${l}`}`}
+                />
+            ))
+        }
+        <link rel="alternate" hreflang="x-default" href={baseUrl} />
+
+        <link rel="canonical" href={`${baseUrl}${currentLang === "es" ? "" : `/${currentLang}`}`}/>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: siteConfig.company,
+                url: baseUrl,
+                logo: `${baseUrl}/logo.png`,
+                description: pageDescription,
+                contactPoint: {
+                    "@type": "ContactPoint",
+                    telephone: "+56-9-2724-0093",
+                    contactType: "sales",
+                    email: "ccsolucionesspa@gmail.com",
+                    availableLanguage: ["Spanish", "English"],
+                },
+                sameAs: [
+                    "https://linkedin.com/company/ccsoluciones",
+                    "https://github.com/cc-soluciones",
+                ],
+            })}
+        />
+
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                url: baseUrl,
+                name: siteConfig.company,
+                description: pageDescription,
+                inLanguage: currentLang === "es" ? "es-CL" : "en-US",
+            })}
+        />
+
+        <script type="text/javascript" set:html={`
+            (function() {
+                var theme = localStorage.getItem("theme") || "dark";
+                var lang = localStorage.getItem("lang") || "es";
+                document.documentElement.classList.toggle("dark", theme === "dark");
+                document.documentElement.lang = lang;
+            })();
+        `} />
     </head>
-    <body class="bg-background text-foreground w-full relative">
-        <GridBackground className="-z-100" />
-        <Nav/>
+    <body class="bg-background text-foreground w-full relative font-body selection:bg-primary/20 selection:text-foreground antialiased scroll-smooth">
+        <Navbar lang={currentLang} />
         <main>
             <slot />
         </main>
-        <Footer/>
+        <Footer lang={currentLang} />
+
         <script>
-            import "@/scripts/scrollReveal";
-            import "@/scripts/scrollspy";
-            import "@/scripts/mobileMenu";
-            import "@/lib/typewriter";
-
-            const init = () => {
-                const section = document.getElementById("services");
-                if (section) {
-                    const details = section.querySelectorAll("details");
-                    details.forEach((d) => {
-                        const summary = d.querySelector("summary");
-                        if (!summary) return;
-                        summary.addEventListener("click", () => {
-                            if (!d.open) {
-                                details.forEach((other) => {
-                                    if (other !== d) other.open = false;
-                                });
-                            }
-                        });
-                    });
-                }
-            };
-
-            init();
-
+            import { store } from "@/lib/store";
         </script>
     </body>
 </html>

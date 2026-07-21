@@ -1,16 +1,53 @@
 ---
-import { sizeClasses } from "@/lib/sizeClasses";
-import type { Size } from "@/lib/sizeClasses";
+import { Icon } from "astro-icon/components";
+
+type Variant = "primary" | "secondary" | "ghost" | "whatsapp" | "email";
+type Size = "sm" | "md" | "lg";
 
 interface Props {
+    href?: string;
+    variant?: Variant;
     size?: Size;
+    icon?: string;
+    rightIcon?: string;
+    iconPosition?: "left" | "right";
+    class?: string;
+    [key: string]: any;
 }
 
-const { size = "md" } = Astro.props as Props;
+const { href, variant = "primary", size = "md", icon, rightIcon, iconPosition = "right", ...rest } = Astro.props;
+
+const base = "group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300";
+const sizeClasses: Record<Size, string> = {
+    sm: "px-5 py-2.5 text-xs",
+    md: "px-8 py-4 text-sm",
+    lg: "px-10 py-5 text-base",
+};
+const variantClasses: Record<Variant, string> = {
+    primary: "bg-foreground text-background hover:scale-[1.02] hover:bg-foreground/90 active:scale-[0.98]",
+    secondary: "border border-white/10 bg-white/5 text-foreground backdrop-blur-sm hover:bg-white/10 hover:border-white/20",
+    ghost: "text-foreground-secondary hover:text-foreground hover:bg-white/5",
+    whatsapp: "w-full !rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 backdrop-blur-xl hover:bg-[#25D366]/15 hover:border-[#25D366]/30 text-foreground text-sm font-medium",
+    email: "w-full !rounded-xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-xl hover:bg-white/[0.06] hover:border-primary/20 text-foreground text-sm font-medium",
+};
+
+const iconMotion = "group-hover:translate-x-1";
+const iconMotionLeft = "-translate-x-1 group-hover:translate-x-0";
+const Tag = href ? "a" : "button";
 ---
 
-<button
-    class={`bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200 cursor-pointer ${sizeClasses[size]}`}
+<Tag
+    href={href}
+    target={href?.startsWith("http") ? "_blank" : undefined}
+    rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+    class={`${base} ${sizeClasses[size]} ${variantClasses[variant]} ${Astro.props.class || ""}`}
+    {...rest}
 >
+    {icon && (
+        <Icon name={icon} class={`w-4 h-4 transition-transform duration-300 ${iconPosition === "left" ? iconMotionLeft : iconMotion}`} aria-hidden="true" />
+    )}
     <slot />
-</button>
+    {rightIcon && (
+        <Icon name={rightIcon} class={`w-4 h-4 transition-transform duration-300 ml-auto ${iconMotion}`} aria-hidden="true" />
+    )}
+</Tag>

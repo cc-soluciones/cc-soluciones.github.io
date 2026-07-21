@@ -1,27 +1,44 @@
 ---
+import { t } from "@/lib/i18n";
+import type { Lang } from "@/data/i18n";
+import SectionWrapper from "@/components/ui/SectionWrapper.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
-import FaqItem from "@/components/ui/FaqItem.astro";
-
-import { faqs } from "@/data/faq";
 
 interface Props {
-    id?: string;
+    lang: Lang;
 }
 
-const { id = "" } = Astro.props as Props;
+const { lang } = Astro.props;
+
+const faqIndices = [0, 1, 2, 3, 4, 5, 6];
 ---
 
-<section id={id} class="mx-auto w-full px-6 py-32 bg-background" data-animation="faq">    
+<SectionWrapper id="faq" blobs={["center"]}>
     <SectionHeader
-        badge="Preguntas Frecuentes"
-        title="¿Tienes dudas?"
-        highlight="Te las resolvemos"
-        description="Aquí respondemos las preguntas más comunes sobre nuestros servicios, procesos y tecnologías."
+        badge={t(lang, "faq.badge")}
+        title={t(lang, "faq.title")}
+        highlight={t(lang, "faq.titleHighlight")}
+        description={t(lang, "faq.description")}
+        gradient="secondary-accent"
     />
 
-    <div class="space-y-4 relative z-20 max-w-4xl mx-auto">
-        {faqs.map((faq, index) => (
-            <FaqItem question={faq.question} answer={faq.answer} index={index} />
+    <div class="max-w-3xl mx-auto space-y-3">
+        {faqIndices.map((i) => (
+            <details class="group rounded-2xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-xl overflow-hidden transition-all duration-300 hover:bg-white/[0.06] hover:border-white/10 open:bg-white/[0.06] open:border-primary/20">
+                <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none select-none">
+                    <span class="text-sm font-medium text-foreground pr-4">
+                        {t(lang, `faq.${i}.q`)}
+                    </span>
+                    <svg class="w-4 h-4 text-foreground-secondary flex-shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-5">
+                    <p class="text-sm text-foreground-secondary leading-relaxed">
+                        {t(lang, `faq.${i}.a`)}
+                    </p>
+                </div>
+            </details>
         ))}
     </div>
-</section>
+</SectionWrapper>

@@ -24,5 +24,7 @@ pnpm-debug.log*
 .idea/
 .vscode/
 
+example/
+
 .agents/
 skills-lock.json

@@ -1,32 +1,48 @@
 ---
+import { t } from "@/lib/i18n";
+import type { Lang } from "@/data/i18n";
+import SectionWrapper from "@/components/ui/SectionWrapper.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
-import CardServices from "@/components/ui/CardServices.astro";
-import { services } from "@/data/services";
+import GlassCard from "@/components/ui/GlassCard.astro";
+import IconBox from "@/components/ui/IconBox.astro";
 
 interface Props {
-    id?: string;
+    lang: Lang;
 }
 
-const { id = "services" } = Astro.props as Props;
+const { lang } = Astro.props;
+
+const serviceKeys = [
+    { icon: "mdi:layers", title: "services.item0.title", descs: ["services.item0.desc0", "services.item0.desc1"] },
+    { icon: "mdi:code-tags", title: "services.item1.title", descs: ["services.item1.desc0", "services.item1.desc1"] },
+    { icon: "mdi:connection", title: "services.item2.title", descs: ["services.item2.desc0", "services.item2.desc1"] },
+];
 ---
 
-<section id={id} class="max-w-7xl mx-auto px-6 py-32" data-animation="services">
+<SectionWrapper id="services" blobs={["tr"]}>
     <SectionHeader
-        badge="Servicios"
-        title="Lo que"
-        highlight="hacemos"
-        description="Desarrollamos soluciones digitales con proceso claro, entregas por hitos y acompañamiento técnico continuo."
+        badge={t(lang, "services.badge")}
+        title={t(lang, "services.title")}
+        highlight={t(lang, "services.titleHighlight")}
+        description={t(lang, "services.description")}
+        gradient="primary-secondary"
     />
-    <div class="flex flex-wrap md:flex-nowrap gap-4 justify-center">
-        {
-            services && Object.values(services).map((item, index) => (
-                <CardServices
-                    title={item.label}
-                    descriptions={item.descriptions}
-                    index={index}
-                    open={index === 0}
-                />
-            ))
-        }
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {serviceKeys.map((service) => (
+            <GlassCard tag="article" padding="lg" hover={true}>
+                <IconBox icon={service.icon} size="md" class="mb-5" />
+                <h3 class="text-lg font-semibold text-foreground mb-3">
+                    {t(lang, service.title)}
+                </h3>
+                <div class="space-y-2">
+                    {service.descs.map((desc) => (
+                        <p class="text-sm text-foreground-secondary leading-relaxed">
+                            {t(lang, desc)}
+                        </p>
+                    ))}
+                </div>
+            </GlassCard>
+        ))}
     </div>
-</section>
+</SectionWrapper>

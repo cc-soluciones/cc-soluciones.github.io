@@ -1,16 +1,21 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import type { Lang } from "@/data/i18n";
 import Hero from "@/components/sections/Hero.astro";
 import Services from "@/components/sections/Services.astro";
+import Workflow from "@/components/sections/Workflow.astro";
 import Projects from "@/components/sections/Projects.astro";
-import Contact from "@/components/sections/Contact.astro";
 import FAQ from "@/components/sections/FAQ.astro";
+import Contact from "@/components/sections/Contact.astro";
+
+const lang: Lang = "es";
 ---
 
-<Layout>
-    <Hero id="home" />
-    <Services id="services"/>
-    <Projects id="projects"/>
-    <FAQ id="faq"/>
-    <Contact id="contact"/>
+<Layout lang={lang}>
+    <Hero lang={lang} />
+    <Services lang={lang} />
+    <Workflow lang={lang} />
+    <Projects lang={lang} />
+    <FAQ lang={lang} />
+    <Contact lang={lang} />
 </Layout>

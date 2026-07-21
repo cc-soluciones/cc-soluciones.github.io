@@ -1,4 +1,5 @@
 export interface SiteConfig {
+    baseUrl: string;
     company: string;
     description: string;
     logo: string;
@@ -26,6 +27,7 @@ export type SocialId = "linkedin" | "github" | "instagram" | "whatsapp" | "email
 export type SocialsConfig = Record<SocialId, SocialLink>;
 
 export const siteConfig: SiteConfig = {
+    baseUrl: "https://ccsoluciones.github.io",
     company: "CC Soluciones",
     description: "Desarrollo de software a medida, landing pages e integraciones. MVPs, sistemas y automatización con proceso claro y entregas por hitos.",
     logo: "/logo.png",
@@ -33,23 +35,27 @@ export const siteConfig: SiteConfig = {
 
 export const navConfig: NavItem[] = [
     {
-        label: "Home",
+        label: "nav.home",
         href: "#home",
     },
     {
-        label: "Servicios",
+        label: "nav.services",
         href: "#services",
     },
     {
-        label: "Proyectos",
+        label: "nav.workflow",
+        href: "#workflow",
+    },
+    {
+        label: "nav.projects",
         href: "#projects",
     },
     {
-        label: "FAQ's",
+        label: "nav.faq",
         href: "#faq",
     },
     {
-        label: "Contacto",
+        label: "nav.contact",
         href: "#contact",
     },
 ];
