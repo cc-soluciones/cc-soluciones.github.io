@@ -1,0 +1,26 @@
+---
+export interface Props {
+    padding?: "sm" | "md" | "lg";
+    glow?: boolean;
+}
+
+const { 
+    padding = "lg", 
+    glow = true 
+} = Astro.props as Props;
+
+const paddings = {
+    sm: "p-4",
+    md: "p-6",
+    lg: "p-8",
+};
+---
+
+<div class={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl ${paddings[padding]}`}>
+    {glow && (
+        <div class="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+    )}
+    <div class="relative z-10">
+        <slot />
+    </div>
+</div>

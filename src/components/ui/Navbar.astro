@@ -1,78 +1,118 @@
 ---
-import { Icon } from "astro-icon/components";
-import { t } from "@/lib/i18n";
-import type { Lang } from "@/data/i18n";
 import { navConfig, siteConfig } from "@/data/site";
-import ThemeToggle from "./ThemeToggle.astro";
-import LangToggle from "./LangToggle.astro";
+import { t } from "@/lib/i18n";
+import Button from "@/components/ui/Button.astro";
+import { Icon } from "astro-icon/components";
 
-interface Props {
-    lang: Lang;
-}
-
-const { lang } = Astro.props;
+const currentLang = "es";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300" id="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="relative flex items-center justify-between h-14 px-6 rounded-2xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-2xl shadow-lg shadow-black/5">
-            <a href="#home" class="flex items-center gap-2.5 group">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-all duration-300">
-                    CC
-                </div>
-                <span class="font-semibold text-foreground hidden sm:block text-sm tracking-tight">
-                    {siteConfig.company}
-                </span>
-            </a>
-
-            <div class="hidden md:flex items-center gap-1">
-                {navConfig.map((item) => (
-                    <a href={item.href}
-                        class="relative px-3.5 py-2 text-sm text-foreground-secondary hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-white/5">
-                        {t(lang, item.label)}
+<header>
+    <nav data-state="false" class="group fixed z-50 w-full px-2">
+        <div class="mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12">
+            <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+                <div class="flex w-full justify-between lg:w-auto">
+                    <a
+                        href="/"
+                        aria-label="home"
+                        class="flex items-center gap-3"
+                    >
+                        <img
+                            src={siteConfig.logo}
+                            alt={siteConfig.company}
+                            class="h-8 w-auto"
+                        />
+                        <span class="text-lg font-bold tracking-tight"
+                            >{siteConfig.company}</span
+                        >
                     </a>
-                ))}
-            </div>
+                    <button
+                        aria-label="Open Menu"
+                        class="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                        onclick="this.closest('nav').dataset.state = this.closest('nav').dataset.state === 'active' ? 'false' : 'active'"
+                    >
+                        <Icon
+                            name="mdi:menu"
+                            class="m-auto size-6 duration-200 group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0"
+                        />
+                        <Icon
+                            name="mdi:close"
+                            class="absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100"
+                        />
+                    </button>
+                </div>
 
-            <div class="flex items-center gap-2">
-                <LangToggle lang={lang} />
-                <ThemeToggle lang={lang} />
-                <button id="mobile-menu-btn"
-                    class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:bg-white/10">
-                    <Icon name="mdi:menu" class="w-5 h-5 text-foreground" />
-                </button>
-            </div>
-        </nav>
-    </div>
+                <div class="hidden lg:block absolute inset-0 m-auto size-fit">
+                    <ul class="flex gap-8 text-sm">
+                        {navConfig.map((item) => (
+                            <li>
+                                <a href={item.href} class="text-foreground/60 hover:text-foreground block duration-150">
+                                    {t(currentLang, item.label)}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2">
-        <div class="rounded-2xl bg-background/95 border border-white/10 backdrop-blur-2xl p-4 flex flex-col gap-1 shadow-xl">
-            {navConfig.map((item) => (
-                <a href={item.href}
-                    class="px-4 py-3 text-sm text-foreground-secondary hover:text-foreground hover:bg-white/5 rounded-xl transition-all duration-200">
-                    {t(lang, item.label)}
-                </a>
-            ))}
+                <div class="bg-white/5 backdrop-blur-xl border border-white/10 group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
+                    <div class="lg:hidden w-full">
+                        <ul class="space-y-6 text-base">
+                            {navConfig.map((item) => (
+                                <li>
+                                    <a href={item.href} class="text-foreground/60 hover:text-foreground block duration-150">
+                                        {t(currentLang, item.label)}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div class="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit items-center">
+                        <button
+                            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+                            aria-label={t(currentLang, "theme.light")}
+                            onclick="
+                                var html = document.documentElement;
+                                html.classList.toggle('dark');
+                                localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+                            "
+                        >
+                            <Icon
+                                name="mdi:weather-sunny"
+                                class="w-4 h-4 block dark:hidden"
+                            />
+                            <Icon
+                                name="mdi:weather-night"
+                                class="w-4 h-4 hidden dark:block"
+                            />
+                        </button>
+
+                        <button
+                            class="inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+                            aria-label={t(currentLang, "lang.switch")}
+                            onclick="
+                                var html = document.documentElement;
+                                var newLang = html.lang === 'es' ? 'en' : 'es';
+                                html.lang = newLang;
+                                localStorage.setItem('lang', newLang);
+                                location.reload();
+                            "
+                        >
+                            <span class="block dark:hidden">EN</span>
+                            <span class="hidden dark:block">EN</span>
+                        </button>
+
+                        <Button
+                            href="#contact"
+                            variant="primary"
+                            size="sm"
+                            icon="mdi:whatsapp"
+                        >
+                            {t(currentLang, "nav.contact")}
+                        </Button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </nav>
 </header>
-
-<script>
-    const nav = document.getElementById("navbar")!;
-    const mobileBtn = document.getElementById("mobile-menu-btn")!;
-    const mobileMenu = document.getElementById("mobile-menu")!;
-
-    let lastScroll = 0;
-    window.addEventListener("scroll", () => {
-        const current = window.scrollY;
-        if (current > 100) {
-            nav.style.transform = current > lastScroll ? "translateY(-120%)" : "translateY(0)";
-        }
-        lastScroll = current;
-    });
-
-    mobileBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
-    mobileMenu.querySelectorAll("a").forEach((a) => {
-        a.addEventListener("click", () => mobileMenu.classList.add("hidden"));
-    });
-</script>

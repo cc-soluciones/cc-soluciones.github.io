@@ -1,53 +1,43 @@
 ---
 import { Icon } from "astro-icon/components";
 
-type Variant = "primary" | "secondary" | "ghost" | "whatsapp" | "email";
-type Size = "sm" | "md" | "lg";
-
-interface Props {
+export interface Props {
+    variant?: "primary" | "outline" | "ghost";
+    size?: "sm" | "md" | "lg";
     href?: string;
-    variant?: Variant;
-    size?: Size;
     icon?: string;
-    rightIcon?: string;
-    iconPosition?: "left" | "right";
-    class?: string;
-    [key: string]: any;
 }
 
-const { href, variant = "primary", size = "md", icon, rightIcon, iconPosition = "right", ...rest } = Astro.props;
+const { 
+    variant = "primary", 
+    size = "md", 
+    href, 
+    icon 
+} = Astro.props as Props;
 
-const base = "group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300";
-const sizeClasses: Record<Size, string> = {
-    sm: "px-5 py-2.5 text-xs",
-    md: "px-8 py-4 text-sm",
-    lg: "px-10 py-5 text-base",
-};
-const variantClasses: Record<Variant, string> = {
-    primary: "bg-foreground text-background hover:scale-[1.02] hover:bg-foreground/90 active:scale-[0.98]",
-    secondary: "border border-white/10 bg-white/5 text-foreground backdrop-blur-sm hover:bg-white/10 hover:border-white/20",
-    ghost: "text-foreground-secondary hover:text-foreground hover:bg-white/5",
-    whatsapp: "w-full !rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 backdrop-blur-xl hover:bg-[#25D366]/15 hover:border-[#25D366]/30 text-foreground text-sm font-medium",
-    email: "w-full !rounded-xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-xl hover:bg-white/[0.06] hover:border-primary/20 text-foreground text-sm font-medium",
+const base = "group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all whitespace-nowrap";
+const variants = {
+    primary: "bg-primary text-white hover:scale-[1.02] hover:brightness-110 active:scale-[0.98] shadow-lg shadow-primary/25",
+    outline: "border border-white/10 bg-white/5 backdrop-blur-sm text-foreground hover:bg-white/10 hover:border-white/20 active:scale-[0.98]",
+    ghost: "text-foreground/70 hover:text-foreground hover:bg-white/5 active:scale-[0.98]",
 };
 
-const iconMotion = "group-hover:translate-x-1";
-const iconMotionLeft = "-translate-x-1 group-hover:translate-x-0";
+const sizes = {
+    sm: "px-4 py-2 text-xs tracking-wide",
+    md: "px-6 py-3 text-sm tracking-wide",
+    lg: "px-8 py-4 text-sm tracking-wide",
+};
+
+const cls = `${base} ${variants[variant]} ${sizes[size]}`;
 const Tag = href ? "a" : "button";
 ---
 
-<Tag
-    href={href}
-    target={href?.startsWith("http") ? "_blank" : undefined}
-    rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-    class={`${base} ${sizeClasses[size]} ${variantClasses[variant]} ${Astro.props.class || ""}`}
-    {...rest}
->
+<Tag href={href} class={cls}>
     {icon && (
-        <Icon name={icon} class={`w-4 h-4 transition-transform duration-300 ${iconPosition === "left" ? iconMotionLeft : iconMotion}`} aria-hidden="true" />
+        <Icon
+            name={icon}
+            class="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+        />
     )}
     <slot />
-    {rightIcon && (
-        <Icon name={rightIcon} class={`w-4 h-4 transition-transform duration-300 ml-auto ${iconMotion}`} aria-hidden="true" />
-    )}
 </Tag>

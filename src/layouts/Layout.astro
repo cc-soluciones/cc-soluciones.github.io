@@ -1,19 +1,16 @@
 ---
 import { siteConfig } from "@/data/site";
 import type { Lang } from "@/data/i18n";
-import Navbar from "@/components/ui/Navbar.astro";
-import Footer from "@/components/ui/Footer.astro";
 import "@/styles/global.css";
 
 interface Props {
-    lang?: Lang;
     title?: string;
     description?: string;
 }
 
-const { lang = "es", title, description } = Astro.props;
+const { title, description } = Astro.props;
 
-const currentLang = lang;
+const currentLang = "es";
 const alternateLangs: Lang[] = ["es", "en"];
 const baseUrl = siteConfig.baseUrl;
 const pageTitle = title || siteConfig.company;
@@ -107,12 +104,9 @@ const pageDescription = description || siteConfig.description;
         `} />
     </head>
     <body class="bg-background text-foreground w-full relative font-body selection:bg-primary/20 selection:text-foreground antialiased scroll-smooth">
-        <Navbar lang={currentLang} />
         <main>
             <slot />
         </main>
-        <Footer lang={currentLang} />
-
         <script>
             import { store } from "@/lib/store";
         </script>

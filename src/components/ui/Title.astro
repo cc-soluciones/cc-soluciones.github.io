@@ -1,0 +1,30 @@
+---
+export interface Props {
+    as?: "h1" | "h2" | "h3" | "h4";
+    size?: "sm" | "md" | "lg" | "xl";
+    highlight?: string;
+}
+
+const { 
+    as: Tag = "h2", 
+    size = "lg", 
+    highlight 
+} = Astro.props as Props;
+
+const sizes = {
+    sm: "text-xl sm:text-2xl",
+    md: "text-2xl sm:text-3xl",
+    lg: "text-3xl sm:text-4xl lg:text-5xl",
+    xl: "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl",
+};
+---
+
+<Tag class={`font-medium tracking-tighter leading-[1.1] ${sizes[size]}`}>
+    <slot />
+    {highlight && (
+        <span class="bg-linear-to-br from-primary via-primary-light to-accent bg-clip-text text-transparent">
+            {" "}
+            {highlight}
+        </span>
+    )}
+</Tag>

@@ -1,72 +1,137 @@
 ---
-import { Icon } from "astro-icon/components";
+import {
+    siteConfig,
+    footerConfig,
+    socialsConfig,
+    type SocialId,
+} from "@/data/site";
 import { t } from "@/lib/i18n";
+import { Icon } from "astro-icon/components";
 import type { Lang } from "@/data/i18n";
-import { siteConfig, socialsConfig } from "@/data/site";
-import GlassCard from "@/components/ui/GlassCard.astro";
 
-interface Props {
-    lang: Lang;
-}
-
-const { lang } = Astro.props;
+const currentLang: Lang = "es";
 const year = new Date().getFullYear();
+const socialIds: SocialId[] = [
+    "linkedin",
+    "github",
+    "instagram",
+    "whatsapp",
+    "email",
+];
 ---
 
-<footer id="contact" class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 pointer-events-none" />
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <GlassCard padding="md">
-                <div class="flex items-center gap-2.5 mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/20">
-                        CC
-                    </div>
-                    <span class="font-semibold text-foreground text-sm">{siteConfig.company}</span>
+<footer class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-6 py-16 lg:px-12">
+        <div class="mb-16 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
+            <div class="col-span-2 lg:col-span-2">
+                <div class="mb-6 flex items-center gap-3">
+                    <img
+                        src={siteConfig.logo}
+                        alt={siteConfig.company}
+                        class="h-8 w-auto"
+                    />
+                    <span class="text-lg font-bold tracking-tight">
+                        {siteConfig.company}
+                    </span>
                 </div>
-                <p class="text-sm text-foreground-secondary leading-relaxed max-w-xs">
-                    {t(lang, "footer.description")}
+                <p class="text-foreground/60 mb-6 max-w-sm">
+                    {footerConfig.description}
                 </p>
-            </GlassCard>
+                <div class="flex gap-3">
+                    {socialIds.map((id) => {
+                        const social = socialsConfig[id];
+                        return (
+                            <a
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={social.tooltip}
+                                title={social.tooltip}
+                                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/30 transition-all"
+                            >
+                                <Icon
+                                    name={social.icon}
+                                    class="w-5 h-5 text-foreground/70"
+                                />
+                            </a>
+                        );
+                    })}
+                </div>
+            </div>
 
-            <GlassCard padding="md">
-                <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest text-xs mb-4">
-                    {t(lang, "footer.social")}
-                </h3>
-                <div class="flex flex-wrap gap-3">
-                    {Object.values(socialsConfig).map((social) => (
-                        <a href={social.href} target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-foreground-secondary hover:text-foreground hover:border-primary/30 hover:bg-white/10 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group"
-                            title={social.tooltip}>
-                            <Icon name={social.icon} class="w-5 h-5" />
+            <div>
+                <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground/80">
+                    Servicios
+                </h4>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            Landing Pages
                         </a>
-                    ))}
-                </div>
-            </GlassCard>
+                    </li>
+                    <li>
+                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            Software a Medida
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            Integraciones
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-            <GlassCard padding="md">
-                <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest text-xs mb-4">
-                    Contacto
-                </h3>
-                <div class="space-y-3">
-                    <a href="mailto:ccsolucionesspa@gmail.com"
-                        class="flex items-center gap-3 text-sm text-foreground-secondary hover:text-primary transition-colors duration-200">
-                        <Icon name="mdi:email" class="w-4 h-4 flex-shrink-0" />
-                        ccsolucionesspa@gmail.com
-                    </a>
-                    <a href="https://wa.me/56927240093" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center gap-3 text-sm text-foreground-secondary hover:text-primary transition-colors duration-200">
-                        <Icon name="mdi:whatsapp" class="w-4 h-4 flex-shrink-0" />
-                        +56 9 2724 0093
-                    </a>
-                </div>
-            </GlassCard>
+            <div>
+                <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground/80">
+                    Recursos
+                </h4>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#projects" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            {t(currentLang, "nav.projects")}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#workflow" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            {t(currentLang, "nav.workflow")}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#faq" class="text-foreground/60 hover:text-foreground transition text-sm">\
+                            {t(currentLang, "nav.faq")}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground/80">
+                    Compañía
+                </h4>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#contact" class="text-foreground/60 hover:text-foreground transition text-sm">{t(currentLang, "nav.contact")}</a>
+                    </li>
+                    <li>
+                        <a href="mailto:ccsolucionesspa@gmail.com" class="text-foreground/60 hover:text-foreground transition text-sm">Contacto</a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/56927240093" target="_blank" class="text-foreground/60 hover:text-foreground transition text-sm">
+                            WhatsApp
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="relative pt-8 border-t border-white/5">
-            <p class="text-xs text-foreground-secondary/60 text-center">
-                &copy; {year} {siteConfig.company}. {t(lang, "footer.rights")}
+        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-foreground/40 text-sm">
+                &copy; {year}
+                {siteConfig.company}. {t(currentLang, "footer.rights")}
+            </p>
+            <p class="text-foreground/40 text-sm">
+                {t(currentLang, "footer.social")}
             </p>
         </div>
     </div>
