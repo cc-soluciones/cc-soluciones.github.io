@@ -1,23 +1,25 @@
 ---
 export interface Props {
-    type?: "text" | "email" | "tel" | "textarea";
-    name: string;
-    label?: string;
-    placeholder?: string;
-    required?: boolean;
-    rows?: number;
+    class?: string
+    type?: "text" | "email" | "tel" | "textarea"
+    name: string
+    label?: string
+    placeholder?: string
+    required?: boolean
+    rows?: number
 }
 
 const {
+    class: className = "",
     type = "text",
     name,
     label,
     placeholder,
     required = false,
     rows = 4,
-} = Astro.props;
+} = Astro.props
 
-const base = "w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 transition-all focus:border-primary/50 focus:outline-none focus:ring-[3px] focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed";
+const base = "w-full rounded-lg border border-border bg-foreground/5 backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 transition-all focus:border-primary/50 focus:outline-none focus:ring-[3px] focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
 ---
 
 {label && (
@@ -33,7 +35,7 @@ const base = "w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-
         placeholder={placeholder}
         required={required}
         rows={rows}
-        class={`${base} resize-none min-h-30`}
+        class={`${base} resize-none min-h-30 ${className}`.trim()}
     />
 ) : (
     <input
@@ -42,6 +44,6 @@ const base = "w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-
         name={name}
         placeholder={placeholder}
         required={required}
-        class={base}
+        class={`${base} ${className}`.trim()}
     />
 )}

@@ -20,8 +20,8 @@ const socialIds: SocialId[] = [
 ];
 ---
 
-<footer class="border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-6 py-16 lg:px-12">
+<footer class="border-t border-border relative bg-background">
+    <div class="mx-auto max-w-7xl px-4 py-16 lg:px-12">
         <div class="mb-16 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
             <div class="col-span-2 lg:col-span-2">
                 <div class="mb-6 flex items-center gap-3">
@@ -47,7 +47,7 @@ const socialIds: SocialId[] = [
                                 rel="noopener noreferrer"
                                 aria-label={social.tooltip}
                                 title={social.tooltip}
-                                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/30 transition-all"
+                                class="flex h-10 w-10 items-center justify-center rounded-full border border-border/10 bg-foreground/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/30 transition-all"
                             >
                                 <Icon
                                     name={social.icon}
@@ -57,29 +57,6 @@ const socialIds: SocialId[] = [
                         );
                     })}
                 </div>
-            </div>
-
-            <div>
-                <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground/80">
-                    Servicios
-                </h4>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
-                            Landing Pages
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
-                            Software a Medida
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#services" class="text-foreground/60 hover:text-foreground transition text-sm">
-                            Integraciones
-                        </a>
-                    </li>
-                </ul>
             </div>
 
             <div>
@@ -104,28 +81,9 @@ const socialIds: SocialId[] = [
                     </li>
                 </ul>
             </div>
-
-            <div>
-                <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground/80">
-                    Compañía
-                </h4>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="#contact" class="text-foreground/60 hover:text-foreground transition text-sm">{t(currentLang, "nav.contact")}</a>
-                    </li>
-                    <li>
-                        <a href="mailto:ccsolucionesspa@gmail.com" class="text-foreground/60 hover:text-foreground transition text-sm">Contacto</a>
-                    </li>
-                    <li>
-                        <a href="https://wa.me/56927240093" target="_blank" class="text-foreground/60 hover:text-foreground transition text-sm">
-                            WhatsApp
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
 
-        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p class="text-foreground/40 text-sm">
                 &copy; {year}
                 {siteConfig.company}. {t(currentLang, "footer.rights")}

@@ -1,0 +1,14 @@
+---
+import Reveal from "astro-reveal/Reveal.astro";
+
+export interface Props {
+    class?: string
+    id?: string
+}
+
+const { class: className = "", id = "" } = Astro.props
+---
+
+<Reveal as="section" id={id} animation="scale" distance="3rem" class={`relative min-h-screen overflow-hidden z-10 mx-auto max-w-7xl px-4 pt-28 pb-12 sm:px-6 md:pt-36 md:pb-20 lg:px-8 ${className}`.trim()}>
+    <slot />
+</Reveal>

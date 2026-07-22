@@ -8,8 +8,8 @@ const currentLang = "es";
 ---
 
 <header>
-    <nav data-state="false" class="group fixed z-50 w-full px-2">
-        <div class="mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12">
+    <nav data-state="false" class="group fixed z-50 w-full px-2 mt-2">
+        <div class="mx-auto mt-2 max-w-7xl px-6 transition-all duration-300 rounded-full bg-foreground/5 backdrop-blur-xl border border-border">
             <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                 <div class="flex w-full justify-between lg:w-auto">
                     <a
@@ -22,9 +22,9 @@ const currentLang = "es";
                             alt={siteConfig.company}
                             class="h-8 w-auto"
                         />
-                        <span class="text-lg font-bold tracking-tight"
-                            >{siteConfig.company}</span
-                        >
+                        <span class="text-lg font-bold tracking-tight">
+                            {siteConfig.company}
+                        </span>
                     </a>
                     <button
                         aria-label="Open Menu"
@@ -46,7 +46,7 @@ const currentLang = "es";
                     <ul class="flex gap-8 text-sm">
                         {navConfig.map((item) => (
                             <li>
-                                <a href={item.href} class="text-foreground/60 hover:text-foreground block duration-150">
+                                <a href={item.href} class="text-foreground/80 hover:text-foreground block duration-150">
                                     {t(currentLang, item.label)}
                                 </a>
                             </li>
@@ -54,7 +54,7 @@ const currentLang = "es";
                     </ul>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-xl border border-white/10 group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
+                <div class="group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
                     <div class="lg:hidden w-full">
                         <ul class="space-y-6 text-base">
                             {navConfig.map((item) => (
@@ -69,7 +69,7 @@ const currentLang = "es";
 
                     <div class="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit items-center">
                         <button
-                            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+                            class="inline-flex items-center justify-center w-9 h-9 transition-colors cursor-pointer"
                             aria-label={t(currentLang, "theme.light")}
                             onclick="
                                 var html = document.documentElement;
@@ -88,7 +88,7 @@ const currentLang = "es";
                         </button>
 
                         <button
-                            class="inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+                            class="inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-semibold uppercase tracking-wider cursor-pointer"
                             aria-label={t(currentLang, "lang.switch")}
                             onclick="
                                 var html = document.documentElement;
