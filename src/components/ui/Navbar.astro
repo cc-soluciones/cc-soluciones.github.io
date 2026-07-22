@@ -1,8 +1,8 @@
 ---
-import { navConfig, siteConfig } from "@/data/site";
-import { t } from "@/lib/i18n";
-import Button from "@/components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
+import Button from "@/components/ui/Button.astro";
+import { t } from "@/lib/i18n";
+import { navConfig, siteConfig, socialsConfig } from "@/data/site";
 
 const currentLang = "es";
 ---
@@ -107,6 +107,7 @@ const currentLang = "es";
                             variant="primary"
                             size="sm"
                             icon="mdi:whatsapp"
+                            href={socialsConfig.whatsapp.href}
                         >
                             {t(currentLang, "nav.contact")}
                         </Button>
