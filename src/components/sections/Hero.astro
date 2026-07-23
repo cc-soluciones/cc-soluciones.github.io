@@ -157,7 +157,7 @@ const orbitItems = [
     const radius = 190;
     let angle = 0;
 
-    function orbit() {
+    const orbit = () => {
         angle += 0.15
         items.forEach((el : any, i : number) => {
             const rad = (((i * 2.1) / total) * 360 + angle) * (Math.PI / 190);
@@ -165,8 +165,8 @@ const orbitItems = [
             const y = Math.sin(rad) * radius;
             el.style.transform = `translate(${x}px, ${y}px)`;
         })
-        requestAnimationFrame(orbit)
+        requestAnimationFrame(orbit);
     }
 
-    if (items.length) orbit()
+    if (items.length) orbit();
 </script>
