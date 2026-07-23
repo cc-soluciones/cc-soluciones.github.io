@@ -29,4 +29,20 @@ export const services: Service[] = [
         ],
         href: "#integrations",
     },
+    {
+        label: "Marketing digital",
+        descriptions: [
+            "Conectamos y automatizamos sistemas, plataformas y APIs para optimizar procesos operativos.",
+            "Ayudamos a empresas a reducir trabajo manual, minimizar errores y mejorar la eficiencia mediante integraciones estables, escalables y fáciles de mantener.",
+        ],
+        href: "#marketing",
+    },
+    {
+        label: "Microcontroladores",
+        descriptions: [
+            "Conectamos y automatizamos sistemas, plataformas y APIs para optimizar procesos operativos.",
+            "Ayudamos a empresas a reducir trabajo manual, minimizar errores y mejorar la eficiencia mediante integraciones estables, escalables y fáciles de mantener.",
+        ],
+        href: "#microcontrolers",
+    },
 ];
