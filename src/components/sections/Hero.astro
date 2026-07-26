@@ -35,10 +35,8 @@ const orbitItems = [
                     </Badge>
                 </div>
     
-                <Title as="h1">
+                <Title as="h1" highlight={t(currentLang, "hero.titleHighlight")}>
                     {t(currentLang, "hero.title")}
-                    <br />
-                    {t(currentLang, "hero.titleHighlight")}
                 </Title>
     
                 <Text size="lg">
@@ -68,7 +66,7 @@ const orbitItems = [
                 <div class="hidden md:flex relative w-full h-125 items-center justify-center">
                     <div class="absolute rounded-full bg-linear-to-br flex items-center justify-center z-10">
                         <div class="absolute w-34 h-34 rounded-full border animate-ping opacity-50" style="animation-delay: 0.5s"/>
-                         <img
+                        <img
                             src={siteConfig.logo}
                             alt={siteConfig.company}
                             class="h-35 w-50"

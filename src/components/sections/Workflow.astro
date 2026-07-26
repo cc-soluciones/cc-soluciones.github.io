@@ -15,20 +15,15 @@ const currentLang: Lang = "es";
 const sectionId: string = "workflow";
 ---
 
-<Section id={sectionId}>
-    <div class="flex flex-col gap-4 mb-16 items-center text-center">
-        <Badge icon="mdi:timeline-clock">
-            {t(currentLang, "workflow.badge")}
-        </Badge>
-        <Title as="h2" highlight={t(currentLang, "workflow.titleHighlight")}>
-            {t(currentLang, "workflow.title")}
-        </Title>
-        <Text size="lg" class="max-w-xl">
-            {t(currentLang, "workflow.description")}
-        </Text>
-    </div>
-
-    <div class="relative" data-workflow>
+<Section 
+    id={sectionId}
+    title={t(currentLang, "workflow.title")}
+    titleHighlight={t(currentLang, "workflow.titleHighlight")}
+    badgeIcon="mdi:timeline-clock"
+    badge={t(currentLang, "workflow.badge")}
+    description={t(currentLang, "workflow.description")}
+>
+    <div class="relative">
         <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-linear-to-b from-primary/10 via-primary/40 to-primary/10" />
 
         {workflowSteps.map((step, index) => {

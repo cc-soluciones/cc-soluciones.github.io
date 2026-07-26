@@ -1,0 +1,51 @@
+---
+import Section from "@/components/ui/Section.astro";
+import Card from "@/components/ui/Card.astro";
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+
+import { projects } from "@/data/projects";
+import { t } from "@/lib/i18n";
+import type { Lang } from "@/data/i18n";
+
+const currentLang: Lang = "es";
+const sectionId: string = "projects";
+---
+
+<Section 
+    id={sectionId}
+    title={t(currentLang, "projects.title")}
+    titleHighlight={t(currentLang, "projects.titleHighlight")}
+    badgeIcon="mdi:hexagon-multiple"
+    badge={t(currentLang, "projects.badge")}
+    description={t(currentLang, "projects.description")}
+>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {projects.map((project) => (
+            <Card class="p-0! h-150 flex flex-col-reverse">
+                <img
+                    src={project.images[0].src}
+                    alt={project.title}
+                    class="h-150 w-full absolute -z-10"
+                />
+                <div class="absolute inset-0 bg-background/50 backdrop-blur-lg mask-[linear-gradient(to_bottom,transparent_35%,black_60%)]" />
+                <div class="relative z-10 p-6 sm:p-8 h-85">
+                    <Badge class="w-auto">{project.type}</Badge>
+                    <Title size="sm" class="py-2">{project.title}</Title>
+                    <Text class="h-40">{project.description}</Text>
+                    <Button
+                        href={project.url}
+                        variant="primary"
+                        size="md"
+                        icon="mdi:link"
+                        class="w-full"
+                    >
+                        {t(currentLang, "hero.cta")}
+                    </Button>
+                </div>
+            </Card>
+        ))}
+    </div>
+</Section>

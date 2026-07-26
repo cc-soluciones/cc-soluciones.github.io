@@ -1,14 +1,44 @@
 ---
 import Reveal from "astro-reveal/Reveal.astro";
 
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Badge from "@/components/ui/Badge.astro";
+
 export interface Props {
-    class?: string
-    id?: string
+    class?: string;
+    id?: string;
+    title?: string;
+    titleHighlight?: string;
+    badge?: string;
+    badgeIcon?: string;
+    description?: string;
 }
 
-const { class: className = "", id = "" } = Astro.props
+const { 
+    class: className = "", 
+    id = "",
+    title = "",
+    titleHighlight = "",
+    badge = "",
+    badgeIcon = "mdi:hexagon-multiple",
+    description = ""
+} = Astro.props
 ---
 
 <Reveal as="section" id={id} animation="scale" distance="3rem" class={`relative min-h-screen overflow-hidden z-10 mx-auto max-w-7xl px-4 pt-28 pb-12 sm:px-6 md:pt-36 md:pb-20 lg:px-8 ${className}`.trim()}>
+    {(title !== "") && (
+        <div class="flex flex-col gap-4 mb-16 items-center text-center">
+            <Badge icon={badgeIcon}>
+                {badge}
+            </Badge>
+            <Title as="h2" highlight={titleHighlight}>
+                {title}
+            </Title>
+            <Text size="lg" class="max-w-xl">
+                {description}
+            </Text>
+        </div>
+    )}
     <slot />
 </Reveal>

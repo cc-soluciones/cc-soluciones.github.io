@@ -9,7 +9,6 @@ import { t } from "@/lib/i18n";
 import type { Lang } from "@/data/i18n";
 
 const currentLang: Lang = "es";
-
 const icons: Record<string, string> = {
     "Landing pages": "mdi:web",
     "Software a Medida": "mdi:code-tags",
@@ -17,19 +16,14 @@ const icons: Record<string, string> = {
 };
 ---
 
-<Section id="services">
-    <div class="flex flex-col gap-4 mb-12 items-center text-center">
-        <Badge icon="mdi:lightning-bolt">
-            {t(currentLang, "services.badge")}
-        </Badge>
-        <Title as="h2" highlight={t(currentLang, "services.titleHighlight")}>
-            {t(currentLang, "services.title")}
-        </Title>
-        <Text size="lg" class="max-w-xl">
-            {t(currentLang, "services.description")}
-        </Text>
-    </div>
-
+<Section 
+    id="services"
+    title={t(currentLang, "services.title")}
+    titleHighlight={t(currentLang, "services.titleHighlight")}
+    badge={t(currentLang, "services.badge")}
+    badgeIcon="mdi:lightning-bolt"
+    description={t(currentLang, "services.description")}
+>
     <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-105">
         {services.map((svc, index) => (
             <details
