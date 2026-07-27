@@ -1,17 +1,17 @@
 ---
 export interface Props {
-    class?: string
-    padding?: "sm" | "md" | "lg"
-    glow?: boolean
-}
+    class?: string;
+    padding?: "sm" | "md" | "lg";
+    glow?: boolean;
+};
 
-const { class: className = "", padding = "lg", glow = true } = Astro.props
+const { class: className = "", padding = "lg", glow = true } = Astro.props as Props;
 
 const paddings = {
     sm: "p-4",
     md: "p-6",
     lg: "p-8",
-}
+};
 ---
 
 <div class={`relative overflow-hidden rounded-3xl border border-border bg-foreground/5 backdrop-blur-xl shadow-2xl ${paddings[padding]} ${className}`.trim()}>

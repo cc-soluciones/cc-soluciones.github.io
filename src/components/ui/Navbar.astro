@@ -2,14 +2,15 @@
 import { Icon } from "astro-icon/components";
 import Button from "@/components/ui/Button.astro";
 import { t } from "@/lib/i18n";
+import { store } from "@/lib/store";
 import { navConfig, siteConfig, socialsConfig } from "@/data/site";
 
-const currentLang = "es";
+const currentLang = store.getLang() === "es" ? "en" : "es";
 ---
 
 <header>
     <nav data-state="false" class="group fixed z-50 w-full px-2 mt-2">
-        <div class="mx-auto mt-2 max-w-7xl px-6 transition-all duration-300 rounded-full bg-foreground/5 backdrop-blur-xl border border-border">
+        <div class="mx-auto mt-2 max-w-7xl px-6 transition-all duration-300 rounded-full bg-foreground/5 backdrop-blur-xl border border-border group-data-[state=active]:rounded-3xl group-data-[state=active]:lg:rounded-full">
             <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                 <div class="flex w-full justify-between lg:w-auto">
                     <a
@@ -46,7 +47,7 @@ const currentLang = "es";
                     <ul class="flex gap-8 text-sm">
                         {navConfig.map((item) => (
                             <li>
-                                <a href={item.href} class="text-foreground/80 hover:text-foreground block duration-150">
+                                <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/80 hover:text-foreground block duration-150 relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-primary after:transition-all after:duration-300 data-active:after:w-full data-active:text-foreground">
                                     {t(currentLang, item.label)}
                                 </a>
                             </li>
@@ -59,7 +60,7 @@ const currentLang = "es";
                         <ul class="space-y-6 text-base">
                             {navConfig.map((item) => (
                                 <li>
-                                    <a href={item.href} class="text-foreground/60 hover:text-foreground block duration-150">
+                                    <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/60 hover:text-foreground block duration-150 data-active:text-foreground">
                                         {t(currentLang, item.label)}
                                     </a>
                                 </li>
@@ -71,11 +72,7 @@ const currentLang = "es";
                         <button
                             class="inline-flex items-center justify-center w-9 h-9 transition-colors cursor-pointer"
                             aria-label={t(currentLang, "theme.light")}
-                            onclick="
-                                var html = document.documentElement;
-                                html.classList.toggle('dark');
-                                localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-                            "
+                            data-theme-btn
                         >
                             <Icon
                                 name="mdi:weather-sunny"
@@ -90,16 +87,10 @@ const currentLang = "es";
                         <button
                             class="inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-semibold uppercase tracking-wider cursor-pointer"
                             aria-label={t(currentLang, "lang.switch")}
-                            onclick="
-                                var html = document.documentElement;
-                                var newLang = html.lang === 'es' ? 'en' : 'es';
-                                html.lang = newLang;
-                                localStorage.setItem('lang', newLang);
-                                location.reload();
-                            "
+                            data-lang-btn
                         >
-                            <span class="block dark:hidden">EN</span>
-                            <span class="hidden dark:block">EN</span>
+                            <span class="block dark:hidden" data-lang-label>EN</span>
+                            <span class="hidden dark:block" data-lang-label>EN</span>
                         </button>
 
                         <Button
@@ -117,3 +108,41 @@ const currentLang = "es";
         </div>
     </nav>
 </header>
+
+<script>
+    import { store } from "@/lib/store";
+
+    document.querySelector("[data-theme-btn]")?.addEventListener("click", () => store.toggleTheme());
+    document.querySelector("[data-lang-btn]")?.addEventListener("click", () => {
+        const newLang = store.getLang() === "es" ? "en" : "es";
+        store.setLang(newLang);
+    });
+
+    function updateLangLabel() {
+        const label = store.getLang() === "es" ? "EN" : "ES";
+        document.querySelectorAll("[data-lang-label]").forEach((el) => el.textContent = label);
+    }
+    updateLangLabel();
+    store.subscribe(updateLangLabel);
+
+    const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
+    const ids = Array.from(links).map((a) => a.getAttribute("href")?.slice(1)).filter(Boolean) as string[];
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    links.forEach((link) => {
+                        const href = link.getAttribute("href")?.slice(1);
+                        link.toggleAttribute("data-active", href === id);
+                    });
+                }
+            }
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+</script>

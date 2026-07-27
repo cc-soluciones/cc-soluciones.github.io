@@ -2,20 +2,31 @@
 import { Icon } from "astro-icon/components";
 
 import Section from "@/components/ui/Section.astro";
-import Title from "@/components/ui/Title.astro";
 import Text from "@/components/ui/Text.astro";
-import Badge from "@/components/ui/Badge.astro";
 import Card from "@/components/ui/Card.astro";
 
 import { workflowSteps } from "@/data/workflow";
+import { store } from "@/lib/store";
 import { t } from "@/lib/i18n";
 import type { Lang } from "@/data/i18n";
 
-const currentLang: Lang = "es";
+const currentLang: Lang = store.getLang() === "es" ? "en" : "es";
 const sectionId: string = "workflow";
 ---
+<script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": t(currentLang, "workflow.title") + " " + t(currentLang, "workflow.titleHighlight"),
+    "description": t(currentLang, "workflow.description"),
+    "step": workflowSteps.map((step, i) => ({
+        "@type": "HowToStep",
+        "position": i + 1,
+        "name": t(currentLang, step.labelKey),
+        "text": t(currentLang, step.descKey),
+    })),
+})} />
 
-<Section 
+<Section
     id={sectionId}
     title={t(currentLang, "workflow.title")}
     titleHighlight={t(currentLang, "workflow.titleHighlight")}
@@ -23,33 +34,40 @@ const sectionId: string = "workflow";
     badge={t(currentLang, "workflow.badge")}
     description={t(currentLang, "workflow.description")}
 >
-    <div class="relative">
-        <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-linear-to-b from-primary/10 via-primary/40 to-primary/10" />
+    <div class="relative" itemscope itemtype="https://schema.org/HowTo">
+        <meta itemprop="name" content={t(currentLang, "workflow.title") + " " + t(currentLang, "workflow.titleHighlight")} />
+        <meta itemprop="description" content={t(currentLang, "workflow.description")} />
+
+        <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-linear-to-b from-primary/10 via-primary/40 to-primary/10" aria-hidden="true" />
 
         {workflowSteps.map((step, index) => {
             const isLeft = index % 2 === 0;
             return (
                 <div
-                    class={`relative flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-12 md:mb-16 last:mb-0 workflow-step cursor-pointer ${isLeft ? "" : "md:flex-row-reverse"}`}
-                    data-index={index}
+                    class={`relative flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-5 last:mb-0 ${isLeft ? "" : "md:flex-row-reverse"}`}
+                    itemprop="step"
+                    itemscope
+                    itemtype="https://schema.org/HowToStep"
                 >
+                    <meta itemprop="position" content={String(index + 1)} />
+
                     <div class={`flex-1 ${isLeft ? "md:text-right md:pr-8" : "md:text-left md:pl-8"}`}>
                         <Card class={`flex flex-nowrap items-center gap-4 ${isLeft ? "md:rounded-s-full md:flex-row-reverse" : "md:rounded-e-full"}`} padding="md">
-                            <div class="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                            <div class="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
                                 <Icon name={step.icon} class="w-6 h-6 text-primary" />
                             </div>
-                            <div class={`flex-1 min-w-0`}>
-                                <Text size="sm" class="font-semibold text-foreground! uppercase tracking-wider mb-1">
+                            <div class="flex-1 min-w-0">
+                                <Text size="sm" class="font-semibold text-foreground! uppercase tracking-wider mb-1" itemprop="name">
                                     {t(currentLang, step.labelKey)}
                                 </Text>
-                                <Text size="sm" class="text-foreground/60! leading-relaxed mt-2">
+                                <Text size="sm" class="text-foreground/60! leading-relaxed mt-2" itemprop="text">
                                     {t(currentLang, step.descKey)}
                                 </Text>
                             </div>
                         </Card>
                     </div>
 
-                    <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 w-10 h-10 rounded-full border-2 border-border bg-background items-center justify-center transition-all duration-500 group-[.active]:border-primary group-[.active]:bg-primary/10">
+                    <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 w-10 h-10 rounded-full border-2 border-border bg-background items-center justify-center transition-all duration-500 group-[.active]:border-primary group-[.active]:bg-primary/10" aria-hidden="true">
                         <Text size="sm">
                             {index + 1}
                         </Text>

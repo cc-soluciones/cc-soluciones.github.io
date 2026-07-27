@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import ScaleIn from "@astroanimate/core/ScaleIn";
 
 import Badge from "@/components/ui/Badge.astro";
@@ -8,38 +9,58 @@ import Title from "@/components/ui/Title.astro";
 import Text from "@/components/ui/Text.astro";
 import Section from "@/components/ui/Section.astro";
 
-import { Icon } from "astro-icon/components";
 import { projects } from "@/data/projects";
 import type { Lang } from "@/data/i18n";
 import { siteConfig, socialsConfig } from "@/data/site";
+import { store } from "@/lib/store";
 import { t } from "@/lib/i18n";
 
-const currentLang: Lang = "es";
+const currentLang: Lang = store.getLang() === "es" ? "en" : "es";
 const sectionId: string = "home";
 const orbitItems = [
-    { icon: "mdi:calendar", label: "Planning" },
-    { icon: "mdi:file-text", label: "Design" },
-    { icon: "mdi:code-tags", label: "Development" },
-    { icon: "mdi:account", label: "Testing" },
-    { icon: "mdi:clock-outline", label: "Release" },
+    { icon: "mdi:calendar" },
+    { icon: "mdi:file-text" },
+    { icon: "mdi:code-tags" },
+    { icon: "mdi:account" },
+    { icon: "mdi:clock-outline" },
 ];
 ---
 
-<Section id={sectionId}>
+<script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteConfig.company,
+    "url": siteConfig.baseUrl,
+    "description": siteConfig.description,
+    "logo": `${siteConfig.baseUrl}${siteConfig.logo}`,
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+56-9-2724-0093",
+        "contactType": "sales",
+        "availableLanguage": ["Spanish", "English"],
+    },
+    "sameAs": [
+        socialsConfig.linkedin.href,
+        socialsConfig.github.href,
+        socialsConfig.instagram.href,
+    ],
+})} />
+
+<Section id={sectionId} aria-label={t(currentLang, "hero.badge")}>
     <ScaleIn enhance={true}>
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-start">
             <div class="lg:col-span-7 flex flex-col space-y-8 m-auto">
-                <div class="flex">
+                <div class="flex justify-center md:justify-start">
                     <Badge icon="mdi:lightning-bolt">
                         {t(currentLang, "hero.badge")}
                     </Badge>
                 </div>
-    
-                <Title as="h1" highlight={t(currentLang, "hero.titleHighlight")}>
+
+                <Title as="h1" size="xl" highlight={t(currentLang, "hero.titleHighlight")} class="text-center md:text-start">
                     {t(currentLang, "hero.title")}
                 </Title>
-    
-                <Text size="lg">
+
+                <Text size="lg" class="text-center md:text-start">
                     {t(currentLang, "hero.description")}
                 </Text>
                 <div class="flex flex-wrap gap-4 flex-col md:flex-row">
@@ -48,6 +69,7 @@ const orbitItems = [
                         variant="primary"
                         size="lg"
                         icon="mdi:whatsapp"
+                        rel="noopener noreferrer"
                     >
                         {t(currentLang, "hero.cta")}
                     </Button>
@@ -61,9 +83,9 @@ const orbitItems = [
                     </Button>
                 </div>
             </div>
-    
-            <div class="lg:col-span-5  lg:mt-12">
-                <div class="hidden md:flex relative w-full h-125 items-center justify-center">
+
+            <div class="lg:col-span-5 lg:mt-12" aria-label={t(currentLang, "hero.marquee.title")}>
+                <div class="hidden md:flex relative w-full h-125 items-center justify-center" aria-hidden="true">
                     <div class="absolute rounded-full bg-linear-to-br flex items-center justify-center z-10">
                         <div class="absolute w-34 h-34 rounded-full border animate-ping opacity-50" style="animation-delay: 0.5s"/>
                         <img
@@ -72,9 +94,9 @@ const orbitItems = [
                             class="h-35 w-50"
                         />
                     </div>
-    
+
                     <div class="absolute w-96 h-96 rounded-full border border-border"></div>
-    
+
                     {orbitItems.map((item, i) => {
                         const angle = (i / orbitItems.length) * 360;
                         const radius = 190;
@@ -106,19 +128,19 @@ const orbitItems = [
                                     />
                                 </div>
                                 <div class="absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 text-foreground/70">
-                                    {item.label}
+                                    {t(currentLang, `hero.orbit.${i}`)}
                                 </div>
                             </div>
                         );
                     })}
                 </div>
                 <Card>
-                    <Title as="h3" class="text-sm! text-foreground/60">
+                    <Title as="h2" class="text-sm! text-foreground/60">
                         {t(currentLang, "hero.marquee.title")}
                     </Title>
                     <div class="relative flex overflow-hidden pt-5">
                         <div class="animate-marquee flex gap-12 whitespace-nowrap px-4">
-                            {[...projects, ...projects].map((p) => (
+                            {[...projects, ...projects].map((p, i) => (
                                 <a
                                     href={p.url}
                                     target="_blank"
@@ -130,7 +152,7 @@ const orbitItems = [
                                         class="h-5 w-5 text-foreground/70"
                                     />
                                     <Text class="font-bold text-foreground">
-                                        {p.title}
+                                        {t(currentLang, `projects.item${i % projects.length}.title`)}
                                     </Text>
                                 </a>
                             ))}

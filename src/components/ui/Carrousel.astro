@@ -1,10 +1,12 @@
 ---
-export interface Props {
-    class?: string
-    controls?: boolean
-}
+import { Icon } from "astro-icon/components";
 
-const { class: className = "", controls = true } = Astro.props
+export interface Props {
+    class?: string;
+    controls?: boolean;
+};
+
+const { class: className = "", controls = true } = Astro.props as Props;
 ---
 
 <div class={`embla ${className}`.trim()} data-embla>
@@ -16,12 +18,12 @@ const { class: className = "", controls = true } = Astro.props
 
     {controls && (
         <div class="embla__controls">
-            <button class="embla__btn" data-embla-prev type="button" aria-label="Previous">
-                <svg class="embla__btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            <button class="embla__btn shadow-2xl" data-embla-prev type="button" aria-label="Previous">
+                <Icon name="mdi:arrow-left" class="embla__btn-icon"/>
             </button>
             <div class="embla__dots" data-embla-dots></div>
-            <button class="embla__btn" data-embla-next type="button" aria-label="Next">
-                <svg class="embla__btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            <button class="embla__btn shadow-2xl" data-embla-next type="button" aria-label="Next">
+                <Icon name="mdi:arrow-right" class="embla__btn-icon"/>
             </button>
         </div>
     )}

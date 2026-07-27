@@ -121,7 +121,8 @@ const pageDescription = description || siteConfig.description;
         </main>
         <Footer/>
         <script>
-            import { store } from "@/lib/store";
+            import { initI18n } from "@/lib/client-i18n";
+            initI18n();
         </script>
     </body>
 </html>
