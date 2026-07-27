@@ -10,7 +10,7 @@ function buildMap(lang: Lang): Map<string, string> {
 }
 
 let currentMap = buildMap("es");
-let currentLang: Lang = store.getLang() === "es" ? "en" : "es";
+let currentLang: Lang = store.getLang();
 
 function walkTextNodes(root: Node, fn: (node: Text) => void) {
     const iter = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);

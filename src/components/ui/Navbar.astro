@@ -5,7 +5,7 @@ import { t } from "@/lib/i18n";
 import { store } from "@/lib/store";
 import { navConfig, siteConfig, socialsConfig } from "@/data/site";
 
-const currentLang = store.getLang() === "es" ? "en" : "es";
+const currentLang = store.getLang();
 ---
 
 <header>

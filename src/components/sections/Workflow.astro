@@ -10,7 +10,7 @@ import { store } from "@/lib/store";
 import { t } from "@/lib/i18n";
 import type { Lang } from "@/data/i18n";
 
-const currentLang: Lang = store.getLang() === "es" ? "en" : "es";
+const currentLang: Lang = store.getLang();
 const sectionId: string = "workflow";
 ---
 <script type="application/ld+json" set:html={JSON.stringify({
