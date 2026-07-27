@@ -1,0 +1,148 @@
+---
+import { Icon } from "astro-icon/components";
+import Button from "@/components/ui/Button.astro";
+import { t } from "@/lib/i18n";
+import { store } from "@/lib/store";
+import { navConfig, siteConfig, socialsConfig } from "@/data/site";
+
+const currentLang = store.getLang() === "es" ? "en" : "es";
+---
+
+<header>
+    <nav data-state="false" class="group fixed z-50 w-full px-2 mt-2">
+        <div class="mx-auto mt-2 max-w-7xl px-6 transition-all duration-300 rounded-full bg-foreground/5 backdrop-blur-xl border border-border group-data-[state=active]:rounded-3xl group-data-[state=active]:lg:rounded-full">
+            <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+                <div class="flex w-full justify-between lg:w-auto">
+                    <a
+                        href="/"
+                        aria-label="home"
+                        class="flex items-center gap-3"
+                    >
+                        <img
+                            src={siteConfig.logo}
+                            alt={siteConfig.company}
+                            class="h-8 w-auto"
+                        />
+                        <span class="text-lg font-bold tracking-tight">
+                            {siteConfig.company}
+                        </span>
+                    </a>
+                    <button
+                        aria-label="Open Menu"
+                        class="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                        onclick="this.closest('nav').dataset.state = this.closest('nav').dataset.state === 'active' ? 'false' : 'active'"
+                    >
+                        <Icon
+                            name="mdi:menu"
+                            class="m-auto size-6 duration-200 group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0"
+                        />
+                        <Icon
+                            name="mdi:close"
+                            class="absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100"
+                        />
+                    </button>
+                </div>
+
+                <div class="hidden lg:block absolute inset-0 m-auto size-fit">
+                    <ul class="flex gap-8 text-sm">
+                        {navConfig.map((item) => (
+                            <li>
+                                <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/80 hover:text-foreground block duration-150 relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-primary after:transition-all after:duration-300 data-active:after:w-full data-active:text-foreground">
+                                    {t(currentLang, item.label)}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div class="group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
+                    <div class="lg:hidden w-full">
+                        <ul class="space-y-6 text-base">
+                            {navConfig.map((item) => (
+                                <li>
+                                    <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/60 hover:text-foreground block duration-150 data-active:text-foreground">
+                                        {t(currentLang, item.label)}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div class="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit items-center">
+                        <button
+                            class="inline-flex items-center justify-center w-9 h-9 transition-colors cursor-pointer"
+                            aria-label={t(currentLang, "theme.light")}
+                            data-theme-btn
+                        >
+                            <Icon
+                                name="mdi:weather-sunny"
+                                class="w-4 h-4 block dark:hidden"
+                            />
+                            <Icon
+                                name="mdi:weather-night"
+                                class="w-4 h-4 hidden dark:block"
+                            />
+                        </button>
+
+                        <button
+                            class="inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-semibold uppercase tracking-wider cursor-pointer"
+                            aria-label={t(currentLang, "lang.switch")}
+                            data-lang-btn
+                        >
+                            <span class="block dark:hidden" data-lang-label>EN</span>
+                            <span class="hidden dark:block" data-lang-label>EN</span>
+                        </button>
+
+                        <Button
+                            href="#contact"
+                            variant="primary"
+                            size="sm"
+                            icon="mdi:whatsapp"
+                            href={socialsConfig.whatsapp.href}
+                        >
+                            {t(currentLang, "nav.contact")}
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+    import { store } from "@/lib/store";
+
+    document.querySelector("[data-theme-btn]")?.addEventListener("click", () => store.toggleTheme());
+    document.querySelector("[data-lang-btn]")?.addEventListener("click", () => {
+        const newLang = store.getLang() === "es" ? "en" : "es";
+        store.setLang(newLang);
+    });
+
+    function updateLangLabel() {
+        const label = store.getLang() === "es" ? "EN" : "ES";
+        document.querySelectorAll("[data-lang-label]").forEach((el) => el.textContent = label);
+    }
+    updateLangLabel();
+    store.subscribe(updateLangLabel);
+
+    const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
+    const ids = Array.from(links).map((a) => a.getAttribute("href")?.slice(1)).filter(Boolean) as string[];
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    links.forEach((link) => {
+                        const href = link.getAttribute("href")?.slice(1);
+                        link.toggleAttribute("data-active", href === id);
+                    });
+                }
+            }
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+</script>

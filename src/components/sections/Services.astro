@@ -1,35 +1,100 @@
 ---
-import CardServices from "@/components/ui/CardServices.astro";
-import { services } from "@/data/services";
----
+import { Icon } from "astro-icon/components";
 
-<section id="services" class="max-w-7xl relative min-h-[150dvh] px-6">
-    <div class="absolute inset-0 -z-100">
-        <div class="sticky top-0 h-screen">
-            <div
-                class="w-full h-full"
+import Section from "@/components/ui/Section.astro";
+import Text from "@/components/ui/Text.astro";
+import { services } from "@/data/services";
+import { t } from "@/lib/i18n";
+import { store } from "@/lib/store";
+import type { Lang } from "@/data/i18n";
+
+const currentLang: Lang = store.getLang() === "es" ? "en" : "es";
+const icons: string[] = [
+    "mdi:web",
+    "mdi:code-tags",
+    "mdi:puzzle",
+    "mdi:chart-bar",
+    "mdi:chip",
+];
+---
+<script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": services.map((_, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+            "@type": "Service",
+            "name": t(currentLang, `services.item${i}.title`),
+            "description": t(currentLang, `services.item${i}.desc0`),
+            "provider": { "@type": "Organization", "name": "CC Soluciones" },
+        },
+    })),
+})} />
+
+<Section
+    id="services"
+    title={t(currentLang, "services.title")}
+    titleHighlight={t(currentLang, "services.titleHighlight")}
+    badge={t(currentLang, "services.badge")}
+    badgeIcon="mdi:lightning-bolt"
+    description={t(currentLang, "services.description")}
+>
+    <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-105" role="list">
+        {services.map((svc, index) => (
+            <details
+                class="group md:flex-1 transition-all duration-500 ease-in-out overflow-hidden rounded-3xl border border-border bg-foreground/5 backdrop-blur-sm shadow-2xl open:md:flex-10"
+                role="listitem"
+                itemscope
+                itemtype="https://schema.org/Service"
+                data-services
+                {...(index === 0) ? {open: "true"} : {}}
             >
-            </div>
-        </div>
-    </div>
-    <div class="relative">
-        {
-            services &&
-                Object.values(services).map((item, index) => (
-                    <div
-                        id={item.href.replace("#", "")}                    
-                        class="min-h-[150dvh] reveal-trigger sticky h-screen top-0"
-                        data-animation={item.href.replace("#", "")}
-                    >
-                        <div class="sticky top-0 h-screen flex flex-col justify-center">
-                            <CardServices
-                                title={item.label}
-                                descriptions={item.description}
-                                index={index}
-                            />
-                        </div>
+                <summary class="flex md:flex-col items-center gap-3 md:gap-4 p-5 md:p-6 md:w-20 cursor-pointer list-none select-none hover:bg-white/5 transition-colors [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+                    <meta itemprop="name" content={t(currentLang, `services.item${index}.title`)} />
+                    <meta itemprop="provider" content="CC Soluciones" />
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 transition-colors group-open:bg-primary/20" aria-hidden="true">
+                        <Icon
+                            name={icons[index] || "mdi:code-tags"}
+                            class="w-5 h-5 text-foreground/80 group-open:text-primary"
+                        />
                     </div>
-                ))
-        }        
+                    <Text
+                        as="span"
+                        size="base"
+                        color="default"
+                        itemprop="name"
+                        class="font-semibold tracking-widest whitespace-nowrap md:[writing-mode:vertical-lr] md:[text-orientation:mixed] md:uppercase"
+                    >
+                        {t(currentLang, `services.item${index}.title`)}
+                    </Text>
+                </summary>
+
+                <div class="px-5 pb-6 md:px-6 md:pb-8 md:absolute md:left-24 md:top-0 md:right-0 md:h-full md:flex md:flex-col md:justify-center md:gap-4" itemprop="description">
+                    <Text size="lg" class="font-medium">
+                        {t(currentLang, `services.item${index}.desc0`)}
+                    </Text>
+                    <Text>
+                        {t(currentLang, `services.item${index}.desc1`)}
+                    </Text>
+                </div>
+            </details>
+        ))}
     </div>
-</section>
+</Section>
+
+<script>
+    const details = document.querySelectorAll("details[data-services]");
+
+    details.forEach((detail) => {
+        detail.addEventListener("mouseenter", () => {
+            const openDetails = document.querySelectorAll("details[data-services][open]");
+            openDetails.forEach((item) => {
+                if (detail != item) {
+                    item.removeAttribute("open");
+                }
+            });
+            detail.setAttribute("open", "");
+        });
+    });
+</script>

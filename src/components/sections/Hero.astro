@@ -1,43 +1,192 @@
 ---
-import Arrow from "@/components/svg/Arrow.astro";
-import Typewriter from "@/components/ui/Typewriter.astro";
+import { Icon } from "astro-icon/components";
+import ScaleIn from "@astroanimate/core/ScaleIn";
 
-interface Props {
-    id?: string;
-}
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Section from "@/components/ui/Section.astro";
 
-const { id = "" } = Astro.props as Props;
+import { projects } from "@/data/projects";
+import type { Lang } from "@/data/i18n";
+import { siteConfig, socialsConfig } from "@/data/site";
+import { store } from "@/lib/store";
+import { t } from "@/lib/i18n";
+
+const currentLang: Lang = store.getLang() === "es" ? "en" : "es";
+const sectionId: string = "home";
+const orbitItems = [
+    { icon: "mdi:calendar" },
+    { icon: "mdi:file-text" },
+    { icon: "mdi:code-tags" },
+    { icon: "mdi:account" },
+    { icon: "mdi:clock-outline" },
+];
 ---
 
-<section id={id} class="max-w-7xl w-full mb-32 flex items-center md:items-start text-center h-dvh md:text-left px-6" data-animation="home">
-    <div class="md:w-1/2 space-y-8 md:mt-52">
-        <h1 class="text-4xl lg:text-7xl font-bold leading-tight tracking-tight">
-            Creamos
-            <br>
-            <Typewriter
-                messages={["landing pages", "software a medida", "integraciones", "MVPs", "aplicaciones web", "aplicaciones móviles"]}
-                writeSpeed={150}
-                deleteSpeed={80}
-                waitWritten={2000}
-                waitDeleted={1000}
-                class="text-gradient-secondary"
-            /> 
-            <br> para tu negocio
-        </h1>
-        <p class="text-md md:text-xl text-slate-400 max-w-lg leading-relaxed">
-            Creamos landing pages en <b class="text-white">10 días</b> y MVPs en <b class="text-white">6 semanas</b>, con un proceso
-            claro, entregas por hitos y acompañamiento técnico de principio a
-            fin.
-        </p>
-    </div>
-    <div class="w-8 absolute bottom-0 md:bottom-10 left-[calc(50%-1rem)]">
-        <div class="ring-2 rounded-full w-8 h-16 pt-4">
-            <div class="bg-foreground w-2 h-4 mx-auto rounded-full animate-bounce"/>
-        </div>
-        <div class="animate-bounce pt-4">
-            <div class="rotate-90">
-                <Arrow/>
+<script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteConfig.company,
+    "url": siteConfig.baseUrl,
+    "description": siteConfig.description,
+    "logo": `${siteConfig.baseUrl}${siteConfig.logo}`,
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+56-9-2724-0093",
+        "contactType": "sales",
+        "availableLanguage": ["Spanish", "English"],
+    },
+    "sameAs": [
+        socialsConfig.linkedin.href,
+        socialsConfig.github.href,
+        socialsConfig.instagram.href,
+    ],
+})} />
+
+<Section id={sectionId} aria-label={t(currentLang, "hero.badge")}>
+    <ScaleIn enhance={true}>
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-start">
+            <div class="lg:col-span-7 flex flex-col space-y-8 m-auto">
+                <div class="flex justify-center md:justify-start">
+                    <Badge icon="mdi:lightning-bolt">
+                        {t(currentLang, "hero.badge")}
+                    </Badge>
+                </div>
+
+                <Title as="h1" size="xl" highlight={t(currentLang, "hero.titleHighlight")} class="text-center md:text-start">
+                    {t(currentLang, "hero.title")}
+                </Title>
+
+                <Text size="lg" class="text-center md:text-start">
+                    {t(currentLang, "hero.description")}
+                </Text>
+                <div class="flex flex-wrap gap-4 flex-col md:flex-row">
+                    <Button
+                        href={socialsConfig.whatsapp.href}
+                        variant="primary"
+                        size="lg"
+                        icon="mdi:whatsapp"
+                        rel="noopener noreferrer"
+                    >
+                        {t(currentLang, "hero.cta")}
+                    </Button>
+                    <Button
+                        href="#projects"
+                        variant="outline"
+                        size="lg"
+                        icon="mdi:arrow-right"
+                    >
+                        {t(currentLang, "hero.ctaSecondary")}
+                    </Button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 lg:mt-12" aria-label={t(currentLang, "hero.marquee.title")}>
+                <div class="hidden md:flex relative w-full h-125 items-center justify-center" aria-hidden="true">
+                    <div class="absolute rounded-full bg-linear-to-br flex items-center justify-center z-10">
+                        <div class="absolute w-34 h-34 rounded-full border animate-ping opacity-50" style="animation-delay: 0.5s"/>
+                        <img
+                            src={siteConfig.logo}
+                            alt={siteConfig.company}
+                            class="h-35 w-50"
+                        />
+                    </div>
+
+                    <div class="absolute w-96 h-96 rounded-full border border-border"></div>
+
+                    {orbitItems.map((item, i) => {
+                        const angle = (i / orbitItems.length) * 360;
+                        const radius = 190;
+                        const rad = (angle * Math.PI) / 180;
+                        const x = Math.cos(rad) * radius;
+                        const y = Math.sin(rad) * radius;
+                        return (
+                            <div
+                                class="orbit-item absolute"
+                                data-index={i}
+                                style={`
+                                    transform: translate(${x}px, ${y}px);
+                                `}
+                            >
+                                <div
+                                    class="absolute rounded-full -inset-1"
+                                    style={`
+                                        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+                                        width: ${70 + i * 5}px;
+                                        height: ${70 + i * 5}px;
+                                        left: -${15 + i * 2.5}px;
+                                        top: -${15 + i * 2.5}px;
+                                    `}
+                                />
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-border bg-foreground/5 backdrop-blur-sm">
+                                    <Icon
+                                        name={item.icon}
+                                        class="w-5 h-5 text-foreground/80"
+                                    />
+                                </div>
+                                <div class="absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 text-foreground/70">
+                                    {t(currentLang, `hero.orbit.${i}`)}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+                <Card>
+                    <Title as="h2" class="text-sm! text-foreground/60">
+                        {t(currentLang, "hero.marquee.title")}
+                    </Title>
+                    <div class="relative flex overflow-hidden pt-5">
+                        <div class="animate-marquee flex gap-12 whitespace-nowrap px-4">
+                            {[...projects, ...projects].map((p, i) => (
+                                <a
+                                    href={p.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="flex items-center gap-2 opacity-50 transition-all hover:opacity-100 hover:scale-105 cursor-pointer grayscale hover:grayscale-0"
+                                >
+                                    <Icon
+                                        name="mdi:hexagon"
+                                        class="h-5 w-5 text-foreground/70"
+                                    />
+                                    <Text class="font-bold text-foreground">
+                                        {t(currentLang, `projects.item${i % projects.length}.title`)}
+                                    </Text>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </Card>
             </div>
         </div>
-    </div>
-</section>
+    </ScaleIn>
+</Section>
+
+<style is:global>
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+</style>
+
+<script>
+    const items = document.querySelectorAll(".orbit-item")
+    const total = items.length;
+    const radius = 190;
+    let angle = 0;
+
+    const orbit = () => {
+        angle += 0.15
+        items.forEach((el : any, i : number) => {
+            const rad = (((i * 2.1) / total) * 360 + angle) * (Math.PI / 190);
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius;
+            el.style.transform = `translate(${x}px, ${y}px)`;
+        })
+        requestAnimationFrame(orbit);
+    }
+
+    if (items.length) orbit();
+</script>
