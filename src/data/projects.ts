@@ -17,7 +17,7 @@ export const projects: Project[] = [
             { src: "projects/ccsoluciones_1_1.jpeg", position: "0% 110%" },
         ],
         url: "https://agrejur.com/",
-        logo: "/companies/agrejurlogo.jpeg",
+        logo: "/companies/agrejurlogo.webp",
     },
     {
         images: [
@@ -26,7 +26,7 @@ export const projects: Project[] = [
             { src: "projects/ccsoluciones_2_3.jpeg", position: "50% 110%" },
         ],
         url: "https://pro-losnotros.vercel.app",
-        logo: "/companies/losnotroslogo.jpeg",
+        logo: "/companies/losnotroslogo.webp",
     },
     {
         images: [
@@ -44,7 +44,7 @@ export const projects: Project[] = [
             { src: "projects/ccsoluciones_4_1.png", position: "0% 110%" },
         ],
         url: "https://denaval.cl",
-        logo: "/companies/denavallogo.png",
+        logo: "/companies/denavallogo.webp",
     },
     {
         images: [
@@ -62,6 +62,6 @@ export const projects: Project[] = [
             { src: "projects/ccsoluciones_6_1.png", position: "0% 110%" },
         ],
         url: "https://www.maquental.cl",
-        logo: "/companies/maquentallogo.jpg",
+        logo: "/companies/maquentallogo.webp",
     },
 ];
