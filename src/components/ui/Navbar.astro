@@ -55,12 +55,12 @@ const currentLang = store.getLang();
                     </ul>
                 </div>
 
-                <div class="group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
+                <div class="group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0">
                     <div class="lg:hidden w-full">
                         <ul class="space-y-6 text-base">
                             {navConfig.map((item) => (
                                 <li>
-                                    <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/60 hover:text-foreground block duration-150 data-active:text-foreground">
+                                    <a href={item.href} data-i18n={item.label} class="nav-link text-foreground/60 hover:text-foreground block duration-150 relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-primary after:transition-all after:duration-300 data-active:after:w-full data-active:text-foreground">
                                         {t(currentLang, item.label)}
                                     </a>
                                 </li>
