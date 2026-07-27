@@ -43,13 +43,17 @@ const icons: string[] = [
     <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-105" role="list">
         {services.map((svc, index) => (
             <details
-                class="group md:flex-1 transition-all duration-500 ease-in-out overflow-hidden rounded-3xl border border-border bg-foreground/5 backdrop-blur-sm shadow-2xl open:md:flex-10"
+                class="group md:flex-1 transition-all duration-500 ease-in-out overflow-hidden rounded-3xl border border-border bg-foreground/5 backdrop-blur-xs shadow-2xl open:md:flex-10 open:border-primary/30
+                open:shadow-[0_0_0_1px_rgba(20,184,166,.25),inset_0_0_30px_rgba(20,184,166,.08)]"
                 role="listitem"
                 itemscope
                 itemtype="https://schema.org/Service"
                 data-services
                 {...(index === 0) ? {open: "true"} : {}}
             >
+
+                <div class=" pointer-events-none absolute left-1/2 -bottom-44 h-72 w-72 -translate-x-1/2 rounded-full bg-primary blur-3xl opacity-0 transition-all duration-500 group-open:opacity-20 group-open:scale-110"/>
+
                 <summary class="flex md:flex-col items-center gap-3 md:gap-4 p-5 md:p-6 md:w-20 cursor-pointer list-none select-none hover:bg-white/5 transition-colors [&::-webkit-details-marker]:hidden [&::marker]:hidden">
                     <meta itemprop="name" content={t(currentLang, `services.item${index}.title`)} />
                     <meta itemprop="provider" content="CC Soluciones" />
@@ -64,7 +68,7 @@ const icons: string[] = [
                         size="base"
                         color="default"
                         itemprop="name"
-                        class="font-semibold tracking-widest whitespace-nowrap md:[writing-mode:vertical-lr] md:[text-orientation:mixed] md:uppercase"
+                        class="font-semibold h-full tracking-widest whitespace-nowrap md:[writing-mode:vertical-lr] md:[text-orientation:mixed] md:uppercase"
                     >
                         {t(currentLang, `services.item${index}.title`)}
                     </Text>
