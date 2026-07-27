@@ -147,9 +147,10 @@ const orbitItems = [
                                     rel="noopener noreferrer"
                                     class="flex items-center gap-2 opacity-50 transition-all hover:opacity-100 hover:scale-105 cursor-pointer grayscale hover:grayscale-0"
                                 >
-                                    <Icon
-                                        name="mdi:hexagon"
-                                        class="h-5 w-5 text-foreground/70"
+                                    <img
+                                        src={p.logo}
+                                        alt=""
+                                        class="h-6 w-6 object-contain rounded-full bg-white"
                                     />
                                     <Text class="font-bold text-foreground">
                                         {t(currentLang, `projects.item${i % projects.length}.title`)}
