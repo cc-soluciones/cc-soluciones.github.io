@@ -90,21 +90,6 @@ h1, h2, h3, h4, h5, h6 {
     50% { transform: translateY(-10px); }
 }
 
-.animate-fade-in {
-    animation: fadeSlideIn 0.8s ease-out forwards;
-    opacity: 0;
-}
-
 .animate-marquee {
     animation: marquee 40s linear infinite;
 }
-
-.animate-float {
-    animation: float 6s ease-in-out infinite;
-}
-
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
