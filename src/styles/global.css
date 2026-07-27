@@ -7,11 +7,11 @@
     --color-secondary-light: #A78BFA;
     --color-accent: #F59E0B;
     --color-accent-light: #FCD34D;
-    --color-foreground: #0F172A;
+    --color-foreground: #282117;
     --color-foreground-secondary: #64748B;
-    --color-background: #F4F6F9;
+    --color-background: #F0EEE6;
     --color-muted: #E2E8F0;
-    --color-border: #CBD5E1;
+    --color-border: #D4C8BC;
     --color-success: #10B981;
     --color-destructive: #EF4444;
     --font-heading: "Sora", sans-serif;
@@ -27,9 +27,9 @@
     --color-accent-light: #FDE68A;
     --color-foreground: #F1F5F9;
     --color-foreground-secondary: #94A3B8;
-    --color-background: #080C14;
+    --color-background: #131313;
     --color-muted: #1E293B;
-    --color-border: #334155;
+    --color-border: #323231;
     --color-success: #34D399;
     --color-destructive: #F87171;
 }
