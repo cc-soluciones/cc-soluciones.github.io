@@ -44,7 +44,7 @@ const sectionId: string = "projects";
     <Carrousel>
         {projects.map((project, i) => (
             <div class="embla__slide" itemscope itemtype="https://schema.org/CreativeWork">
-                <Card class="p-0! h-150 flex flex-col-reverse shadow-none">
+                <Card as="article" class="p-0! h-150 flex flex-col-reverse shadow-none">
                     <img
                         src={project.images[0].src}
                         alt={t(currentLang, `projects.item${i}.title`)}

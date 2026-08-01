@@ -3,9 +3,15 @@ export interface Props {
     class?: string;
     padding?: "sm" | "md" | "lg";
     glow?: boolean;
+    as?: "div" | "section" | "article";
 };
 
-const { class: className = "", padding = "lg", glow = true } = Astro.props as Props;
+const { 
+    class: className = "", 
+    padding = "lg", 
+    glow = true,
+    as: Tag = "div",
+} = Astro.props as Props;
 
 const paddings = {
     sm: "p-4",
@@ -14,9 +20,9 @@ const paddings = {
 };
 ---
 
-<article class={`relative overflow-hidden rounded-3xl border border-border bg-foreground/5 shadow-2xl ${paddings[padding]} ${className}`.trim()}>
+<Tag class={`relative overflow-hidden rounded-3xl border border-border bg-foreground/5 shadow-2xl ${paddings[padding]} ${className}`.trim()}>
     {glow && (
         <div class="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
     )}
     <slot />
-</article>
+</Tag>
